@@ -17,13 +17,11 @@ body{
 }
 
 #primeira{
-    
     background-image: url(Home.png);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
 }
-
 .navbar{
     font-size: 20px;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
@@ -31,13 +29,36 @@ body{
 
 #segunda{
     background-color: #EFE9E1;
-    
-
+    padding-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction:column;
+    flex-wrap: wrap;
 }
+
+
+.objetivo,.sobre{
+    background-color: #ffffff;
+    width: 90%;
+    height: auto;
+    text-align: justify;
+    border-radius: 50px;
+    margin: 20px;
+    padding: 20px;
+}
+
+.sobre > h2{
+    text-align: center;
+    color: #df790d;
+}
+
+.objetivo > h2{
+    color: #df790d;
+    text-align: center;
+}
+
 
 #terceira{
     background-color: #c6741f;
-
-
-
 }
