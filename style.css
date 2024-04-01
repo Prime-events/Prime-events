@@ -62,3 +62,9 @@ body{
 #terceira{
     background-color: #c6741f;
 }
+
+#quarta{
+    width: 100%;
+    height: 30vh;
+    background-color: #333;
+}
