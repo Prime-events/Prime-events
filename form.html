@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="style-form.css">
+    <link rel="shortcut icon" href="img/logo.png" type="image/x-icon">
+    <title>Login</title>
+</head>
+
+<body>
+    <div class="container" id="container">
+        <div class="form-container sign-up">
+            <form>
+                <h1>Criar</h1>
+                <input type="text" placeholder="Nome">
+                <input type="email" placeholder="Email">
+                <input type="password" placeholder="Senha">
+                <button>Cadastrar</button>
+            </form>
+        </div>
+        <div class="form-container sign-in">
+            <form>
+                <h1>Entrar</h1>
+                <input type="email" placeholder="Email">
+                <input type="password" placeholder="Senha">
+                <a href="#">Esqueceu a sua senha?</a>
+                <button>entrar</button>
+            </form>
+        </div>
+        <div class="toggle-container">
+            <div class="toggle">
+                <div class="toggle-panel toggle-left">
+                    <h1>Bem vindo de volta!</h1>
+                    <p>Insira os seus dados pessoais para usar todos os recursos do site</p>
+                    <button class="hidden" id="login">Entrar</button>
+                </div>
+                <div class="toggle-panel toggle-right">
+                    <h1>Olá, Amigo!</h1>
+                    <p>Registre-se com os seus dados pessoais para usar todos os recursos do site</p>
+                    <button class="hidden" id="register">Cadastrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script-form.js"></script>
+</body>
+
+</html>
