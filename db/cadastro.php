@@ -1,13 +1,14 @@
 <?php
-
 require_once("db.class.php");
+
 $con = new Database();
 $link = $con -> getConexao();
-
 
 $nome = $_POST['nome'];
 $email = $_POST['email'];
 $senha = $_POST['senha'];
+
+$senha_hash = password_hash($senha, PASSWORD_DEFAULT);
 
 $sql = "INSERT INTO usuarios (nome, email, senha)
         VALUES (:nome, :email, :senha)";
@@ -15,7 +16,7 @@ $sql = "INSERT INTO usuarios (nome, email, senha)
         $stmt = $link->prepare($sql);
         $stmt->bindParam(':nome', $nome);
         $stmt->bindParam(':email', $email);
-        $stmt->bindParam(':senha', $senha);
+        $stmt->bindParam(':senha', $senha_hash);
         $stmt->execute();
 
         echo "Cadastro feito com sucesso!";
