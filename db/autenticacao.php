@@ -27,10 +27,26 @@ session_start();
             exit;
 
         }else {
-            echo "Usuário ou senha estão incorretos!". "<br>";
+            echo "<script>
+            function showAlert() {
+              alert('senha incorreta!');
+              setTimeout(function() {
+                window.location.href = ' ../form.html';
+              }, 1000); // 1000 milissegundos = 1 segundo
+            }
+            showAlert();
+          </script>";
         }
     }else{
-        echo "Usuário não encontrado!";
+        echo "<script>
+            function showAlert() {
+              alert('Usuário não encontrado!');
+              setTimeout(function() {
+                window.location.href = ' ../form.html';
+              }, 1000); // 1000 milissegundos = 1 segundo
+            }
+            showAlert();
+          </script>";
     }
 
 ?>
