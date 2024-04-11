@@ -20,7 +20,7 @@
                 <button class="menu-btn" id="menu-close">
                     <i class='bx bx-log-out-circle'></i>
                 </button>
-                <img src="img/logomarca.png">
+                <img src="img/logo.png">
                 <a href="#">Prime Events</a>
             </div>
 
@@ -57,9 +57,9 @@
                     <i class='bx bx-menu'></i>
                 </button>
                 <h5>Olá <?php echo $_SESSION['nome']; ?>, seja bem-vindo!</h5>
-                <a href="dashboard-items/criarEvento.html">Criar Evento</a>
+                <a href="dashboard-items/criarEvento.html" style="margin-left: 220px;">Criar Evento</a>
             </header>
-
+                <br>
             <div class="separator">
                 <div class="info">
                     <h3>Meus Eventos</h3>
@@ -94,7 +94,7 @@
                     <div class="left" >
                         <img src="img/logo.png">
                         <div class="user">
-                            <h5>Filipe França</h5>
+                            <h5><?php echo $_SESSION['nome']; ?></h5>
                         </div>
                     </div>
                     <i class='bx bxs-chevron-right'></i>
