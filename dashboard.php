@@ -56,28 +56,28 @@
                 <button class="menu-btn" id="menu-open">
                     <i class='bx bx-menu'></i>
                 </button>
-                <h5>Olá <b></b>, bem-vindo de volta!</h5>
+                <h5>Olá <?php echo $_SESSION['nome']; ?>, seja bem-vindo!</h5>
+                <a href="dashboard-items/criarEvento.html">Criar Evento</a>
             </header>
 
             <div class="separator">
                 <div class="info">
                     <h3>Meus Eventos</h3>
-                    <a href="#">Ver Todos</a>
+                    <a href="dashboard-items/dasboard-eventos.html">Ver Todos</a>
                 </div>
-                <div class="search">
-                    <i class='bx bx-search'></i>
-                    <input type="text" placeholder="Buscar...">
-                </div>
+                
+            
             </div>
-
+            <br>
+            
+            <a href="primeEvent.html">Evento Prime</a>
             <div class="analytics">
                 <!-- Aqui você pode adicionar informações específicas sobre os eventos, como estatísticas de participação, receitas, etc. -->
             </div>
-
+            <br><br>
             <div class="separator">
                 <div class="info">
                     <h3>Agenda</h3>
-                    <a href="#">Ver Todos</a>
                 </div>
                 <input type="date" value="2023-10-15">
             </div>
@@ -122,5 +122,6 @@
     </div>
 
     <script src="script-dashboard.js"></script>
+
 </body>
 </html>
