@@ -23,7 +23,7 @@ session_start();
             $_SESSION["nome"] = $resultado['nome'];
             $_SESSION["loggedin"] = true;
 
-            header("Location: ../tela_teste.php");
+            header("Location: ../dashboard.php");
             exit;
 
         }else {
