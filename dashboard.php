@@ -15,7 +15,6 @@
 <body>
 
     <div class="container">
-
         <aside class="left-section">
             <div class="logo">
                 <button class="menu-btn" id="menu-close">
@@ -57,7 +56,7 @@
                 <button class="menu-btn" id="menu-open">
                     <i class='bx bx-menu'></i>
                 </button>
-                <h5>Olá <b>França</b>, bem-vindo de volta!</h5>
+                <h5>Olá <b></b>, bem-vindo de volta!</h5>
             </header>
 
             <div class="separator">
