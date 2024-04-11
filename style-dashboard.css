@@ -12,7 +12,7 @@ body {
 
 a {
     text-decoration: none;
-    color: #369FFF;
+    color: #fca92e;
 }
 
 i {
@@ -23,6 +23,9 @@ i {
     display: grid;
     grid-template-columns: 1fr 3fr 2fr;
     height: 100vh;
+}
+main .novoEvento{
+    
 }
 
 /* Estilos para a seção esquerda */
@@ -49,7 +52,7 @@ i {
 .left-section .logo a {
     font-weight: 800;
     font-size: 20px;
-    color: #006ED3;
+    color: #fca92e;
 }
 
 .menu-btn {
@@ -66,7 +69,7 @@ i {
 
 .menu-btn i {
     font-size: 18px;
-    color: #208BEE;
+    color: #fca92e;
 }
 
 .left-section .sidebar {
@@ -99,7 +102,7 @@ i {
 .left-section .sidebar .item#active a,
 .left-section .sidebar .item#active i,
 .left-section .upgrade .link i {
-    color: #369FFF;
+    color: #fca92e;
 }
 
 .left-section .sidebar .item a::after {
@@ -107,7 +110,7 @@ i {
     content: "";
     width: 0px;
     height: 0px;
-    background-color: #369FFF;
+    background-color: #ff8800;
     right: -30px;
     border-radius: 50%;
     top: 0;
@@ -161,7 +164,7 @@ main header {
 
 main header h5 {
     font-size: 18px;
-    color: #369FFF;
+    color: #fca92e;
     font-weight: 400;
 }
 

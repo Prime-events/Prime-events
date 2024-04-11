@@ -20,7 +20,7 @@
                 <button class="menu-btn" id="menu-close">
                     <i class='bx bx-log-out-circle'></i>
                 </button>
-                <img src="img/logo.png">
+                <img src="img/logo.png" style="width:100px; height:auto;">
                 <a href="#">Prime Events</a>
             </div>
 
@@ -70,7 +70,7 @@
             </div>
             <br>
             
-            <a href="primeEvent.html">Evento Prime</a>
+            <a href="dashboard-items/primeEvent.html">Evento Prime</a>
             <div class="analytics">
                 <!-- Aqui você pode adicionar informações específicas sobre os eventos, como estatísticas de participação, receitas, etc. -->
             </div>
