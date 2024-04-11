@@ -13,12 +13,11 @@
 <body>
     <div class="container" id="container">
         <div class="form-container sign-up">
-            <form action="db/cadastro.php" method="post">
-                <h1>Criar</h1>
-                <input type="text" name="nome" placeholder="Nome">
+            <form method="post" action="db/cadastro.php">
+                <input type="text" name="nome">
                 <input type="email" name="email" placeholder="Email">
                 <input type="password" name="senha" placeholder="Senha">
-                <button>Cadastrar</button>
+                <input type="submit" value="Cadastrar">
             </form>
         </div>
         <div class="form-container sign-in">
