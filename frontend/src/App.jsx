@@ -1,13 +1,12 @@
-
-import './styles/App.css'
+import RoutesApp from './routes';
 
 function App() {
 
   return (
     <>
-    <h1> Bem vindo à Prime Events </h1>
+    <RoutesApp/>
     </>
   )
 }
 
-export default App
+export default App  
