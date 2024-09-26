@@ -1,0 +1,23 @@
+
+body {
+    background-color: #EFE9E1;
+    font-family: "Nanum Gothic", sans-serif;
+}
+
+#segunda {
+    background-color: #c6741f;
+    padding-top: 10px;
+}
+
+#terceira {
+    background-color: #EFE9E1;
+    color: #333;
+}
+
+#quarta {
+    background-color: #333;
+    color: #ffffff;
+}
+footer a {
+    text-decoration: none;
+}
