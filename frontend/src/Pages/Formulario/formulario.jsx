@@ -30,8 +30,9 @@ function Formulario() {
 
   return (
     <>
-      <Header />
-      <div className={`container ${isSignUp ? 'active' : ''}`} id="container">
+    <Header />
+    <body className='bodyForm'>
+      <div className={`containerForm ${isSignUp ? 'active' : ''}`} id="container">
         {isSignUp ? (
           <div className="form-container sign-up">
             <form onSubmit={handleSubmit}>
@@ -102,6 +103,7 @@ function Formulario() {
           </div>
         </div>
       </div>
+    </body>
     </>
   );
 }

@@ -1,20 +1,23 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './style-inicial.css';
-import logo from '../../assets/img/logo.png'; 
+import logo from '../../assets/img/logo.png';
 import home from '../../assets/img/Home.png';
 import Header from '../../components/header/header';
+import Footer from '../../components/footer/footer';
+
 
 function telaInicial() {
   return (
     <div>
       <Header />
+      
       {/* Primeira Seção - Home */}
       <section id="primeira" className="d-flex justify-content-center align-items-center text-center"
         style={{
           width: '100%',
           height: '100vh',
-          backgroundImage: `url(${home})`, 
+          backgroundImage: `url(${home})`,
           backgroundRepeat: 'no-repeat',
           backgroundSize: 'cover',
           backgroundPosition: 'center'
@@ -73,38 +76,14 @@ function telaInicial() {
             garantimos uma gestão simplificada e eficaz do evento. O diferencial está em nossa interface intuitiva e
             amigável, que simplifica a experiência do usuário, tornando a checagem e o gerenciamento de informações
             uma tarefa rápida e agradável.</p>
+
           {/* Logo */}
-          <img src={logo} alt="logo" className="mx-auto d-block" style={{ width: '400px', height: '250px' }} />
+          <img src={logo} alt="logo" className="mx-auto d-block" style={{ width: '300px', height: '250px' }} />
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-dark text-light py-5">
-        <div className="container">
-          <div className="row justify-content-center align-items-center">
-            <div className="col-md-4">
-              <h4>Time</h4>
-              <ul className="list-unstyled">
-                <li><a href="#segunda" className="text-light">Quem somos</a></li>
-                <li><a href="#terceira" className="text-light">Nossos serviços</a></li>
-                <li><a href="#" className="text-light">Política de privacidade</a></li>
-              </ul>
-            </div>
-            <div className="col-md-4">
-              <h4>Obter ajuda</h4>
-              <ul className="list-unstyled">
-                <li><a href="#" className="text-light">Contato</a></li>
-                <li><a href="#" className="text-light">Github</a></li>
-              </ul>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-12 text-center">
-              <p className="mb-0">&copy; 2024 Team. Todos os direitos reservados.</p>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <Footer />
+
     </div>
   );
 }

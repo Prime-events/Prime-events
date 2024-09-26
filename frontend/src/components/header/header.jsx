@@ -6,7 +6,7 @@ function Header() {
             {/* Navbar */}
             <nav className={`navbar navbar-expand-lg navbar-dark fixed-top ${styles.navbarBackground}`}>
                 <div className="container">
-                    <a className="navbar-brand" href="#">
+                    <a className="navbar-brand" href="/">
                         <h3>PRIME <br /><p className={styles.subTitle}>EVENTS</p></h3>
                     </a>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -16,7 +16,7 @@ function Header() {
                     <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
                         <ul className="navbar-nav">
                             <li className="nav-item">
-                                <a className="nav-link active" aria-current="page" href="#">HOME</a>
+                                <a className="nav-link active" aria-current="page" href="/">HOME</a>
                             </li>
                             <li className="nav-item">
                                 <a className="nav-link" href="#segunda">SOBRE NÓS</a>
