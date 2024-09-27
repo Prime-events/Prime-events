@@ -10,7 +10,7 @@ class Database{
     function __construct(){
         $this -> servidor = "localhost";
         $this -> usuario = "root";
-        $this -> senha = "";
+        $this -> senha = "12345";
         $this -> dbnome = "testepe";
     }
     function getConexao(){
