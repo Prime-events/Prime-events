@@ -33,7 +33,9 @@ const eventos = sequelize.define(
 
   );
 
-  export default eventos;
+  sequelize.sync({ force: true });
+  
+module.exports = eventos;
     
     
     

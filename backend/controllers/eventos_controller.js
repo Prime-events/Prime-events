@@ -1,15 +1,15 @@
-import Evento from '../models/eventos_model';
+const Evento = require('../models/eventos_model');
 
 class EventoController {
     static criarEvento = async (req, res) => {
-        const { nome, descricao, dataHoraFinal, dataHoraInicial, local } = req.body;
+        const { nome, descricao, data_hora_final, data_hora_inicial, local } = req.body;
 
         try {
             await Evento.create({
                 nome,
                 descricao,
-                dataHoraFinal,
-                dataHoraInicial,
+                data_hora_final,
+                data_hora_inicial,
                 local
             });
             res.status(201).json({ message: 'Evento criado com sucesso!' });
@@ -69,7 +69,7 @@ class EventoController {
         const id = req.params.id;
 
         try {
-            await Modelo.destroy({
+            await Evento.destroy({
                 where: {
                     id: id
                 }
@@ -84,4 +84,4 @@ class EventoController {
 
 }
 
-export default EventoController;
+module.exports = EventoController;
