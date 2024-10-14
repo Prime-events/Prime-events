@@ -24,7 +24,9 @@ const Convidado = sequelize.define(
     }
   );
     
-    Convidado.belongsTo(Evento, { foreignKey: 'id_evento' });
+    Convidado.associate = (models) => {
+        Convidado.belongsTo(models.eventos, { foreignKey: 'id_evento' });
+    }
     module.exports = Convidado;
     
     
