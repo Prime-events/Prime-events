@@ -1,4 +1,4 @@
-const Evento = require('../models/eventos_model');
+const Evento = require('../models/Evento');
 
 class EventoController {
     static criarEvento = async (req, res) => {
