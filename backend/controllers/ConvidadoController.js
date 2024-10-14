@@ -1,14 +1,13 @@
-const Convidado = require('../models/lista_convidados_model');
+const Convidado = require('../models/Convidado');
 
 class ConvidadoController {
     static cadastrarConvidado = async (req, res) => {
-        const { nome, telefone, presenca, id_evento } = req.body;
+        const { nome, telefone, id_evento } = req.body;
 
         try {
             await Convidado.create({
                 nome,
                 telefone,
-                presenca,
                 id_evento
             });
             res.status(201).json({ message: 'Convidado criado com sucesso!' });
