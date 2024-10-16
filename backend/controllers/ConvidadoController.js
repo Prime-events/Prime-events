@@ -46,12 +46,20 @@ class ConvidadoController {
 
     static atualizarConvidado = async (req, res) => {
         const id = req.params.id;
-        const { nome, descricao, dataHoraFinal, dataHoraInicial, id_evento } = req.body;
+        const { nome, telefone, presenca, id_evento } = req.body;
 
         try {
             const Convidado = await Convidado.findByPk(id);
             if (Convidado) {
-                await Convidado.update({ nome, descricao, dataHoraFinal, dataHoraInicial, id_evento });
+                const dados = {};
+            
+                if (nome !== undefined) dados.nome = nome;
+                if (telefone !== undefined) dados.telefone = telefone;
+                if (presenca !== undefined) dados.presenca = presenca;
+                if (id_evento !== undefined) dados.id_evento = id_evento;
+
+                
+                await convidado.update(dados);
                 res.status(200).json({ message: 'Convidado atualizado com sucesso!' });
             } else {
                 res.status(404).json({ message: 'Convidado não encontrado!' });
