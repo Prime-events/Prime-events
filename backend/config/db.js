@@ -16,7 +16,7 @@ const pool = mysql.createPool({
     database: dbDatabase
 }).promise();
 
-const sequelize = new Sequelize(dbDatabase, dbUser  , dbPassword, {
+const sequelize = new Sequelize(dbDatabase, dbUser  , '', {
   host: dbHost,
   dialect: 'mysql',
   pool: {
