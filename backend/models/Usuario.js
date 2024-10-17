@@ -27,5 +27,6 @@ const Usuario = sequelize.define(
 Usuario.associate = (models) => {
     Usuario.hasMany(models.eventos, { foreignKey: 'id_usuario' });
 }  
+sequelize.sync({ force: true });
 
 module.exports = Usuario;
