@@ -1,8 +1,8 @@
 const express = require('express');
-const { default: userController } = require('../controller/userController');
+const UserController = require('../controllers/userController');
 
 const routes = express.Router();
 
-routes.post('/Cadastrar', userController.CreateUser);
+routes.post('/Cadastrar', UserController.CreateUser);
 
 module.exports = routes;

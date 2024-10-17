@@ -1,9 +1,13 @@
 const express = require('express');
 const app = express();
 const port = 3001;
-const cors = require('cors');
 pool = require('./config/db');
+const cors = require('cors');
+const eventosRouter = require('./routes/eventosRoute'); 
+const usersRouter = require('./routes/userRoutes'); 
 
+
+app.use(express.json());
 
 
 app.listen(port, () => {
@@ -27,4 +31,5 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 app.use(express.json());
-app.use(routesPublicacoes);
+app.use(eventosRouter);
+app.use(usersRouter);
