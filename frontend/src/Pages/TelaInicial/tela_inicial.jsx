@@ -29,14 +29,14 @@ function telaInicial() {
         {/* Carousel como background */}
         <Carousel
   autoPlay
-  interval={3000}
+  interval={3700}
   infiniteLoop
   showThumbs={false}
   showStatus={false}
   showArrows={false}
   stopOnHover={false}
-  swipeable={false}  // Desativa o swipe (arrasto)
-  transitionTime={1000}  // Aumenta o tempo de transição para 1 segundo
+  swipeable={false}  
+  transitionTime={1500}  
 >
   <div>
     <img src={home} alt="home" style={{ width: '100%', height: '100vh', objectFit: 'cover' }} />
