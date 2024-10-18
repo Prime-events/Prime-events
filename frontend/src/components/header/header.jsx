@@ -1,37 +1,45 @@
+import { useState } from "react";
+import { Navbar, NavbarBrand, NavbarToggler, Collapse, Nav, NavItem, NavLink } from "reactstrap";
 import styles from "./Header.module.css";
 
 function Header() {
+    const [collapsed, setCollapsed] = useState(true);
+
+    const toggleNavbar = () => {
+        setCollapsed(!collapsed);
+    };
+
     return (
-        <>
-            {/* Navbar */}
-            <nav className={`navbar navbar-expand-lg navbar-dark fixed-top ${styles.navbarBackground}`}>
-                <div className="container">
-                    <a className="navbar-brand" href="/">
-                        <h3>PRIME <br /><p className={styles.subTitle}>EVENTS</p></h3>
-                    </a>
-                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span className="navbar-toggler-icon"></span>
-                    </button>
-                    <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
-                        <ul className="navbar-nav">
-                            <li className="nav-item">
-                                <a className="nav-link active" aria-current="page" href="/">HOME</a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="#segunda">SOBRE NÓS</a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="#terceira">SERVIÇO</a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="/formulario">CADASTRAR OU ENTRAR</a>
-                            </li>
-                        </ul>
-                    </div>
+        <div>
+            <Navbar className={`navbar navbar-expand-lg navbar-dark fixed-top ${styles.navbarBackground}`} light>
+                <div className={`${styles.containerHeader}`}>
+                    <NavbarBrand href="/" className="me-auto">
+                        <div style={{ textAlign: 'center', display: 'flex', flexDirection: 'column' }}>
+                            <h4>PRIME</h4>
+                            <span className={styles.subTitle}>EVENTS</span>
+                        </div>
+                    </NavbarBrand>
+
+                    <NavbarToggler onClick={toggleNavbar} className="me-2" />
+                    <Collapse isOpen={!collapsed} navbar>
+                        <Nav className="ms-auto" navbar>
+                            <NavItem>
+                                <NavLink href="/" className="active" aria-current="page">HOME</NavLink>
+                            </NavItem>
+                            <NavItem>
+                                <NavLink href="#segunda">SOBRE NÓS</NavLink>
+                            </NavItem>
+                            <NavItem>
+                                <NavLink href="#terceira">SERVIÇO</NavLink>
+                            </NavItem>
+                            <NavItem>
+                                <NavLink href="/formulario">CADASTRAR OU ENTRAR</NavLink>
+                            </NavItem>
+                        </Nav>
+                    </Collapse>
                 </div>
-            </nav>
-        </>
+            </Navbar>
+        </div>
     );
 }
 

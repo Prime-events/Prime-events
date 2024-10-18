@@ -35,7 +35,6 @@ function Formulario() {
 
   return (
     <>
-    <Header />
     <body className='bodyForm'>
       <div className={`containerForm ${isSignUp ? 'active' : ''}`} id="container">
         {isSignUp ? (

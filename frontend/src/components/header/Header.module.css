@@ -1,10 +1,25 @@
+.containerHeader {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center; 
+    width: 100%; 
+    padding: 0 20px;
+}
+
+
 .navbarBackground {
     background-color: #fcaa2e4d;
+    height: 85px;
 }
 
 .subTitle {
     font-size: 15px;
 }
-.headerContainer{
-    height: 20px;
+
+.navbarCustom {
+    height: 60px; 
+}
+
+nav{
+    font-size: 20px;
 }
