@@ -66,7 +66,7 @@ function telaInicial() {
         {/* Texto Central */}
         <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', zIndex: 2 }}>
           <h1 className="text-white" style={{ fontSize: '60px' }}>Vamos tornar sua visão realidade</h1>
-          <a href="#" className="btn btn-warning">Monte seu projeto</a>
+          <a href="/formulario" className="btn btn-warning" style={{fontSize: '25px'}}>Monte seu projeto</a>
         </div>
       </section>
 
