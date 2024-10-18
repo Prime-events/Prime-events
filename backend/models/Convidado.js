@@ -23,7 +23,7 @@ const Convidado = sequelize.define(
             defaultValue: false,
         }
     }
-  );
+);
     
     Convidado.associate = (models) => {
         Convidado.belongsTo(models.eventos, { foreignKey: 'id_evento' });

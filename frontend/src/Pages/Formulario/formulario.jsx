@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Form.css';
 import Header from '../../components/header/header';
-
+// Certifique-se de importar ou definir a função createUser
+import { createUser } from './api';
 
 function Formulario() {
   const [formData, setFormData] = useState({
@@ -10,7 +11,6 @@ function Formulario() {
     email: '',
     senha: '',
   });
-
   const [isSignUp, setIsSignUp] = useState(false);
 
   const handleChange = (e) => {
@@ -18,10 +18,15 @@ function Formulario() {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Aqui você pode fazer a requisição para a API de autenticação ou cadastro
     console.log('Form data:', formData);
+    
+    await createUser({
+      nome: formData.nome,
+      email: formData.email,
+      senha: formData.senha
+    });
   };
 
   const toggleForm = () => {
