@@ -29,4 +29,5 @@ Usuario.associate = (models) => {
 }  
 sequelize.sync({ force: true });
 
+
 module.exports = Usuario;
