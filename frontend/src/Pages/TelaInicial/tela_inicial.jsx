@@ -3,8 +3,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './style-inicial.css';
 import logo from '../../assets/img/logo.png';
 import home from '../../assets/img/Home.png';
+import img2 from '../../assets/img/img_primeEvents2.jpg';
+import img3 from '../../assets/img/img_primeEvents3.jpg';
+import img4 from '../../assets/img/img_primeEvents4.jpg';
 import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
+import { Carousel } from 'react-responsive-carousel';
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 
 function telaInicial() {
@@ -12,19 +17,54 @@ function telaInicial() {
     <div>
       <Header />
       
-      {/* Primeira Seção - Home */}
+       {/* Primeira Seção - Home */}
       <section id="primeira" className="d-flex justify-content-center align-items-center text-center"
         style={{
           width: '100%',
           height: '100vh',
-          backgroundImage: `url(${home})`,
-          backgroundRepeat: 'no-repeat',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center'
+          position: 'relative',
+          overflow: 'hidden'
         }}>
 
+        {/* Carousel como background */}
+        <Carousel
+  autoPlay
+  interval={3700}
+  infiniteLoop
+  showThumbs={false}
+  showStatus={false}
+  showArrows={false}
+  stopOnHover={false}
+  swipeable={false}  
+  transitionTime={1500}  
+>
+  <div>
+    <img src={home} alt="home" style={{ width: '100%', height: '100vh', objectFit: 'cover' }} />
+  </div>
+  <div>
+    <img src={img2} alt="img2" style={{ width: '100%', height: '100vh', objectFit: 'cover' }} />
+  </div>
+  <div>
+    <img src={img3} alt="img3" style={{ width: '100%', height: '100vh', objectFit: 'cover' }} />
+  </div>
+  <div>
+    <img src={img4} alt="img4" style={{ width: '100%', height: '100vh', objectFit: 'cover' }} />
+  </div>
+</Carousel>
+
+        {/* Overlay para escurecer as imagens */}
+        <div style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          backgroundColor: 'rgba(0, 0, 0, 0.3)',  // cor preta com 50% de opacidade
+          zIndex: 1
+        }}></div>
+
         {/* Texto Central */}
-        <div>
+        <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', zIndex: 2 }}>
           <h1 className="text-white" style={{ fontSize: '60px' }}>Vamos tornar sua visão realidade</h1>
           <a href="#" className="btn btn-warning">Monte seu projeto</a>
         </div>
