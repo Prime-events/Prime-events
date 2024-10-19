@@ -33,9 +33,8 @@ const Evento = sequelize.define(
   );
 
 Evento.associate = (models) => {
-  Evento.belongsTo(models.usuarios, { foreignKey: 'id_usuario' });
-  Evento.hasMany(models.convidados, { foreignKey: 'id_evento' });
-  sequelize.sync({ force: true });
+    Evento.belongsTo(models.usuarios, { foreignKey: 'id_usuario' });
+    Evento.hasMany(models.convidados, { foreignKey: 'id_evento' });
 }  
 module.exports = Evento;
     
