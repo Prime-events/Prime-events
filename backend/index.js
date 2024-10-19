@@ -17,11 +17,7 @@ app.listen(port, () => {
     console.log(`Servidor rodando na porta ${port}`);
 });
 
-app.use(cors(corsOptions));
-app.use(express.json());
-app.use(eventosRouter);
-app.use(usersRouter);
-app.use(convidadosRouter);
+
 
 const allowedOrigins = ['http://localhost:5173',
     'http://localhost:3001',
@@ -37,3 +33,9 @@ const corsOptions = {
         }
     },
 };
+
+app.use(cors(corsOptions));
+app.use(express.json());
+app.use(eventosRouter);
+app.use(usersRouter);
+app.use(convidadosRouter);
