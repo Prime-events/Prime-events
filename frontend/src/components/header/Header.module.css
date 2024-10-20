@@ -1,3 +1,6 @@
+/* Header.module.css */
+
+/* Container do header */
 .containerHeader {
     display: flex;
     justify-content: space-between; 
@@ -6,20 +9,30 @@
     padding: 0 20px;
 }
 
-
+/* Estilo do background antes do scroll */
 .navbarBackground {
-    background-color: #fcaa2e4d;
+    background-color: #fcaa2e4d; /* Cor de fundo inicial */
     height: 85px;
+    transition: background-color 0.3s ease, height 0.3s ease; /* Transição suave */
 }
 
+/* Estilo do background após o scroll */
+.navbarScrolled {
+    background-color: rgba(0, 0, 0, 0.8); /* Cor de fundo escuro após scroll */
+    height: 70px; /* Altura reduzida após o scroll */
+    transition: background-color 0.3s ease, height 0.3s ease; /* Transição suave */
+}
+
+/* Estilos adicionais */
 .subTitle {
-    font-size: 15px;
+    font-size: 19px;
+    margin: 0;
 }
 
 .navbarCustom {
     height: 60px; 
 }
 
-nav{
+nav {
     font-size: 20px;
 }
