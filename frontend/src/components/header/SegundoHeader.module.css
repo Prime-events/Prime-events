@@ -1,0 +1,297 @@
+/* Estilo para o header geral */
+.header {
+    background-color: #ffffff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    width: 100vw;
+    padding: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Estilo dos itens dentro do header */
+.itensHeader {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+/* Estilo dos itens à esquerda (logo e título) */
+.itensEsquerda {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap; /* Impede que os itens quebrem para a próxima linha */
+}
+
+/* Estilo da logo */
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+/* Imagem da logo */
+.imagemLogo {
+    width: 40px;
+    height: 40px;
+    margin-right: 0.5rem;
+}
+
+/* Nome da logo */
+.nomeLogo {
+    font-family: 'Instrument Sans', sans-serif;
+    font-size: 1.2rem;
+    color: #333;
+}
+
+/* Separador (barra vertical) */
+.itemBarra {
+    margin-left: 1rem;
+    margin-right: 1.4rem;
+    font-size: 2rem;
+    color: #999;
+}
+
+/* Título da tela (Dashboard) */
+.tituloTela {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #FCA311;
+}
+
+/* Estilo dos itens à direita (notificação e usuário logado) */
+.itensDireita {
+    display: flex;
+    align-items: center;
+    margin-right: 1rem;
+}
+
+/* Notificação (ícone de sino) */
+.notificacao {
+    margin-right: 2.5rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+/* Estilo do usuário logado */
+.userLogado {
+    display: flex;
+    align-items: center;
+    background-color: rgba(252, 163, 17, 0.37); /* #FCA311 com 37% de opacidade */
+    padding: 0.3rem;
+    border-radius: 30px;
+}
+
+/* Perfil (ícone ou imagem do usuário) */
+.perfil {
+    width: 40px;
+    height: 40px;
+    background-color: #ddd;
+    border-radius: 50%;
+    margin-right: 0.5rem;
+}
+
+/* Nome do usuário */
+.nome {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    color: #000;
+    margin-right: 0.5rem;
+}
+
+/* Ícone de dropdown */
+.dropDown {
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #000;
+}
+.iconDropdown {
+  background: none;
+  border: none;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+/* Estilos para telas pequenas (até 500px) */
+@media (max-width: 500px) {
+    .header {
+        padding: 0.3rem; /* Reduzindo o padding */
+    }
+
+    .itensHeader {
+        justify-content: space-between; /* Manter os itens em uma linha */
+        flex-wrap: nowrap; /* Impedir que os itens quebrem para a próxima linha */
+    }
+
+    .imagemLogo {
+        width: 30px; 
+        height: 30px;
+    }
+
+    .itemBarra {
+        margin-left: 0.1rem;
+        margin-right: 0.3rem;
+        font-size: 2rem;
+        color: #999;
+    }
+
+    .tituloTela {
+        font-size: 1.2rem; /* Ajustando o tamanho do título */
+    }
+
+    .notificacao {
+        margin-right: 1rem; /* Ajustando a margem da notificação */
+        font-size: 1.2rem; /* Ajustando o tamanho da fonte da notificação */
+    }
+
+    .userLogado {
+        padding: 0.2rem; /* Reduzindo o padding do usuário logado */
+    }
+
+    .perfil {
+        width: 30px; /* Reduzindo o tamanho do perfil */
+        height: 30px;
+    }
+
+    .nome {
+        font-size: 0.9rem; /* Ajustando o tamanho da fonte do nome */
+    }
+
+    .dropDown {
+        font-size: 1.2rem; /* Ajustando o tamanho do ícone de dropdown */
+    }
+
+    .nomeLogo {
+        display: none; /* Removendo a logo */
+    }
+}
+
+/* Estilos para telas maiores (desktop) */
+@media (min-width: 1024px) {
+    .header {
+        padding: 1rem;
+    }
+
+    .imagemLogo {
+        width: 60px;
+        height: 60px;
+    }
+
+    .nomeLogo {
+        font-size: 1.5rem;
+    }
+
+    .tituloTela {
+        font-size: 2rem;
+    }
+
+    .notificacao {
+        margin-right: 3rem;
+        font-size: 2rem;
+    }
+
+    .userLogado {
+        padding: 0.5rem;
+    }
+
+    .perfil {
+        width: 50px;
+        height: 50px;
+    }
+
+    .nome {
+        font-size: 1.2rem;
+    }
+
+    .dropDown {
+        font-size: 2rem;
+    }
+}
+
+/* Estilos para telas médias (tablets e laptops pequenos) */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .header {
+        padding: 0.8rem;
+    }
+
+    .imagemLogo {
+        width: 50px;
+        height: 50px;
+    }
+
+    .nomeLogo {
+        font-size: 1.3rem;
+    }
+
+    .tituloTela {
+        font-size: 1.8rem;
+    }
+
+    .notificacao {
+        margin-right: 2.5rem;
+        font-size: 1.7rem;
+    }
+
+    .userLogado {
+        padding: 0.4rem;
+    }
+
+    .perfil {
+        width: 45px;
+        height: 45px;
+    }
+
+    .nome {
+        font-size: 1.1rem;
+    }
+
+    .dropDown {
+        font-size: 1.7rem;
+    }
+}
+
+/* Estilos para telas pequenas (celulares) */
+@media (max-width: 767px) {
+    .header {
+        padding: 0.5rem;
+    }
+
+    .itensHeader {
+        flex-direction: row; /* Manter os itens em linha */
+        align-items: center; /* Alinhar itens verticalmente no centro */
+    }
+
+    .imagemLogo {
+        width: 40px;
+        height: 40px;
+    }
+
+    .tituloTela {
+        font-size: 1.5rem;
+    }
+
+    .notificacao {
+        margin-right: 1.5rem;
+        font-size: 1.5rem;
+    }
+
+    .userLogado {
+        padding: 0.3rem;
+    }
+
+    .perfil {
+        width: 35px;
+        height: 35px;
+    }
+
+    .nome {
+        font-size: 1rem;
+        display: none; /* Esconde o nome do usuário em telas pequenas */
+    }
+
+    .dropDown {
+        font-size: 1.5rem;
+    }
+}
