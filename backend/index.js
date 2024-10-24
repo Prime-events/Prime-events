@@ -36,6 +36,7 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 app.use(express.json());
+app.use('/api', usersRouter);
 app.use(eventosRouter);
 app.use(usersRouter);
 app.use(convidadosRouter);
