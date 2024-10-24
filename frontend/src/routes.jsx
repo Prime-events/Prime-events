@@ -1,7 +1,7 @@
 import {BrowserRouter,Routes,Route} from 'react-router-dom';
 import TelaInicial from "./Pages/TelaInicial/tela_inicial.jsx";
 import Formulario from './Pages/Formulario/formulario.jsx';
-import SegundoHeader from './components/header/segundoHeader.jsx';
+import SegundoHeader from './components/header/segundoHeader/segundoHeader.jsx';
 
 function RoutesApp(){
 

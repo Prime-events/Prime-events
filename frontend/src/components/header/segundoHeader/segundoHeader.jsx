@@ -1,5 +1,5 @@
-import imgLogo from '../../assets/img/logo 1.png';
-import perfil from '../../assets/img/imgPerfilPE.png';
+import imgLogo from '../../../assets/img/logo 1.png';
+import perfil from '../../../assets/img/imgPerfilPE.png';
 import styles from "./SegundoHeader.module.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
@@ -53,7 +53,6 @@ function segundoHeader() {
                                             <span style={{ marginLeft: '0.4rem' }}>Sair</span>
                                         </Link>
                                     </DropdownItem>
-
                                 </DropdownMenu>
                             </UncontrolledDropdown>
                         </div>
