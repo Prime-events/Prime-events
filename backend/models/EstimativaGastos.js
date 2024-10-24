@@ -23,9 +23,8 @@ const EstimativaGastos = sequelize.define('estimativa_gastos', {
         type: DataTypes.STRING,
         allowNull: true,
     },
-}, {
-    timestamps: false,
-});
+},
+);
 
 EstimativaGastos.associate = (models) => {
     EstimativaGastos.belongsTo(models.eventos, { foreignKey: 'id_evento' });
