@@ -23,17 +23,8 @@ const ProgramacaoEvento = sequelize.define('programacao_evento', {
         type: DataTypes.DATE,
         allowNull: false, 
     },
-    id_evento: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        references: {
-            model: 'eventos', 
-            key: 'id_evento',
-        },
-    },
-}, {
-    timestamps: false,
-});
+},
+);
 
 ProgramacaoEvento.associate = (models) => {
     ProgramacaoEvento.belongsTo(models.eventos, { foreignKey: 'id_evento' });
