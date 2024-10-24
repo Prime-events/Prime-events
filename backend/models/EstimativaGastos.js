@@ -13,15 +13,15 @@ const EstimativaGastos = sequelize.define('estimativa_gastos', {
     },
     valor_item: {
         type: DataTypes.FLOAT,
-        allowNull: true,
+        allowNull: false,
     },
     quantidade_item: {
         type: DataTypes.INTEGER,
-        allowNull: true,
+        allowNull: false,
     },
     categoria: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
     },
 }, {
     timestamps: false,
