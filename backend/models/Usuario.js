@@ -29,4 +29,5 @@ Usuario.associate = (models) => {
 }  
 
 
+
 module.exports = Usuario;
