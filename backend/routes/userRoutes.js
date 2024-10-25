@@ -4,5 +4,6 @@ const UserController = require('../controllers/userController');
 const routes = express.Router();
 
 routes.post('/Cadastrar', UserController.CreateUser);
+routes.post('/Login', UserController.LoginUser);
 
 module.exports = routes;
