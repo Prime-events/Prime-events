@@ -41,14 +41,10 @@ function Formulario() {
     const token = localStorage.getItem('token');
     if (token) {
       // Lógica para autenticar o usuário ou validar o token
-      navigate('/'); //Alterar caminho ao ch
+      navigate('/dashboard'); //Alterar caminho ao ch
     }
   }, [navigate]);
 
-const handleLogout = () => {
-  localStorage.removeItem('token');
-  navigate('/formulario'); // Redirecione para a página de login
-};
 
   const handleSubmitLogin = async (e) => {
     e.preventDefault();
@@ -60,7 +56,7 @@ const handleLogout = () => {
     const data = await response.json(); // Transformar a resposta em JSON
     if (response.ok) { // Verifique se a resposta do login foi bem-sucedida
       localStorage.setItem('token', data.token);
-      navigate('/'); // Redirecione para a página /dashboard
+      navigate('/dashboard'); // Redirecione para a página /dashboard
     } else {
       console.log('Erro ao fazer login:', response.statusText);
     }
