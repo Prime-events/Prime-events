@@ -1,4 +1,3 @@
-/* Estilo para o header geral */
 .header {
     background-color: #ffffff;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
@@ -9,41 +8,35 @@
     align-items: center;
 }
 
-/* Estilo dos itens dentro do header */
 .itensHeader {
     display: flex;
     justify-content: space-between;
     width: 100%;
 }
 
-/* Estilo dos itens à esquerda (logo e título) */
 .itensEsquerda {
     display: flex;
     align-items: center;
-    flex-wrap: nowrap; /* Impede que os itens quebrem para a próxima linha */
+    flex-wrap: nowrap;
 }
 
-/* Estilo da logo */
 .logo {
     display: flex;
     align-items: center;
 }
 
-/* Imagem da logo */
 .imagemLogo {
     width: 40px;
     height: 40px;
     margin-right: 0.5rem;
 }
 
-/* Nome da logo */
 .nomeLogo {
     font-family: 'Instrument Sans', sans-serif;
     font-size: 1.2rem;
     color: #333;
 }
 
-/* Separador (barra vertical) */
 .itemBarra {
     margin-left: 1rem;
     margin-right: 1.4rem;
@@ -51,7 +44,6 @@
     color: #999;
 }
 
-/* Título da tela (Dashboard) */
 .tituloTela {
     font-family: 'Poppins', sans-serif;
     font-size: 1.5rem;
@@ -59,30 +51,26 @@
     color: #FCA311;
 }
 
-/* Estilo dos itens à direita (notificação e usuário logado) */
 .itensDireita {
     display: flex;
     align-items: center;
     margin-right: 1rem;
 }
 
-/* Notificação (ícone de sino) */
 .notificacao {
     margin-right: 2.5rem;
     font-size: 1.5rem;
     cursor: pointer;
 }
 
-/* Estilo do usuário logado */
 .userLogado {
     display: flex;
     align-items: center;
-    background-color: rgba(252, 163, 17, 0.37); /* #FCA311 com 37% de opacidade */
+    background-color: rgba(252, 163, 17, 0.37);
     padding: 0.3rem;
     border-radius: 30px;
 }
 
-/* Perfil (ícone ou imagem do usuário) */
 .perfil {
     width: 40px;
     height: 40px;
@@ -91,7 +79,6 @@
     margin-right: 0.5rem;
 }
 
-/* Nome do usuário */
 .nome {
     font-family: 'Poppins', sans-serif;
     font-size: 1rem;
@@ -99,20 +86,302 @@
     margin-right: 0.5rem;
 }
 
-/* Ícone de dropdown */
 .dropDown {
     font-size: 1.5rem;
     cursor: pointer;
     color: #000;
 }
+
 .iconDropdown {
-  background: none;
-  border: none;
-  padding: 0;
-  display: inline-flex;
-  align-items: center;
-  cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
 }
+
+.customModal {
+    width: 100%;
+    max-width: 680px;
+    height: auto;
+    max-height: 90%;
+}
+
+.modalContainer {
+    width: 100%; 
+    min-height: 34.11rem;
+    max-width: 100%;
+    max-height: 90%;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box; 
+}
+
+.itensModal {
+    display: flex;
+    align-items: flex-start;
+    width: 100%; 
+    gap: 1rem;
+    box-sizing: border-box;
+}
+
+.logoLink {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    align-items: center;
+}
+
+.optionText {
+    margin-left: 0.4rem;
+}
+
+.logoutLink {
+    text-decoration: none;
+    color: red;
+    display: flex;
+    align-items: center;
+}
+
+
+/* ESTILOS DA TELA DE CONFIGURAÇÕES */
+
+.headerConfiguracoes{
+    width: 100%;
+}
+
+.geral,
+.perfilConfig {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    width: 9rem;
+    height: 2rem;
+    border-radius: 0.4rem;
+    cursor: pointer;
+}
+
+.active {
+    background-color: #FCA311;
+}
+
+.optionIcon {
+    font-size: 24px;
+}
+
+.configItensEsquerda {
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.4rem;
+    margin-right: 1rem;
+}
+
+.configItensDireita {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    
+}
+
+.opcoes {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.configuracoesGerais,
+.configuracoesPerfil {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 0.7rem;
+}
+
+.configuracoesGerais span,
+.configuracoesPerfil span {
+    width: 100%;
+    display: block;
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+/* ESTILOS DAS CONFIGURAÇÕES GERAL */
+
+.tema {
+    width: 100%;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.18);
+}
+
+.itensTema {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 8px 0; 
+}
+
+.txtTema {
+    font-size: 16px;
+    color: #333;
+    margin-right: 10px; 
+}
+
+.themeDropdown {
+    display: flex;
+    align-items: center;
+}
+
+.btnTema {
+    background-color: transparent;
+    border: none;
+    color: #333;
+    font-size: 16px;
+}
+
+.temaSistema:hover,
+.temaEscuro:hover {
+    background-color: #d3c5c556;
+}
+
+.selectedIcon {
+    margin-left: 0.4rem;
+    color: #FCA311; 
+    vertical-align: middle;
+}
+
+
+/* ESTILOS DAS CONFIGURAÇÕES PERFIL */
+
+.itensEmail {
+    display: flex;
+    align-content: center;
+    gap: 9px;
+    flex-grow: 1;
+    height: 3.6 rem;
+}
+
+#btnAlterEmail {
+    margin-left: auto;
+    height: 2rem;
+    width: 8rem;
+    border-radius: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.180);
+    font-weight: 600;
+    color: #FCA311;
+    background-color: white;
+    transition: border 0.3s ease;
+    margin-left: 10rem;
+}
+
+#btnAlterEmail:hover {
+    border-color: rgba(0, 0, 0, 0.6);
+    background-color: #d6d6d667;
+}
+
+
+.inputNome {
+    border-radius: 12px;
+    border: 1px solid rgba(0, 0, 0, 0.250);
+}
+
+.inputSobrenome {
+    border-radius: 12px;
+    border: 1px solid rgba(0, 0, 0, 0.250);
+}
+
+.trocarSenha {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 4rem;
+    width: 100%;
+    margin-top: 0.3rem;
+
+}
+
+#btnAlterSenha {
+    height: 70%;
+    width: 70%;
+    font-weight: 700;
+    border-radius: 8px;
+    border: 2px solid rgba(0, 0, 0, 0.180);
+    background-color: rgba(221, 218, 218, 0.697);
+    transition: border 0.3s ease;
+    color: #545454;
+}
+
+#btnAlterSenha:hover {
+    border-color: rgba(0, 0, 0, 0.6);
+    background-color: #d6d6d667;
+}
+
+.encerrarConta {
+    display: flex;
+    align-items: center;
+    /* Centraliza o botão verticalmente */
+    height: 4rem;
+    width: 100%;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.18);
+}
+
+.btnEncerrarConta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    box-sizing: border-box;
+    appearance: none;
+    text-align: start;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+    margin-inline: 0px;
+    line-height: 1.5;
+    font-size: 1rem;
+    font-weight: 700;
+    border-radius: 0.5rem;
+}
+
+.txtEncerrarConta {
+    height: 1rem;
+    font-weight: 700;
+    color: rgb(169, 37, 43);
+    transition: transform 0.3s ease;
+}
+
+.txtEncerrarConta:hover{
+    transform: scale(1.05);
+}
+
+.salvar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 4rem;
+    width: 100%;
+    margin-top: 0.3rem;
+
+}
+
+#btnSalvar {
+    height: 60%;
+    width: 30%;
+    font-weight: 700;
+    border-radius: 8px;
+    border: 2px solid rgba(0, 0, 0, 0.180);
+    background-color: #3E4656;
+    transition: border 0.3s ease;
+    color: #fbfbfbd6;
+}
+
+#btnSalvar:hover {
+    background-color: #333a47;
+
+}
+
 
 /* Estilos para telas pequenas (até 500px) */
 @media (max-width: 500px) {
@@ -126,14 +395,14 @@
     }
 
     .imagemLogo {
-        width: 30px; 
+        width: 30px; /* Reduzindo o tamanho da imagem do logo */
         height: 30px;
     }
 
     .itemBarra {
-        margin-left: 0.1rem;
+        margin-left: 0.1rem; /* Ajustando margens */
         margin-right: 0.3rem;
-        font-size: 2rem;
+        font-size: 1.5rem; /* Ajustando o tamanho da fonte do item da barra */
         color: #999;
     }
 
@@ -166,7 +435,46 @@
     .nomeLogo {
         display: none; /* Removendo a logo */
     }
+
+    /* Estilos adicionais para a tela de configurações */
+    .headerConfiguracoes {
+        flex-direction: column; /* Alterando a direção para coluna em telas pequenas */
+        align-items: flex-start; /* Alinhando itens à esquerda */
+    }
+
+    .geral,
+    .perfilConfig {
+        width: 100%; /* Ocupando toda a largura disponível */
+        height: auto; /* Permite que a altura se ajuste conforme o conteúdo */
+        padding: 0.5rem; /* Adicionando padding */
+    }
+
+    .configItensDireita {
+        width: 100%; /* Fazendo a coluna de configurações ocupar toda a largura */
+    }
+
+    .opcoes {
+        padding: 0.5rem; /* Adicionando padding para melhor espaçamento */
+    }
+
+    .itensEmail {
+        flex-direction: column; /* Alterando a direção para coluna */
+    }
+
+    #btnAlterEmail, #btnAlterSenha, #btnSalvar {
+        width: 100%; /* Fazendo os botões ocuparem toda a largura */
+        margin: 0.5rem 0; /* Margem para espaçamento entre os botões */
+    }
+
+    .txtEncerrarConta {
+        font-size: 0.9rem; /* Ajustando o tamanho da fonte do texto para encerrar conta */
+    }
+
+    .salvar {
+        padding: 0.5rem; /* Adicionando padding para melhor espaçamento */
+    }
 }
+
 
 /* Estilos para telas maiores (desktop) */
 @media (min-width: 1024px) {
@@ -259,8 +567,10 @@
     }
 
     .itensHeader {
-        flex-direction: row; /* Manter os itens em linha */
-        align-items: center; /* Alinhar itens verticalmente no centro */
+        flex-direction: row;
+        /* Manter os itens em linha */
+        align-items: center;
+        /* Alinhar itens verticalmente no centro */
     }
 
     .imagemLogo {
@@ -288,7 +598,8 @@
 
     .nome {
         font-size: 1rem;
-        display: none; /* Esconde o nome do usuário em telas pequenas */
+        display: none;
+        /* Esconde o nome do usuário em telas pequenas */
     }
 
     .dropDown {
