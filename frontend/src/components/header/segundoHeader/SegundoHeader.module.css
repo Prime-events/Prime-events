@@ -301,14 +301,14 @@
 }
 
 #btnAlterSenha {
-    height: 70%;
-    width: 70%;
+    height: 55%;
+    width: 40%;
     font-weight: 700;
     border-radius: 8px;
     border: 2px solid rgba(0, 0, 0, 0.180);
-    background-color: rgba(221, 218, 218, 0.697);
+    background-color: rgba(250, 250, 250, 0.923);
     transition: border 0.3s ease;
-    color: #545454;
+    color: #FCA311;
 }
 
 #btnAlterSenha:hover {
