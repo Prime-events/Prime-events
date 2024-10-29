@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Form.css';
-import Header from '../../components/header/header';
 // Certifique-se de importar ou definir a função createUser
 import { createUser } from './api';
+import { loginUser } from './apiLogin';
+import { useNavigate } from 'react-router-dom';
+
+        
 
 function Formulario() {
   const [formData, setFormData] = useState({
@@ -12,21 +15,51 @@ function Formulario() {
     senha: '',
   });
   const [isSignUp, setIsSignUp] = useState(false);
-
+  const navigate = useNavigate(); 
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmitCadastro = async (e) => {
     e.preventDefault();
     console.log('Form data:', formData);
-    
     await createUser({
       nome: formData.nome,
       email: formData.email,
       senha: formData.senha
     });
+    setFormData({
+      nome: '',
+      email: '',
+      senha: '',
+    });
+  };
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      // Lógica para autenticar o usuário ou validar o token
+      navigate('/dashboard'); //Alterar caminho ao ch
+    }
+  }, [navigate]);
+
+
+  const handleSubmitLogin = async (e) => {
+    e.preventDefault();
+    console.log('Form data:', formData);
+    const response = await loginUser({
+      email: formData.email,
+      senha: formData.senha, // Enviar a senha pura
+    });
+    const data = await response.json(); // Transformar a resposta em JSON
+    if (response.ok) { // Verifique se a resposta do login foi bem-sucedida
+      localStorage.setItem('token', data.token);
+      navigate('/dashboard'); // Redirecione para a página /dashboard
+    } else {
+      console.log('Erro ao fazer login:', response.statusText);
+    }
   };
 
   const toggleForm = () => {
@@ -39,7 +72,7 @@ function Formulario() {
       <div className={`containerForm ${isSignUp ? 'active' : ''}`} id="container">
         {isSignUp ? (
           <div className="form-container sign-up">
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmitCadastro}>
               <h1>Criar</h1>
               <input
                 type="text"
@@ -67,7 +100,7 @@ function Formulario() {
           </div>
         ) : (
           <div className="form-container sign-in">
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmitLogin}>
               <h1>Entrar</h1>
               <input
                 type="email"

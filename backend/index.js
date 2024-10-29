@@ -8,13 +8,15 @@ const usersRouter = require('./routes/userRoutes');
 const convidadosRouter = require('./routes/convidadosRoute');
 
 
+
 app.use(express.json());
-pool.sync({force: true}); //Com o force:true as tabelas sempre irão ser recriadas
+
 
 
 app.listen(port, () => {
     console.log(`Servidor rodando na porta ${port}`);
 });
+
 
 
 const allowedOrigins = ['http://localhost:5173',
@@ -34,6 +36,7 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 app.use(express.json());
+app.use('/api', usersRouter);
 app.use(eventosRouter);
 app.use(usersRouter);
 app.use(convidadosRouter);
