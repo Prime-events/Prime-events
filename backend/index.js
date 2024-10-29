@@ -8,7 +8,7 @@ const usersRouter = require('./routes/userRoutes');
 const convidadosRouter = require('./routes/convidadosRoute');
 
 app.use(express.json());
-pool.sync({force: true}); //Com o force:true as tabelas sempre irão ser recriadas
+pool.sync(); //Com o force:true as tabelas sempre irão ser recriadas
 
 
 app.listen(port, () => {
