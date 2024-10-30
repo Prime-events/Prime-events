@@ -4,6 +4,11 @@ body {
     font-family: "Nanum Gothic", sans-serif;
 }
 
+.text-white{
+    font-size: 60px;
+    width: 24rem;
+}
+
 #segunda {
     background-color: #c6741f;
     padding-top: 10px;
