@@ -1,4 +1,5 @@
-const API_URL = 'http://localhost:3001/Cadastrar';
+const API_URL = 'http://localhost:3001/api/Cadastrar';
+
 
 export const createUser = async (user) => {
     await fetch(API_URL, {
@@ -9,4 +10,4 @@ export const createUser = async (user) => {
       body: JSON.stringify(user),
     });
   };
-  
+

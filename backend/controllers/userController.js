@@ -26,41 +26,18 @@ class UserController {
         }
     }
 
-    static ViewAllUser = async (req, res) => {
-        try {
-            const users = await usuarioModel.findAll();
-            return res.status(200).json(users);
-        } catch (err) {
-            console.error("Erro ao buscar usuários:", err);
-            return res.status(500).json({ message: 'Erro ao buscar usuários' });
-        }
-    }
-
-    static GetUserById = async (req, res) => {
-        const { id } = req.params;
-        try {
-            const user = await usuarioModel.findOne({ where: { id: id } });
-            if (!user) {
-                return res.status(404).json({ message: 'Usuário não encontrado' });
-            }
-            return res.status(200).json(user);
-        } catch (error) {
-            console.log(error);
-            return res.status(500).json({ message: 'Erro interno no servidor!' });
-        }
-    }
-
     static LoginUser = async (req, res) => {
         const { email, senha } = req.body;
+        console.log(email+", " + senha);
         if (!email || !senha) {
-            return res.status(400).json({ message: 'Preencha todos os campos' });
+            return res.status(422).send('Todos os campos são obrigatórios.');
         }
 
         const user = await usuarioModel.findOne({ where: { email: email } });
         if (!user) {
             return res.status(404).json({ message: 'Usuário não encontrado!' });
         }
-
+ 
         // Verifica se as senhas coincidem
         const verificaSenha = await bcrypt.compare(senha, user.senha);
         if (!verificaSenha) {
