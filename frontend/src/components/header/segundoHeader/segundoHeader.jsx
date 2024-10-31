@@ -15,7 +15,7 @@ import { IoIosCheckmarkCircle } from "react-icons/io";
 
 function SegundoHeader({titulo}) {
 
-    const [modal, setModal] = useState(false);
+  const [modal, setModal] = useState(false);
     const [activeTab, setActiveTab] = useState('geral');
     const [theme, setTheme] = useState('Sistema'); // Estado para o tema
 

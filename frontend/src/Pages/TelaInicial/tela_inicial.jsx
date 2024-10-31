@@ -16,8 +16,8 @@ function telaInicial() {
   return (
     <div>
       <Header />
-      
-       {/* Primeira Seção - Home */}
+
+      {/* Primeira Seção - Home */}
       <section id="primeira" className="d-flex justify-content-center align-items-center text-center"
         style={{
           width: '100%',
@@ -28,29 +28,29 @@ function telaInicial() {
 
         {/* Carousel como background */}
         <Carousel
-  autoPlay
-  interval={3700}
-  infiniteLoop
-  showThumbs={false}
-  showStatus={false}
-  showArrows={false}
-  stopOnHover={false}
-  swipeable={false}  
-  transitionTime={1500}  
->
-  <div>
-    <img src={home} alt="home" style={{ width: '100%', height: '100vh', objectFit: 'cover' }} />
-  </div>
-  <div>
-    <img src={img2} alt="img2" style={{ width: '100%', height: '100vh', objectFit: 'cover' }} />
-  </div>
-  <div>
-    <img src={img3} alt="img3" style={{ width: '100%', height: '100vh', objectFit: 'cover' }} />
-  </div>
-  <div>
-    <img src={img4} alt="img4" style={{ width: '100%', height: '100vh', objectFit: 'cover' }} />
-  </div>
-</Carousel>
+          autoPlay
+          interval={3700}
+          infiniteLoop
+          showThumbs={false}
+          showStatus={false}
+          showArrows={false}
+          stopOnHover={false}
+          swipeable={false}
+          transitionTime={1500}
+        >
+          <div>
+            <img src={home} alt="home" style={{ width: '100%', height: '100vh', objectFit: 'cover' }} />
+          </div>
+          <div>
+            <img src={img2} alt="img2" style={{ width: '100%', height: '100vh', objectFit: 'cover' }} />
+          </div>
+          <div>
+            <img src={img3} alt="img3" style={{ width: '100%', height: '100vh', objectFit: 'cover' }} />
+          </div>
+          <div>
+            <img src={img4} alt="img4" style={{ width: '100%', height: '100vh', objectFit: 'cover' }} />
+          </div>
+        </Carousel>
 
         {/* Overlay para escurecer as imagens */}
         <div style={{
@@ -65,8 +65,8 @@ function telaInicial() {
 
         {/* Texto Central */}
         <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', zIndex: 2 }}>
-          <h1 className="text-white" style={{ fontSize: '60px' }}>Vamos tornar sua visão realidade</h1>
-          <a href="/formulario" className="btn btn-warning" style={{fontSize: '25px'}}>Monte seu projeto</a>
+          <h1 className="text-white">Vamos tornar sua visão realidade</h1>
+          <a href="/formulario" className="btn btn-warning" style={{ fontSize: '25px' }}>Monte seu projeto</a>
         </div>
       </section>
 
