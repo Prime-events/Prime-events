@@ -18,7 +18,7 @@ function RoutesApp(){
          </Routes>
        </BrowserRouter>
     );
-   }
-   
-   export default RoutesApp;
+  }
+
+export default RoutesApp;
 
