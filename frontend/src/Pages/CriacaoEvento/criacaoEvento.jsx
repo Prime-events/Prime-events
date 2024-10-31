@@ -1,8 +1,29 @@
+import { useState } from 'react';
 import SegundoHeader from '../../components/header/segundoHeader/segundoHeader.jsx'
 import styles from "./criacaoEvento.module.css";
 import { IoArrowBackCircleOutline } from "react-icons/io5";
 
 function CriacaoEvento() {
+    const [endereco, setEndereco] = useState({
+        nomeLocal: "",
+        cep: "",
+        rua: "",
+        numero: "",
+        complemento: "",
+        bairro: "",
+        cidade: "",
+        estado: "",
+    });
+
+
+
+    const handleEndereco = (e) => {
+    const { name, value } = e.target;
+    setEndereco((prevValues) => ({
+        ...prevValues,
+        [name]: value,
+    }));
+    };
 
     return (<>
         <SegundoHeader />
@@ -31,40 +52,118 @@ function CriacaoEvento() {
                 <div className={styles.itensDireita}>
                     <div className={styles.uploadImagem}></div>
                     <div className={styles.cardEvento}>
-                        <span>Visão geral do Evento</span>
+                        <span className={styles.tituloCardDireita}>Visão geral do Evento</span><br/>
                         <div className={styles.nomeEvento}>
-                            <span>Nome do evento<br/></span>
-                            <span>Seja claro, com um título que diga às pessoas do que se trata seu evento.<br/></span>
-                            <input></input>
+                            <div className={styles.inputContainer}>
+                                    <input
+                                        type="text"
+                                        name="nomeEvento"
+                                        value={endereco.nomeEvento}
+                                        onChange={handleEndereco}
+                                        className={endereco.nomeEvento ? styles.hasValue : ""}
+                                    />
+                                    <label className={styles.floatingLabel}>Nome do Evento</label>
+                                </div>
                         </div>
                         <div className={styles.descricaoEvento}>
-                            <span>Descrição do evento<br/></span>
-                            <span>Chame a atenção das pessoas com uma breve descrição sobre seu evento.<br/></span>
-                            <input></input>
+                            <div className={styles.inputContainer}>
+                                <input
+                                    type="text"
+                                    name="descricaoEvento"
+                                    value={endereco.descricaoEvento}
+                                    onChange={handleEndereco}
+                                    className={endereco.descricaoEvento ? styles.hasValue : ""}
+                                />
+                                <label className={styles.floatingLabel}>Descrição do Evento</label>
+                            </div>
                         </div>
-                        <span>Data e localização</span>
+                        <span className={styles.tituloCardDireita}>Data e Localização</span>
                         <div className={styles.dataHoraEvento}>
-                            <span>Data</span>
-                            <span>Horário de início</span>
-                            <span>Horário de término</span>
+                            <span>Data</span><br/>
+                            <span>Horário de início</span><br/>
+                            <span>Horário de término</span><br/>
                         </div>
                         <div className={styles.localizacaoEvento}>
-                            <span>Nome do local</span>
-                            <input></input>
-                            <span>CEP</span>
-                            <input></input>
-                            <span>Endereço</span>
-                            <input></input>
-                            <span>Numero</span>
-                            <input></input>
-                            <span>Complemento</span>
-                            <input></input>
-                            <span>Bairro</span>
-                            <input></input>
-                            <span>Cidade</span>
-                            <input></input>
-                            <span>Estado</span>
-                            <input></input>
+                            <div className={styles.inputContainer}>
+                                <input
+                                    type="text"
+                                    name="nomeLocal"
+                                    value={endereco.nomeLocal}
+                                    onChange={handleEndereco}
+                                    className={endereco.nomeLocal ? styles.hasValue : ""}
+                                />
+                                <label className={styles.floatingLabel}>Nome do local</label>
+                            </div>
+                            <div className={styles.inputContainer}>
+                                <input
+                                    type="text"
+                                    name="cep"
+                                    value={endereco.cep}
+                                    onChange={handleEndereco}
+                                    className={endereco.cep ? styles.hasValue : ""}
+                                />
+                                <label className={styles.floatingLabel}>CEP</label>
+                            </div>
+                            <div className={styles.inputContainer}>
+                                <input
+                                    type="text"
+                                    name="rua"
+                                    value={endereco.rua}
+                                    onChange={handleEndereco}
+                                    className={endereco.rua ? styles.hasValue : ""}
+                                />
+                                <label className={styles.floatingLabel}>Endereço</label>
+                            </div>
+                            <div className={styles.inputContainer}>
+                                <input
+                                    type="text"
+                                    name="numero"
+                                    value={endereco.numero}
+                                    onChange={handleEndereco}
+                                    className={endereco.numero ? styles.hasValue : ""}
+                                />
+                                <label className={styles.floatingLabel}>Número</label>
+                            </div>
+                            <div className={styles.inputContainer}>
+                                <input
+                                    type="text"
+                                    name="complemento"
+                                    value={endereco.complemento}
+                                    onChange={handleEndereco}
+                                    className={endereco.complemento ? styles.hasValue : ""}
+                                />
+                                <label className={styles.floatingLabel}>Complemento</label>
+                            </div>
+                            <div className={styles.inputContainer}>
+                                <input
+                                    type="text"
+                                    name="bairro"
+                                    value={endereco.bairro}
+                                    onChange={handleEndereco}
+                                    className={endereco.bairro ? styles.hasValue : ""}
+                                />
+                                <label className={styles.floatingLabel}>Bairro</label>
+                            </div>
+                            <div className={styles.inputContainer}>
+                                <input
+                                    type="text"
+                                    name="cidade"
+                                    value={endereco.cidade}
+                                    onChange={handleEndereco}
+                                    className={endereco.cidade ? styles.hasValue : ""}
+                                />
+                                <label className={styles.floatingLabel}>Cidade</label>
+                            </div>
+                            <div className={styles.inputContainer}>
+                                <input
+                                    type="text"
+                                    name="estado"
+                                    value={endereco.estado}
+                                    onChange={handleEndereco}
+                                    className={endereco.estado ? styles.hasValue : ""}
+                                />
+                                <label className={styles.floatingLabel}>Estado</label>
+                            </div>
                         </div>
                         <div className={styles.map}></div>
                         <button className={styles.btnConcluir}>Concluir</button>
