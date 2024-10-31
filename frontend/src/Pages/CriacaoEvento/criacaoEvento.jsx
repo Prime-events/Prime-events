@@ -169,9 +169,7 @@ function CriacaoEvento() {
                         <button className={styles.btnConcluir}>Concluir</button>
                     </div>
                 </div>
-
             </div>
-
         </div>
 
     </>);

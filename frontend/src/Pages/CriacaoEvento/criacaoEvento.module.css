@@ -1,65 +1,73 @@
 .containerCriacao {
     box-sizing: border-box;
-    margin: 0;
+    margin: 0 auto;
     padding: 0;
     font-family: Arial, sans-serif;
     display: flex;
-    padding: 20px;
-    gap: 20px;
+    padding: 1.25rem;
+    gap: 1.25rem;
+    width: 80%;
+    max-width: 1200px;
 }
+
+:root {
+    font-size: 16px;
+  }
 
 .secaoEsquerda {
     flex: 1;
     background-color: #f9f9f9;
-    padding: 20px;
-    border-radius: 8px;
+    padding: 1.25rem;;
+    border-radius: 0.5rem;
     position: relative;
   }
 
 .itensEsquerda {
     position: sticky;
-    top: 20px;
+    top: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
   }
 
 .voltarEventos .btnVoltar {
     display: flex;
     align-items: center;
-    gap: 8px;
-    padding: 8px 16px;
-    font-size: 16px;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
     color: #333;
     border: none;
     background-color: #e0e0e0;
-    border-radius: 4px;
+    border-radius: 0.25rem;
     cursor: pointer;
 }
 
 .preview {
     background-color: #fff;
-    padding: 16px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-top: 20px;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
   }
 
 .tituloPreview {
-    font-size: 18px;
+    font-size: 1.125rem;
     font-weight: bold;
-    margin-bottom: 12px;
+    margin-bottom: 0.75rem;
 }
 
 .cardPreview {
-    padding: 16px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
+    padding: 1rem;
+    border: 0.0625rem  solid #ddd;
+    border-radius: 0.5rem;
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 0.5rem;
 }
 
 .itensCardPreview span {
     display: block;
-    font-size: 16px;
+    font-size: 1rem;
     color: #555;
 }
 
@@ -67,38 +75,38 @@
 .secaoDireita {
     flex: 2;
     background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 1.25rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
 }
 
 .itensDireita {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 1.25rem;
 }
 
 .uploadImagem {
     background-color: #e0e0e0;
-    height: 150px;
+    height: 9.375rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 8px;
+    border-radius: 0.5rem;
     color: #666;
 }
 
 .cardEvento span {
-    font-size: 16px;
-    margin-bottom: 12px;
-    padding: 12px;
+    font-size: 1.125rem;
+    margin-bottom: 0.75rem;
+    padding: 0.5rem;
 }
 
 .tituloCardDireita {
     display: flex;
-    font-size: 18px;
+    font-size: 1.125rem;
     font-weight: bold;
-    margin-bottom: 12px;
+    margin-bottom: 0.75rem;
     justify-content: flex-end;
 }
 
@@ -106,29 +114,29 @@
 .descricaoEvento,
 .dataHoraEvento,
 .localizacaoEvento {
-    margin-bottom: 20px;
+    margin-bottom: 1.25rem;
 }
 
 
 input[type="text"] {
     width: 100%;
-    padding: 12px;
-    margin-top: 8px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 16px;
+    padding: 0.75rem;
+    margin-top: 0.5rem;
+    border: 0.0625rem  solid #ddd;
+    border-radius: 0.25rem;
+    font-size: 1rem;
 }
 
 .inputContainer {
     position: relative;
-    margin-bottom: 16px;
+    margin-bottom: 0.1rem;
 }
 
 .floatingLabel {
     position: absolute;
-    left: 12px;
-    top: 14px;
-    font-size: 16px;
+    left: 0.75rem;
+    top: 0.875rem;
+    font-size: 1rem;
     color: #999;
     transition: 0.2s ease all;
     pointer-events: none;
@@ -136,18 +144,18 @@ input[type="text"] {
 
 input:focus + .floatingLabel,
 input.hasValue + .floatingLabel {
-    top: -8px;
-    font-size: 12px;
+    top: -0.5rem;
+    font-size: 0.75rem;
     color: #666;
 }
 
 .btnConcluir {
-    padding: 10px 20px;
-    font-size: 16px;
+    padding: 0.625rem 1.25rem;
+    font-size: 1rem;
     color: #fff;
     background-color: #007bff;
     border: none;
-    border-radius: 4px;
+    border-radius: 0.25rem;
     cursor: pointer;
     transition: background-color 0.2s;
 }
@@ -155,5 +163,104 @@ input.hasValue + .floatingLabel {
 .btnConcluir:hover {
     background-color: #0056b3;
 }
+  
+  @media (max-width: 1024px) {
+    .containerCriacao {
+      flex-direction: column;
+    }
+    
+    .secaoEsquerda, .secaoDireita {
+      width: 100%;
+      margin-bottom: 1rem;
+    }
+  
+    .btnVoltar {
+      font-size: 0.875rem;
+    }
+  
+    .tituloPreview {
+      font-size: 1rem;
+    }
+  
+    .itensCardPreview span {
+      font-size: 0.875rem;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    :root {
+      font-size: 14px; 
+    }
+  
+    .containerCriacao {
+      padding: 1rem;
+    }
+  
+    .secaoEsquerda, .secaoDireita {
+      padding: 1rem;
+    }
+  
+    .uploadImagem {
+      height: 6.25rem; 
+    }
+  
+    .btnVoltar {
+      font-size: 0.75rem;
+      padding: 0.5rem;
+    }
+  
+    .tituloPreview {
+      font-size: 0.875rem;
+    }
+  
+    .cardEvento span {
+      font-size: 1rem;
+    }
+  
+    input[type="text"] {
+      padding: 0.5rem;
+      font-size: 0.875rem;
+    }
+  
+    .floating-label {
+      font-size: 0.875rem;
+    }
+  
+    .btnConcluir {
+      padding: 0.5rem 1rem;
+      font-size: 0.875rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
 
-
+    :root {
+      font-size: 12px; 
+    }
+  
+    .containerCriacao {
+      padding: 0.5rem;
+    }
+  
+    .secaoEsquerda, .secaoDireita {
+      padding: 0.75rem;
+    }
+  
+    .itensEsquerda, .itensDireita {
+      gap: 0.75rem;
+    }
+  
+    .tituloPreview {
+      font-size: 0.75rem;
+    }
+  
+    .itensCardPreview span {
+      font-size: 0.75rem;
+    }
+  
+    .btnConcluir {
+      width: 100%;
+      padding: 0.5rem;
+    }
+  }
+  
