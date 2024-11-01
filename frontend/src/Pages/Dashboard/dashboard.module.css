@@ -7,4 +7,12 @@
 .button-logout {
     margin-left: auto;
 }
-    
+
+.grid {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+  
