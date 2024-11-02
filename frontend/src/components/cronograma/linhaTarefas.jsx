@@ -1,13 +1,18 @@
-// TaskList.js
-import React from 'react';
+// src/components/TaskList.jsx
+import React from "react";
 import styles from './calendarioTarefa.module.css';
 
-const LinhaTarefas = ({ tasks }) => {
+const TaskList = ({ tasks, selectedDate }) => {
+  const filteredTasks = tasks.filter(task => task.date === selectedDate);
+
   return (
     <div className={styles.taskListContainer}>
-      <h3>Tarefas</h3>
-      {tasks.length > 0 ? (
-        tasks.map(task => (
+      <div className={styles.tituloTarefa}>
+        <span className={styles.txtTituloTarefa}>Tarefas para {selectedDate || 'Selecione uma data'}</span>
+      </div>
+
+      {filteredTasks.length > 0 ? (
+        filteredTasks.map(task => (
           <div key={task.id} className={styles.task}>
             <div className={styles.taskTitle}>{task.title}</div>
             <div className={styles.taskTime}>{task.time}</div>
@@ -21,4 +26,4 @@ const LinhaTarefas = ({ tasks }) => {
   );
 };
 
-export default LinhaTarefas;
+export default TaskList;

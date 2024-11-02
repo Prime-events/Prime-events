@@ -41,25 +41,45 @@
 
 .container {
     border-radius: 10px;
-    height: 95vh; /* 95% da altura da viewport */
     display: flex;
     flex-direction: column;
     align-items: stretch; /* Alinha os itens para preencher a altura */
-    overflow-y: auto;
+    flex-grow: 1; /* Permite que o container cresça para ocupar espaço */
+    height: 100vh;
 }
 
-.calendarContainer,
-.taskListContainer { /* Adiciona a mesma classe para ambos os containers */
+.calendarContainer{
     background-color: #171717;
     padding: 1rem;
     border-radius: 10px;
-    width: 100%; /* 100% da largura do container pai */
-    max-width: 280px; /* Largura máxima */
-    flex-grow: 1; /* Faz com que ocupem o mesmo espaço disponível */
+    width: 100%; 
+    max-width: 280px;
+    min-height: 50vh;
+    max-height: 100vh;
+    flex-grow: 1;  
+    overflow-y: auto;
+    margin-bottom: 1rem;
 }
 
-.calendarContainer {
-    margin-bottom: 1rem; /* Espaço entre o calendário e a lista de tarefas */
+.dragging {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Sombra para destacar o item */
+    transform: rotate(0.5deg); /* Um leve efeito de rotação */
+    transition: background-color 0.2s ease; /* Transição suave */
+}
+
+
+.taskListContainer { 
+    background-color: #171717;
+    padding: 1rem;
+    border-radius: 10px;
+    width: 100%; 
+    max-width: 280px;
+    min-height: 40vh;
+    max-height: 40vh;
+    flex-grow: 1;  
+    overflow-y: auto;
+    padding-top: 0;
+    margin-bottom: 1rem;
 }
 
 .calendarGrid {
@@ -86,7 +106,8 @@
     background-color: transparent;
 }
 
-.taskDot {
+
+.taskIndicator {
     position: absolute;
     top: 1.7rem; /* Posiciona o ponto logo abaixo do número do dia */
     width: 6px;
@@ -97,12 +118,6 @@
 
 .selectedDay {
     background-color: #FCA311;
-}
-
-.taskListContainer {
-    flex-grow: 1; /* Faz com que a linha de tarefas ocupe o espaço restante */
-    overflow-y: auto;
-    padding-top: 0;
 }
 
 .task {
