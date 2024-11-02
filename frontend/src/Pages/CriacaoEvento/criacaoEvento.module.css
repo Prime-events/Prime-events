@@ -6,7 +6,7 @@
     display: flex;
     padding: 1.25rem;
     gap: 1.25rem;
-    width: 80%;
+    width: 100%;
     max-width: 1200px;
 }
 
@@ -38,7 +38,7 @@
     font-size: 1rem;
     color: #333;
     border: none;
-    background-color: #e0e0e0;
+    background-color: #FCA311;
     border-radius: 0.25rem;
     cursor: pointer;
 }
@@ -107,9 +107,27 @@
     font-size: 1.125rem;
     font-weight: bold;
     margin-bottom: 0.75rem;
-    justify-content: flex-end;
+    justify-content: center;
+    background-color: #FCA311;
+    border-radius: 10px;
 }
 
+.dataHoraEvento {
+    color: #999;
+    display: flex;
+    gap: 1rem;
+    justify-content: center; 
+    align-items: center; 
+}
+.dataHoraEvento span {
+    margin-top: 1rem;
+}
+.dataHoraEvento input {
+    color: #000;
+    border-radius: 10px;
+    border-color: #999;
+    border-width: 0.15rem;
+}
 .nomeEvento,
 .descricaoEvento,
 .dataHoraEvento,
@@ -129,9 +147,15 @@ input[type="text"] {
 
 .inputContainer {
     position: relative;
-    margin-bottom: 0.1rem;
+    margin-bottom: 1rem;
 }
-
+.inputContainerRow {
+    display: flex;
+    gap: 1rem;
+}
+.inputContainerRow .inputContainer {
+    flex: 1;
+}
 .floatingLabel {
     position: absolute;
     left: 0.75rem;
@@ -144,16 +168,21 @@ input[type="text"] {
 
 input:focus + .floatingLabel,
 input.hasValue + .floatingLabel {
-    top: -0.5rem;
-    font-size: 0.75rem;
-    color: #666;
+    top: -0.8rem;
+    font-size: 1rem;
+    color: #FCA311;
+}
+
+.btnConcluirStyle {
+    display: flex;
+    justify-content: right;
 }
 
 .btnConcluir {
     padding: 0.625rem 1.25rem;
     font-size: 1rem;
-    color: #fff;
-    background-color: #007bff;
+    color: #000;
+    background-color: #FCA311;
     border: none;
     border-radius: 0.25rem;
     cursor: pointer;
@@ -161,106 +190,115 @@ input.hasValue + .floatingLabel {
 }
 
 .btnConcluir:hover {
-    background-color: #0056b3;
+    background-color: orange;
 }
   
   @media (max-width: 1024px) {
     .containerCriacao {
-      flex-direction: column;
+        flex-direction: column;
     }
     
     .secaoEsquerda, .secaoDireita {
-      width: 100%;
-      margin-bottom: 1rem;
+        width: 100%;
+        margin-bottom: 1rem;
     }
   
     .btnVoltar {
-      font-size: 0.875rem;
+        font-size: 0.875rem;
     }
   
     .tituloPreview {
-      font-size: 1rem;
+        font-size: 1rem;
     }
   
     .itensCardPreview span {
-      font-size: 0.875rem;
+        font-size: 0.875rem;
     }
   }
   
   @media (max-width: 768px) {
     :root {
-      font-size: 14px; 
+        font-size: 14px; 
     }
   
     .containerCriacao {
-      padding: 1rem;
+        padding: 1rem;
     }
   
     .secaoEsquerda, .secaoDireita {
-      padding: 1rem;
+        padding: 1rem;
     }
   
     .uploadImagem {
-      height: 6.25rem; 
+        height: 6.25rem; 
     }
   
     .btnVoltar {
-      font-size: 0.75rem;
-      padding: 0.5rem;
+        font-size: 0.75rem;
+        padding: 0.5rem;
     }
   
     .tituloPreview {
-      font-size: 0.875rem;
+        font-size: 0.875rem;
     }
   
     .cardEvento span {
-      font-size: 1rem;
+        font-size: 1rem;
     }
-  
+    .dataHoraEvento {
+        display: flex;
+        gap: 0; 
+    }
+
+    .dataHoraEvento span, .dataHoraEvento input {
+        width: 24%; 
+    }
     input[type="text"] {
-      padding: 0.5rem;
-      font-size: 0.875rem;
+        padding: 0.5rem;
+        font-size: 0.875rem;
     }
   
     .floating-label {
-      font-size: 0.875rem;
+        font-size: 0.875rem;
     }
-  
+    .btnConcluirStyle {
+        justify-content: center;
+    }
     .btnConcluir {
-      padding: 0.5rem 1rem;
-      font-size: 0.875rem;
+        padding: 0.5rem 1rem;
+        font-size: 0.875rem;
     }
   }
   
   @media (max-width: 480px) {
 
     :root {
-      font-size: 12px; 
+        font-size: 12px; 
     }
   
     .containerCriacao {
-      padding: 0.5rem;
+        padding: 0.5rem;
     }
   
     .secaoEsquerda, .secaoDireita {
-      padding: 0.75rem;
+        padding: 0.75rem;
     }
   
     .itensEsquerda, .itensDireita {
-      gap: 0.75rem;
+        gap: 0.75rem;
     }
   
     .tituloPreview {
-      font-size: 0.75rem;
+        font-size: 0.75rem;
     }
   
     .itensCardPreview span {
-      font-size: 0.75rem;
+        font-size: 0.75rem;
     }
   
     .btnConcluir {
-      width: 100%;
-      padding: 0.5rem;
+        width: 30%;
+        padding: 0.5rem;
     }
   }
   

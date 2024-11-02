@@ -13,8 +13,9 @@ import { PiGearSixLight } from "react-icons/pi";
 import { RiUserSettingsLine } from "react-icons/ri";
 import { IoIosCheckmarkCircle } from "react-icons/io";
 
-function SegundoHeader() {
-    const [modal, setModal] = useState(false);
+function SegundoHeader({titulo}) {
+
+  const [modal, setModal] = useState(false);
     const [activeTab, setActiveTab] = useState('geral');
     const [theme, setTheme] = useState('Sistema'); // Estado para o tema
 
@@ -42,7 +43,9 @@ function SegundoHeader() {
                     </div>
 
                     <span className={styles.itemBarra}>|</span>
-                    <span className={styles.tituloTela}>Dashboard</span>
+
+                    <span className={styles.tituloTela}>{titulo}</span>
+
                 </div>
                 <div className={styles.itensDireita}>
                     <div className={styles.notificacao} aria-label="Notificações">
