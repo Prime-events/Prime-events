@@ -11,8 +11,12 @@ function Calendario() {
   // Exemplo de lista de tarefas
   const tasks = [
     { id: 1, date: '2024-11-03', title: 'Enem', time: '13:30 - 19:30', description: 'Duração da prova' },
-    { id: 2, date: '2024-11-28', title: 'Chamada com Cliente Terk', time: '09:30 - 10:00', description: '' },
-    { id: 3, date: '2024-11-29', title: 'Reunião Equipe', time: '10:00 - 11:00', description: 'Alinhamento de projeto' },
+    { id: 2, date: '2024-11-10', title: 'Chamada com Cliente Terk', time: '09:30 - 10:00', description: '' },
+    { id: 3, date: '2024-11-03', title: 'Reunião Equipe', time: '10:00 - 11:00', description: 'Alinhamento de projeto' },
+    { id: 3, date: '2024-11-03', title: 'Reunião Equipe', time: '10:00 - 11:00', description: 'Alinhamento de projeto' },
+    { id: 3, date: '2024-11-07', title: 'Reunião Equipe', time: '10:00 - 11:00', description: 'Alinhamento de projeto' },
+    { id: 3, date: '2024-11-22', title: 'Reunião Equipe', time: '10:00 - 11:00', description: 'Alinhamento de projeto' },
+ 
   ];
 
   const filteredTasks = tasks.filter(task => task.date === selectedDate);
@@ -39,14 +43,16 @@ function Calendario() {
     const handleDateClick = (date) => {
       setSelectedDate(date);
     };
-  
+
     const monthNames = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
     const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
-    const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay(); // Obtendo o dia da semana do primeiro dia do mês
-  
-    // Nomes dos dias da semana reduzidos
+    const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay();
+
+    // Cria um conjunto de datas com tarefas para fácil verificação
+    const taskDates = new Set(tasks.map(task => task.date));
+
     const dayNames = ["D", "S", "T", "Q", "Q", "S", "S"];
-  
+
     return (
       <div className={styles.calendarContainer}>
         <div className={styles.monthNavigation}>
@@ -60,7 +66,6 @@ function Calendario() {
           ))}
         </div>
         <div className={styles.calendarGrid}>
-          {/* Adiciona espaço em branco antes do primeiro dia do mês */}
           {[...Array(firstDayOfMonth)].map((_, index) => (
             <div key={index} className={styles.emptyDay}></div>
           ))}
@@ -68,26 +73,31 @@ function Calendario() {
             const day = index + 1;
             const date = `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
             const isSelected = date === selectedDate;
-  
+            const hasTask = taskDates.has(date);
+
             return (
               <div
                 key={date}
-                className={`${styles.day} ${isSelected ? styles.selectedDay : ''}`}
+                className={`${styles.day} ${isSelected ? styles.selectedDay : ''} ${hasTask ? styles.taskIndicator : ''}`}
                 onClick={() => handleDateClick(date)}
               >
                 {day}
+                {hasTask && <div className={styles.taskDot}></div>} {/* Adiciona o ponto verde se tiver tarefa */}
               </div>
             );
           })}
         </div>
       </div>
     );
-  };  
+  };
 
   const TaskList = () => {
     return (
       <div className={styles.taskListContainer}>
-        <span className={styles.tituloTarefa}>Tarefas para {selectedDate || 'Selecione uma data'}</span>
+        <div className={styles.tituloTarefa}>
+          <span className={styles.txtTituloTarefa}>Tarefas para {selectedDate || 'Selecione uma data'}</span>
+        </div>
+
         {filteredTasks.length > 0 ? (
           filteredTasks.map(task => (
             <div key={task.id} className={styles.task}>
@@ -107,13 +117,13 @@ function Calendario() {
     <div className={styles.appContainer}>
       <div className={`${styles.sidebar} ${isSidebarVisible ? styles.sidebarVisible : ''}`}>
         {isSidebarVisible ? (
-          <IoIosArrowForward 
-            className={styles.closeIcon} 
+          <IoIosArrowForward
+            className={styles.closeIcon}
             onClick={() => setIsSidebarVisible(false)} // Fecha a sidebar ao clicar
           />
         ) : (
-          <IoIosArrowBack 
-            className={styles.openIcon} 
+          <IoIosArrowBack
+            className={styles.openIcon}
             onClick={() => setIsSidebarVisible(true)} // Abre a sidebar ao clicar
           />
         )}
@@ -121,11 +131,6 @@ function Calendario() {
           <Calendar />
           <TaskList />
         </div>
-      </div>
-
-      <div className={styles.mainContent}>
-        <h1>Conteúdo Principal</h1>
-        <p>Aqui fica o conteúdo principal da aplicação.</p>
       </div>
     </div>
   );
