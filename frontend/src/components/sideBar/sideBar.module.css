@@ -13,7 +13,6 @@
     overflow-x: hidden;
     width: 55px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-    margin-top: -1rem;
     padding-top: 1rem;
     display: flex;
     height: calc(100vh - var(--header-height) );
@@ -117,8 +116,10 @@
 .sideBarListItem.active {
     background-color: var(--cinza-muito-claro);
 }
-.sideBarListItem.active path {
+.sideBarListItem.active path, .sideBarListItem.active .sideBarOpened {
     stroke: var(--laranja);
+    font-weight: 600;
+    color: var(--laranja);
 }
 .sideBarListItem:hover {
     background-color: var(--cinza-muito-claro);
@@ -134,3 +135,16 @@
 .sideBar.open {
     width: 244px;
 }
+
+@media (max-width: 1020px) {
+    :root {
+       --header-height:84px;
+    }
+}
+
+@media (max-width: 480px) {
+ :root {
+    --header-height:62px;
+ }
+}
+
