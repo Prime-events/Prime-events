@@ -70,7 +70,12 @@
     font-size: 1rem;
     color: #555;
 }
-
+/* .itensCardPreview .dataHoraPreview {
+    display:none;
+}
+.dataHoraPreview.show {
+    display: block;
+} */
 /* Seção Direita */
 .secaoDireita {
     flex: 2;
@@ -193,112 +198,113 @@ input.hasValue + .floatingLabel {
     background-color: orange;
 }
   
-  @media (max-width: 1024px) {
-    .containerCriacao {
-        flex-direction: column;
-    }
-    
-    .secaoEsquerda, .secaoDireita {
-        width: 100%;
-        margin-bottom: 1rem;
-    }
-  
-    .btnVoltar {
-        font-size: 0.875rem;
-    }
-  
-    .tituloPreview {
-        font-size: 1rem;
-    }
-  
-    .itensCardPreview span {
-        font-size: 0.875rem;
-    }
-  }
-  
-  @media (max-width: 768px) {
-    :root {
-        font-size: 14px; 
-    }
-  
-    .containerCriacao {
-        padding: 1rem;
-    }
-  
-    .secaoEsquerda, .secaoDireita {
-        padding: 1rem;
-    }
-  
-    .uploadImagem {
-        height: 6.25rem; 
-    }
-  
-    .btnVoltar {
-        font-size: 0.75rem;
-        padding: 0.5rem;
-    }
-  
-    .tituloPreview {
-        font-size: 0.875rem;
-    }
-  
-    .cardEvento span {
-        font-size: 1rem;
-    }
-    .dataHoraEvento {
-        display: flex;
-        gap: 0; 
-    }
+@media (max-width: 1024px) {
+.containerCriacao {
+    flex-direction: column;
+}
 
-    .dataHoraEvento span, .dataHoraEvento input {
-        width: 24%; 
-    }
-    input[type="text"] {
-        padding: 0.5rem;
-        font-size: 0.875rem;
-    }
-  
-    .floating-label {
-        font-size: 0.875rem;
-    }
-    .btnConcluirStyle {
-        justify-content: center;
-    }
-    .btnConcluir {
-        padding: 0.5rem 1rem;
-        font-size: 0.875rem;
-    }
-  }
-  
-  @media (max-width: 480px) {
+.secaoEsquerda, .secaoDireita {
+    width: 100%;
+    margin-bottom: 1rem;
+}
 
-    :root {
-        font-size: 12px; 
-    }
-  
-    .containerCriacao {
-        padding: 0.5rem;
-    }
-  
-    .secaoEsquerda, .secaoDireita {
-        padding: 0.75rem;
-    }
-  
-    .itensEsquerda, .itensDireita {
-        gap: 0.75rem;
-    }
-  
-    .tituloPreview {
-        font-size: 0.75rem;
-    }
-  
-    .itensCardPreview span {
-        font-size: 0.75rem;
-    }
-  
-    .btnConcluir {
-        width: 30%;
-        padding: 0.5rem;
-    }
-  }
-  
+.btnVoltar {
+    font-size: 0.875rem;
+}
+
+.tituloPreview {
+    font-size: 1rem;
+}
+
+.itensCardPreview span {
+    font-size: 0.875rem;
+}
+}
+
+@media (max-width: 768px) {
+:root {
+    font-size: 14px; 
+}
+
+.containerCriacao {
+    padding: 1rem;
+}
+
+.secaoEsquerda, .secaoDireita {
+    padding: 1rem;
+}
+
+.uploadImagem {
+    height: 6.25rem; 
+}
+
+.btnVoltar {
+    font-size: 0.75rem;
+    padding: 0.5rem;
+}
+
+.tituloPreview {
+    font-size: 0.875rem;
+}
+
+.cardEvento span {
+    font-size: 1rem;
+}
+.dataHoraEvento {
+    display: flex;
+    gap: 0; 
+}
+
+.dataHoraEvento span, .dataHoraEvento input {
+    width: 24%; 
+}
+input[type="text"] {
+    padding: 0.5rem;
+    font-size: 0.875rem;
+}
+
+.floating-label {
+    font-size: 0.875rem;
+}
+.btnConcluirStyle {
+    justify-content: center;
+}
+.btnConcluir {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+}
+}
+
+@media (max-width: 480px) {
+
+:root {
+    font-size: 12px; 
+}
+
+.containerCriacao {
+    padding: 0.5rem;
+}
+
+.secaoEsquerda, .secaoDireita {
+    padding: 0.75rem;
+}
+
+.itensEsquerda, .itensDireita {
+    gap: 0.75rem;
+}
+
+.tituloPreview {
+    font-size: 0.75rem;
+}
+
+.itensCardPreview span {
+    font-size: 0.75rem;
+}
+
+.btnConcluir {
+    width: 30%;
+    padding: 0.5rem;
+}
+}
+
+

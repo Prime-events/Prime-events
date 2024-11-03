@@ -4,8 +4,12 @@ import styles from "./criacaoEvento.module.css";
 import { IoArrowBackCircleOutline } from "react-icons/io5";
 
 function CriacaoEvento() {
-    const [endereco, setEndereco] = useState({
+    const [data, setData] = useState({
+        nomeEvento: "",
+        descricaoEvento: "",
         nomeLocal: "",
+        dataHoraInicial: "",
+        dataHoraFinal: "",
         cep: "",
         rua: "",
         numero: "",
@@ -14,15 +18,37 @@ function CriacaoEvento() {
         cidade: "",
         estado: "",
     });
+    const [date, setDate] = useState({
+        dataEvento: "",
+        horarioInicio: "",
+        horarioTermino: "",
+    });
 
+    const handleDate = (e) => {
+        const { name, value } = e.target;
+        const newDate = { ...date, [name]: value };
+            
+        if (newDate.dataEvento && newDate.horarioInicio) {
+            const [horaInicio, minutoInicio] = newDate.horarioInicio.split(":");
+            const dataHoraInicial = new Date(newDate.dataEvento);
+            dataHoraInicial.setHours(horaInicio, minutoInicio);
+            setData((prevData) => ({ ...prevData, dataHoraInicial }));
+        }
 
-
+        if (newDate.dataEvento && newDate.horarioTermino) {
+            const [horaTermino, minutoTermino] = newDate.horarioTermino.split(":");
+            const dataHoraFinal = new Date(newDate.dataEvento);
+            dataHoraFinal.setHours(horaTermino, minutoTermino);
+            setData((prevData) => ({ ...prevData, dataHoraFinal }));
+        }
+        setDate(newDate);
+    }
     const handleChange = (e) => {
-    const { name, value } = e.target;
-    setEndereco((prevValues) => ({
-        ...prevValues,
-        [name]: value,
-    }));
+        const { name, value } = e.target;
+        setData((prevValues) => ({
+            ...prevValues,
+            [name]: value,
+        }));
     };
 
     return (<>
@@ -38,10 +64,12 @@ function CriacaoEvento() {
                             <span className={styles.tituloPreview}>Pré-visualização</span>
                             <div className={styles.cardPreview}>
                                 <div className={styles.itensCardPreview}>
-                                    <span className={styles.nomePreview}>Nome do evento</span>
-                                    <span className={styles.descricaoPreview}></span>
-                                    <span className={styles.dataHoraPreview}></span>
-                                    <span className={styles.localizacaoPreview}></span>
+                                    <span className={styles.nomePreview}>{data.nomeEvento}</span>
+                                    <span className={styles.descricaoPreview}>{data.descricaoEvento}</span>
+                                    <span className={`${styles.dataHoraPreview}`}> {`Data: ${date.dataEvento}`}</span>
+                                    <span className={`${styles.dataHoraPreview}`}>{`Início: ${date.horarioInicio}`}</span>
+                                    <span className={`${styles.dataHoraPreview}`}>{`Término: ${date.horarioTermino}`} </span>
+                                    <span className={styles.localizacaoPreview}>{`${data.nomeLocal} ${data.cep} ${data.rua} ${data.numero} ${data.complemento} ${data.bairro} ${data.cidade} ${data.estado}`}</span>
                                 </div>
                             </div>
                         </div>
@@ -58,9 +86,9 @@ function CriacaoEvento() {
                                     <input
                                         type="text"
                                         name="nomeEvento"
-                                        value={endereco.nomeEvento}
+                                        value={data.nomeEvento}
                                         onChange={handleChange}
-                                        className={endereco.nomeEvento ? styles.hasValue : ""}
+                                        className={data.nomeEvento ? styles.hasValue : ""}
                                     />
                                     <label className={styles.floatingLabel}>Nome do Evento</label>
                                 </div>
@@ -70,9 +98,9 @@ function CriacaoEvento() {
                                 <input
                                     type="text"
                                     name="descricaoEvento"
-                                    value={endereco.descricaoEvento}
+                                    value={data.descricaoEvento}
                                     onChange={handleChange}
-                                    className={endereco.descricaoEvento ? styles.hasValue : ""}
+                                    className={data.descricaoEvento ? styles.hasValue : ""}
                                 />
                                 <label className={styles.floatingLabel}>Descrição do Evento</label>
                             </div>
@@ -83,25 +111,25 @@ function CriacaoEvento() {
                             <input
                                 type="date"
                                 name="dataEvento"
-                                value={endereco.dataEvento}
-                                onChange={handleChange}
-                                className={endereco.dataEvento ? styles.hasValue : ""}
+                                value={date.dataEvento}
+                                onChange={handleDate}
+                                className={date.dataEvento ? styles.hasValue : ""}
                             /><br/>
                             <span>Início</span>
                             <input
                                 type="time"
                                 name="horarioInicio"
-                                value={endereco.horarioInicio}
-                                onChange={handleChange}
-                                className={endereco.horarioInicio ? styles.hasValue : ""}
+                                value={date.horarioInicio}
+                                onChange={handleDate}
+                                className={date.horarioInicio ? styles.hasValue : ""}
                             /><br/>
                             <span>Término</span>
                             <input
                                 type="time"
                                 name="horarioTermino"
-                                value={endereco.horarioTermino}
-                                onChange={handleChange}
-                                className={endereco.horarioTermino ? styles.hasValue : ""}
+                                value={date.horarioTermino}
+                                onChange={handleDate}
+                                className={date.horarioTermino ? styles.hasValue : ""}
                             />
                         </div>
 
@@ -110,9 +138,9 @@ function CriacaoEvento() {
                                 <input
                                     type="text"
                                     name="nomeLocal"
-                                    value={endereco.nomeLocal}
+                                    value={data.nomeLocal}
                                     onChange={handleChange}
-                                    className={endereco.nomeLocal ? styles.hasValue : ""}
+                                    className={data.nomeLocal ? styles.hasValue : ""}
                                 />
                                 <label className={styles.floatingLabel}>Nome do local</label>
                             </div>
@@ -120,9 +148,9 @@ function CriacaoEvento() {
                                 <input
                                     type="text"
                                     name="cep"
-                                    value={endereco.cep}
+                                    value={data.cep}
                                     onChange={handleChange}
-                                    className={endereco.cep ? styles.hasValue : ""}
+                                    className={data.cep ? styles.hasValue : ""}
                                 />
                                 <label className={styles.floatingLabel}>CEP</label>
                             </div>
@@ -130,9 +158,9 @@ function CriacaoEvento() {
                                 <input
                                     type="text"
                                     name="rua"
-                                    value={endereco.rua}
+                                    value={data.rua}
                                     onChange={handleChange}
-                                    className={endereco.rua ? styles.hasValue : ""}
+                                    className={data.rua ? styles.hasValue : ""}
                                 />
                                 <label className={styles.floatingLabel}>Endereço</label>
                             </div>
@@ -141,9 +169,9 @@ function CriacaoEvento() {
                                     <input
                                         type="text"
                                         name="numero"
-                                        value={endereco.numero}
+                                        value={data.numero}
                                         onChange={handleChange}
-                                        className={endereco.numero ? styles.hasValue : ""}
+                                        className={data.numero ? styles.hasValue : ""}
                                     />
                                     <label className={styles.floatingLabel}>Número</label>
                                 </div>
@@ -151,9 +179,9 @@ function CriacaoEvento() {
                                     <input
                                         type="text"
                                         name="complemento"
-                                        value={endereco.complemento}
+                                        value={data.complemento}
                                         onChange={handleChange}
-                                        className={endereco.complemento ? styles.hasValue : ""}
+                                        className={data.complemento ? styles.hasValue : ""}
                                     />
                                     <label className={styles.floatingLabel}>Complemento</label>
                                 </div>
@@ -162,9 +190,9 @@ function CriacaoEvento() {
                                 <input
                                     type="text"
                                     name="bairro"
-                                    value={endereco.bairro}
+                                    value={data.bairro}
                                     onChange={handleChange}
-                                    className={endereco.bairro ? styles.hasValue : ""}
+                                    className={data.bairro ? styles.hasValue : ""}
                                 />
                                 <label className={styles.floatingLabel}>Bairro</label>
                             </div>
@@ -172,9 +200,9 @@ function CriacaoEvento() {
                                 <input
                                     type="text"
                                     name="cidade"
-                                    value={endereco.cidade}
+                                    value={data.cidade}
                                     onChange={handleChange}
-                                    className={endereco.cidade ? styles.hasValue : ""}
+                                    className={data.cidade ? styles.hasValue : ""}
                                 />
                                 <label className={styles.floatingLabel}>Cidade</label>
                             </div>
@@ -182,9 +210,9 @@ function CriacaoEvento() {
                                 <input
                                     type="text"
                                     name="estado"
-                                    value={endereco.estado}
+                                    value={data.estado}
                                     onChange={handleChange}
-                                    className={endereco.estado ? styles.hasValue : ""}
+                                    className={data.estado ? styles.hasValue : ""}
                                 />
                                 <label className={styles.floatingLabel}>Estado</label>
                             </div>
