@@ -190,7 +190,13 @@ input[type="text"] {
     transition: 0.2s ease all;
     pointer-events: none;
 }
-
+.floatingLabel.invalido {
+    position:initial;
+    color: red;
+    display: flex;
+    justify-content: end;
+    margin-right: 1rem;
+}
 input:focus + .floatingLabel,
 input.hasValue + .floatingLabel {
     top: -0.8rem;

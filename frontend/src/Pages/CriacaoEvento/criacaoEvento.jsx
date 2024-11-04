@@ -1,18 +1,19 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import SegundoHeader from '../../components/header/segundoHeader/segundoHeader.jsx'
 import styles from "./criacaoEvento.module.css";
 import { IoArrowBackCircleOutline } from "react-icons/io5";
+import axios from 'axios';
 
 function CriacaoEvento() {
-    const [imagem, setImagem] = useState(null);
     const [hasImagem, setHasImagem] = useState(false);
+    const [isValid, setIsValid] = useState(true);
     const [imagemURL, setImagemURL] = useState('');
     const [data, setData] = useState({
         nomeEvento: "",
         descricaoEvento: "",
         nomeLocal: "",
-        dataHoraInicial: "",
-        dataHoraFinal: "",
+        dataHoraInicial: null,
+        dataHoraFinal: null,
         cep: "",
         rua: "",
         numero: "",
@@ -20,6 +21,7 @@ function CriacaoEvento() {
         bairro: "",
         cidade: "",
         estado: "",
+        imagem: null,
     });
     const [date, setDate] = useState({
         dataEvento: "",
@@ -57,7 +59,6 @@ function CriacaoEvento() {
     const handleImageChange = (e) => {
         const file = e.target.files[0];
         if (file) {
-            setImagem(file);
             setImagemURL(URL.createObjectURL(file));
             console.log(URL.createObjectURL(file));
             setData((prevData) => ({...prevData, imagem: file}));
@@ -65,6 +66,25 @@ function CriacaoEvento() {
         }
     };
 
+    useEffect(() => {
+        const fetchEndereco = async () => {
+            const response = await axios.get(`https://viacep.com.br/ws/${data.cep}/json/`);
+            if (response.data.erro) {
+                setIsValid(false);
+                return;
+            }
+            setData((prevData) => ({...prevData, rua: response.data.logradouro}));
+            setData((prevData) => ({...prevData, bairro: response.data.bairro}));
+            setData((prevData) => ({...prevData, estado: response.data.estado}));
+            setData((prevData) => ({...prevData, cidade: response.data.localidade}));
+            setIsValid(true);
+        }
+        const cep = data.cep.replace(/\D/g, '');
+        const validaCep = /^[0-9]{8}$/;
+        if (validaCep.test(cep)) {
+            fetchEndereco();
+        }
+    }, [data.cep]);
     return (<>
         <SegundoHeader titulo='Criar evento'/>
         <div className={styles.containerCriacao}>
@@ -83,7 +103,10 @@ function CriacaoEvento() {
                                     <span className={`${styles.dataHoraPreview}`}> {`Data: ${date.dataEvento}`}</span>
                                     <span className={`${styles.dataHoraPreview}`}>{`Início: ${date.horarioInicio}`}</span>
                                     <span className={`${styles.dataHoraPreview}`}>{`Término: ${date.horarioTermino}`} </span>
-                                    <span className={styles.localizacaoPreview}>{`${data.nomeLocal} ${data.cep} ${data.rua} ${data.numero} ${data.complemento} ${data.bairro} ${data.cidade} ${data.estado}`}</span>
+                                    <span className={`${styles.localizacaoPreview}`}>{`${data.nomeLocal}`}</span>
+                                    <span className={`${styles.localizacaoPreview}`}>{` ${data.cep}`}</span>
+                                    <span className={`${styles.localizacaoPreview}`}>{`${data.rua} ${data.numero} ${data.complemento} ${data.bairro}`}</span>
+                                    <span className={`${styles.localizacaoPreview}`}>{`${data.cidade} ${data.estado}`}</span>
                                 </div>
                             </div>
                         </div>
@@ -163,6 +186,7 @@ function CriacaoEvento() {
                                 />
                                 <label className={styles.floatingLabel}>Nome do local</label>
                             </div>
+                            <label className={`${styles.floatingLabel} ${isValid ? '' : styles.invalido}`}>CEP Inválido</label>
                             <div className={styles.inputContainer}>
                                 <input
                                     type="text"
@@ -171,7 +195,7 @@ function CriacaoEvento() {
                                     onChange={handleChange}
                                     className={data.cep ? styles.hasValue : ""}
                                 />
-                                <label className={styles.floatingLabel}>CEP</label>
+                                <label className={styles.floatingLabel}>CEP</label>    
                             </div>
                             <div className={styles.inputContainer}>
                                 <input
