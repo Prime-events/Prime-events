@@ -2,7 +2,6 @@
     box-sizing: border-box;
     margin: 0 auto;
     padding: 0;
-    font-family: Arial, sans-serif;
     display: flex;
     padding: 1.25rem;
     gap: 1.25rem;
@@ -34,15 +33,14 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.5rem 1rem;
+    padding: 0.625rem 1.25rem;
     font-size: 1rem;
-    color: #333;
+    color: #000;
     border: none;
     background-color: #FCA311;
     border-radius: 0.25rem;
     cursor: pointer;
 }
-
 .preview {
     background-color: #fff;
     padding: 1rem;
@@ -91,14 +89,37 @@
     gap: 1.25rem;
 }
 
-.uploadImagem {
-    background-color: #e0e0e0;
-    height: 9.375rem;
+.showimagem {
+    display: none;
+}
+.showImagem.active {
+    height: 15rem;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 0.5rem;
     color: #666;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.btnUploadImagem {
+    padding: 0.625rem 1.25rem;
+    font-size: 1rem;
+    color: #000;
+    background-color: #FCA311;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    width: 12rem;
+    display: flex;
+    justify-content: center;
+    margin: auto;
+}
+input[type="file"] {
+    display: none;
 }
 
 .cardEvento span {
@@ -139,7 +160,6 @@
 .localizacaoEvento {
     margin-bottom: 1.25rem;
 }
-
 
 input[type="text"] {
     width: 100%;
@@ -194,9 +214,11 @@ input.hasValue + .floatingLabel {
     transition: background-color 0.2s;
 }
 
-.btnConcluir:hover {
-    background-color: orange;
-}
+.btnConcluir:hover,
+.btnUploadImagem:hover,
+.btnVoltar:hover {
+    opacity: .9;
+} 
   
 @media (max-width: 1024px) {
 .containerCriacao {

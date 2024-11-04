@@ -4,6 +4,9 @@ import styles from "./criacaoEvento.module.css";
 import { IoArrowBackCircleOutline } from "react-icons/io5";
 
 function CriacaoEvento() {
+    const [imagem, setImagem] = useState(null);
+    const [hasImagem, setHasImagem] = useState(false);
+    const [imagemURL, setImagemURL] = useState('');
     const [data, setData] = useState({
         nomeEvento: "",
         descricaoEvento: "",
@@ -45,10 +48,21 @@ function CriacaoEvento() {
     }
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setData((prevValues) => ({
-            ...prevValues,
+        setData((prevData) => ({
+            ...prevData,
             [name]: value,
         }));
+        console.log(data);
+    };
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setImagem(file);
+            setImagemURL(URL.createObjectURL(file));
+            console.log(URL.createObjectURL(file));
+            setData((prevData) => ({...prevData, imagem: file}));
+            setHasImagem(true);
+        }
     };
 
     return (<>
@@ -78,7 +92,12 @@ function CriacaoEvento() {
             </div>
             <div className={styles.secaoDireita}>
                 <div className={styles.itensDireita}>
-                    <div className={styles.uploadImagem}><span>Adicionar Imagem</span></div>
+                    <div className={`${styles.showImagem} ${hasImagem ? styles.active : ''}`} style={{backgroundImage:`url(${imagemURL})`}}>
+                    </div>
+                        <label htmlFor="file-upload" className={styles.btnUploadImagem}>
+                                Adicionar Imagem
+                        </label>
+                        <input id="file-upload" type="file" onChange={handleImageChange} accept="image/*" required/>
                     <div className={styles.cardEvento}>
                         <span className={styles.tituloCardDireita}>Visão geral do Evento</span><br/>
                         <div className={styles.nomeEvento}>
