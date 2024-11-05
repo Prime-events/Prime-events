@@ -1,18 +1,36 @@
-.container-dashboard {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-    
-.button-logout {
-    margin-left: auto;
-}
+/* dashboard.module.css */
 
 .grid {
     display: flex;
-    gap: 20px;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
+    justify-content: center; /* Centraliza os cards no contêiner */
+    padding: 5px; /* Reduzido para 5px */
+    overflow-x: auto; /* Permite rolagem horizontal se os cards não couberem na tela */
 }
-  
+
+.card {
+    flex: 0 0 250px; /* Cada card ocupa 250px de largura no desktop */
+    margin: 5px; /* Reduzido para 5px */
+
+    padding: 20px;
+    text-align: center;
+}
+
+/* Media query para telas menores */
+@media (max-width: 768px) {
+    .card {
+        flex: 0 0 200px; /* Cada card ocupa 200px de largura em telas menores */
+    }
+}
+
+@media (max-width: 480px) {
+    .grid {
+        padding: 2px; /* Reduzido para 2px */
+    }
+
+    .card {
+        flex: 0 0 30px; /* Cada card ocupa 50px de largura em telas muito pequenas */
+        padding: 2px; /* Ajuste o padding se necessário */
+        font-size: 0.8em; /* Ajuste o tamanho da fonte se necessário */
+        margin: 2px; /* Reduzido para 2px */
+    }
+}

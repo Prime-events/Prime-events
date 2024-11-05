@@ -1,6 +1,6 @@
-import SegundoHeader from "../../components/header/segundoHeader/segundoHeader";
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import React, { useState } from 'react';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import SegundoHeader from "../../components/header/segundoHeader/segundoHeader";
 import Card from '../../components/card/card';
 import style from './dashboard.module.css';
 
@@ -10,10 +10,10 @@ function Dashboard() {
         { id: '2', color: 'red', icon: '❌', number: '63', text: 'Eventos cancelados' },
         { id: '3', color: 'orange', icon: '📅', number: '300', text: 'Eventos Criados' },
     ]);
-    
+
     const onDragEnd = (result) => {
         if (!result.destination) return;
-    
+
         const reorderedCards = Array.from(cards);
         const [movedCard] = reorderedCards.splice(result.source.index, 1);
         reorderedCards.splice(result.destination.index, 0, movedCard);
@@ -34,6 +34,7 @@ function Dashboard() {
                                             ref={provided.innerRef}
                                             {...provided.draggableProps}
                                             {...provided.dragHandleProps}
+                                            className={style.card} // Aplicando a classe do card
                                         >
                                             <Card color={card.color} icon={card.icon} number={card.number} text={card.text} />
                                         </div>
@@ -47,6 +48,6 @@ function Dashboard() {
             </DragDropContext>
         </>
     );
-} 
+}
 
 export default Dashboard;
