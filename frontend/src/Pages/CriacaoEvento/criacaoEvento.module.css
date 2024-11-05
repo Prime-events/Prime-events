@@ -1,0 +1,354 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+}
+.containerCriacao {
+    box-sizing: border-box;
+    margin: 0 auto;
+    padding: 0;
+    display: flex;
+    padding: 1.25rem;
+    gap: 1.25rem;
+    width: 100%;
+    max-width: 1200px;
+}
+
+:root {
+    font-size: 16px;
+    
+  }
+
+.secaoEsquerda {
+    flex: 1;
+    padding: 1.25rem;
+    border-radius: 0.5rem;
+    position: relative;
+  }
+
+.itensEsquerda {
+    position: sticky;
+    top: calc(var(--header-height) + 1rem);
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+.voltarEventos .btnVoltar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.625rem 1.25rem;
+    font-size: 1rem;
+    color: #000;
+    border: none;
+    background-color: #FCA311;
+    border-radius: 0.25rem;
+    cursor: pointer;
+}
+.preview {
+    background-color: #fff;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+  }
+
+.tituloPreview {
+    font-size: 1.125rem;
+    font-weight: bold;
+    margin-bottom: 0.75rem;
+}
+
+.cardPreview {
+    padding: 1rem;
+    border: 0.0625rem  solid #ddd;
+    border-radius: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.itensCardPreview span {
+    display: block;
+    font-size: 1rem;
+    color: #555;
+}
+/* .itensCardPreview .dataHoraPreview {
+    display:none;
+}
+.dataHoraPreview.show {
+    display: block;
+} */
+/* Seção Direita */
+.secaoDireita {
+    flex: 2;
+    padding: 1.25rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+}
+
+.itensDireita {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.showimagem {
+    display: none;
+}
+.showImagem.active {
+    height: 15rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.5rem;
+    color: #666;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.btnUploadImagem {
+    padding: 0.625rem 1.25rem;
+    font-size: 1rem;
+    color: #000;
+    background-color: #FCA311;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    width: 12rem;
+    display: flex;
+    justify-content: center;
+    margin: auto;
+}
+input[type="file"] {
+    display: none;
+}
+
+.cardEvento span {
+    font-size: 1.125rem;
+    margin-bottom: 0.75rem;
+    padding: 0.5rem;
+}
+
+.tituloCardDireita {
+    display: flex;
+    font-size: 1.125rem;
+    font-weight: bold;
+    margin-bottom: 0.75rem;
+    justify-content: center;
+    background-color: #FCA311;
+    border-radius: 10px;
+}
+
+.dataHoraEvento {
+    color: #999;
+    display: flex;
+    gap: 1rem;
+    justify-content: center; 
+    align-items: center; 
+}
+.dataHoraEvento span {
+    margin-top: 1rem;
+}
+.dataHoraEvento input {
+    color: #000;
+    padding: .6rem;
+    border-radius: 10px;
+    border-color: #999;
+    border-width: 0.15rem;
+}
+.nomeEvento,
+.descricaoEvento,
+.dataHoraEvento,
+.localizacaoEvento {
+    margin-bottom: 1.25rem;
+}
+
+input[type="text"], 
+input[type="number"] {
+    width: 100%;
+    padding: 0.75rem;
+    margin-top: 0.5rem;
+    border: 0.0625rem  solid #ddd;
+    border-radius: 0.25rem;
+    font-size: 1rem;
+    z-index: 1;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.inputContainer {
+    position: relative;
+    margin-bottom: 1rem;
+}
+.inputContainerRow {
+    display: flex;
+    gap: 1rem;
+}
+.inputContainerRow .inputContainer {
+    flex: 1;
+}
+.invalidLabel,
+.floatingLabel {
+    position: absolute;
+    left: 0.75rem;
+    top: 0.875rem;
+    font-size: 1rem;
+    color: #999;
+    transition: 0.2s ease all;
+    pointer-events: none;
+}
+.invalidLabel {
+    display: none;
+}
+.invalidLabel.invalido {
+    position:initial;
+    color: red;
+    display: flex;
+    justify-content: end;
+    margin-right: 1rem;
+}
+input:focus + .floatingLabel,
+input.hasValue + .floatingLabel {
+    top: -0.8rem;
+    font-size: 1rem;
+    color: #FCA311;
+}
+
+.btnConcluirStyle {
+    display: flex;
+    justify-content: right;
+}
+
+.btnConcluir {
+    padding: 0.625rem 1.25rem;
+    font-size: 1rem;
+    color: #000;
+    background-color: #FCA311;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btnConcluir:hover,
+.btnUploadImagem:hover,
+.btnVoltar:hover {
+    opacity: .9;
+} 
+  
+@media (max-width: 1024px) {
+.containerCriacao {
+    flex-direction: column;
+}
+
+.secaoEsquerda, .secaoDireita {
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+.btnVoltar {
+    font-size: 0.875rem;
+}
+
+.tituloPreview {
+    font-size: 1rem;
+}
+
+.itensCardPreview span {
+    font-size: 0.875rem;
+}
+}
+
+@media (max-width: 768px) {
+:root {
+    font-size: 14px; 
+}
+
+.containerCriacao {
+    padding: 1rem;
+}
+
+.secaoEsquerda, .secaoDireita {
+    padding: 1rem;
+}
+
+.uploadImagem {
+    height: 6.25rem; 
+}
+
+.btnVoltar {
+    font-size: 0.75rem;
+    padding: 0.5rem;
+}
+
+.tituloPreview {
+    font-size: 0.875rem;
+}
+
+.cardEvento span {
+    font-size: 1rem;
+}
+.dataHoraEvento {
+    display: flex;
+    gap: 0; 
+}
+
+.dataHoraEvento span, .dataHoraEvento input {
+    width: 24%; 
+}
+input[type="text"] {
+    padding: 0.5rem;
+    font-size: 0.875rem;
+}
+
+.floating-label {
+    font-size: 0.875rem;
+}
+.btnConcluirStyle {
+    justify-content: center;
+}
+.btnConcluir {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+}
+}
+
+@media (max-width: 480px) {
+
+:root {
+    font-size: 12px; 
+}
+
+.containerCriacao {
+    padding: 0.5rem;
+}
+
+.secaoEsquerda, .secaoDireita {
+    padding: 0.75rem;
+}
+
+.itensEsquerda, .itensDireita {
+    gap: 0.75rem;
+}
+
+.tituloPreview {
+    font-size: 0.75rem;
+}
+
+.itensCardPreview span {
+    font-size: 0.75rem;
+}
+
+.btnConcluir {
+    width: 30%;
+    padding: 0.5rem;
+}
+}
+
+
