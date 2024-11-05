@@ -4,7 +4,8 @@ import Formulario from './Pages/Formulario/formulario.jsx';
 import Dashboard from './Pages/Dashboard/dashboard.jsx';
 import SegundoHeader from './components/header/segundoHeader/segundoHeader.jsx';
 import Eventos from './Pages/Eventos/eventos.jsx';
-import CalendarioTarefa from './components/cronograma/calendarioTarefa.jsx';
+// import CalendarioTarefa from './components/cronograma/calendarioTarefa.jsx';
+import Cronograma from './components/cronograma/cronograma.jsx';
 
 function RoutesApp(){
 
@@ -16,7 +17,7 @@ function RoutesApp(){
            <Route path='/dashboard' element = {<Dashboard/>}/>
            <Route path='/eventos' element = {<Eventos/>}/>
            <Route path='/segundoHeader' element = {<SegundoHeader/>}/>
-           <Route path='/calendario' element = {<CalendarioTarefa/>}/>
+           <Route path='/cronograma' element = {<Cronograma/>}/>
          </Routes>
        </BrowserRouter>
     );
