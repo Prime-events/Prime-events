@@ -13,8 +13,6 @@ function SideBar() {
     }
 
     return ( 
-        //
-        <div className={styles.container}>
             <aside className={`${styles.sideBar} ${isOpen ? styles.open : ''}`}>
                 <div className={styles.topSideBar}>
                     <button className={styles.btnMenu} onClick={toggleSideBar}>
@@ -88,21 +86,8 @@ function SideBar() {
                     </li>
                 </ul>
                 </div>
-                {/*<div className={`${styles.sideBarOpened} ${isOpen ? styles.opened : ''}`}>
-                    <button className={styles.btnMenu} onClick={toggleSideBar}>
-                        <svg xmlns="http://www.w3.org/2000/svg" 
-                            viewBox="0 0 24 24" 
-                            focusable="false"
-                            aria-hidden="true" 
-                            className={styles.iconMenu}>
-                            <path d="M21 6H3V5h18v1zm0 5H3v1h18v-1zm0 6H3v1h18v-1z"></path>
-                        </svg>
-                    </button>
-                    SideBar
-                </div>*/}
             </aside>
-           
-        </div>
+
     )
 }
 
