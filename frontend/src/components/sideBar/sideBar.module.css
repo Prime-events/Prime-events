@@ -20,6 +20,7 @@
     transition: width var(--animation-duration) var(--animation-timing-curve);
     position: sticky;
     left: 0;
+    top: var(--header-height);
 }
 .sideBar .topSideBar {
     display: flex;
