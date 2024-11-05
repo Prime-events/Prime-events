@@ -181,18 +181,20 @@ function CriacaoEvento() {
                                     type="text"
                                     name="nomeLocal"
                                     value={data.nomeLocal}
-                                    onChange={handleChange}
+                                    onChange={handleChange}                                    
                                     className={data.nomeLocal ? styles.hasValue : ""}
                                 />
                                 <label className={styles.floatingLabel}>Nome do local</label>
                             </div>
-                            <label className={`${styles.floatingLabel} ${isValid ? '' : styles.invalido}`}>CEP Inválido</label>
+                            <label className={`${styles.invalidLabel} ${isValid ? '' : styles.invalido}`}>CEP Inválido</label>
                             <div className={styles.inputContainer}>
                                 <input
-                                    type="text"
+                                    type="number"
                                     name="cep"
                                     value={data.cep}
                                     onChange={handleChange}
+                                    max="99999999"
+                                    onInput={data.cep.length > 8 ? setData((prevData) => ({...prevData, cep: data.cep.slice(0,8)})) : null}
                                     className={data.cep ? styles.hasValue : ""}
                                 />
                                 <label className={styles.floatingLabel}>CEP</label>    
@@ -203,6 +205,7 @@ function CriacaoEvento() {
                                     name="rua"
                                     value={data.rua}
                                     onChange={handleChange}
+                                    maxLength={99}
                                     className={data.rua ? styles.hasValue : ""}
                                 />
                                 <label className={styles.floatingLabel}>Endereço</label>
@@ -210,7 +213,7 @@ function CriacaoEvento() {
                             <div className={styles.inputContainerRow}>
                                 <div className={styles.inputContainer}>
                                     <input
-                                        type="text"
+                                        type="number"
                                         name="numero"
                                         value={data.numero}
                                         onChange={handleChange}
@@ -224,6 +227,7 @@ function CriacaoEvento() {
                                         name="complemento"
                                         value={data.complemento}
                                         onChange={handleChange}
+                                        maxLength={99}
                                         className={data.complemento ? styles.hasValue : ""}
                                     />
                                     <label className={styles.floatingLabel}>Complemento</label>
@@ -235,6 +239,7 @@ function CriacaoEvento() {
                                     name="bairro"
                                     value={data.bairro}
                                     onChange={handleChange}
+                                    maxLength={50}
                                     className={data.bairro ? styles.hasValue : ""}
                                 />
                                 <label className={styles.floatingLabel}>Bairro</label>
@@ -245,6 +250,7 @@ function CriacaoEvento() {
                                     name="cidade"
                                     value={data.cidade}
                                     onChange={handleChange}
+                                    maxLength={50}
                                     className={data.cidade ? styles.hasValue : ""}
                                 />
                                 <label className={styles.floatingLabel}>Cidade</label>
@@ -255,6 +261,7 @@ function CriacaoEvento() {
                                     name="estado"
                                     value={data.estado}
                                     onChange={handleChange}
+                                    maxLength={50}
                                     className={data.estado ? styles.hasValue : ""}
                                 />
                                 <label className={styles.floatingLabel}>Estado</label>
