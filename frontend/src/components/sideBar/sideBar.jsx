@@ -38,7 +38,7 @@ function SideBar() {
                             </a>
                             </li>
                             <li className={`${styles.sideBarListItem} ${isActive === 'eventos' ? styles.active : ''}`}>
-                                <a className={styles.sideBarLink} href="#" onClick={() => toggleActive('eventos')}>
+                                <a className={styles.sideBarLink} href="/eventos" onClick={() => toggleActive('eventos')}>
                                     {/* Eventos Icon*/}
                                     <svg className={styles.sideBarIcon} viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M16.5044 10.0186L7.50439 4.82861" stroke="#2A2D37" strokeWidth="2" strokeOpacity="0.6" strokeLinecap="round" strokeLinejoin="round"/>

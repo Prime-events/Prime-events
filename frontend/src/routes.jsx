@@ -12,13 +12,13 @@ function RoutesApp(){
     return (
        <BrowserRouter>
        <Routes>
-           <Route path='/' element = {<TelaInicial/>}/>
-           <Route path='/formulario' element = {<Formulario/>}/>
-           <Route path='/dashboard' element = {<Dashboard/>}/>
-           <Route path='/eventos' element = {<Eventos/>}/>
-           <Route path='/segundoHeader' element = {<SegundoHeader/>}/>
-            <Route path='/criarEvento' element = {<CriacaoEvento/>}/>
-           <Route path='/calendario' element = {<Calendario/>}/>
+          <Route path='/' element = {<TelaInicial/>}/>
+          <Route path='/formulario' element = {<Formulario/>}/>
+          <Route path='/dashboard' element = {<Dashboard/>}/>
+          <Route path='/eventos' element = {<Eventos/>}/>
+          <Route path='/segundoHeader' element = {<SegundoHeader/>}/>
+          <Route path='/criarEvento' element = {<CriacaoEvento/>}/>
+          <Route path='/calendario' element = {<Calendario/>}/>
          </Routes>
        </BrowserRouter>
     );

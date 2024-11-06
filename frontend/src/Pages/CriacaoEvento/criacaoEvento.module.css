@@ -1,7 +1,5 @@
 .container {
     display: flex;
-    flex-direction: row;
-    align-items: flex-start;
 }
 .containerCriacao {
     box-sizing: border-box;
@@ -28,7 +26,7 @@
 
 .itensEsquerda {
     position: sticky;
-    top: calc(var(--header-height) + 1rem);
+    top: calc(var(--header-height) + 3.25rem);
     display: flex;
     flex-direction: column;
     gap: 1.25rem;

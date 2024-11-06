@@ -1,0 +1,25 @@
+.container {
+    display: flex;
+}
+.containerEventos {
+    box-sizing: border-box;
+    margin: 0 auto;
+    padding: 0;
+    display: flex;
+    padding: 1.25rem;
+    gap: 1.25rem;
+    width: 100%;
+    max-width: 1200px;
+    flex-direction: column;
+}
+.cimaEvento {
+    margin-top: 5rem;
+    
+}
+.meioEvento {
+    padding: 3rem 0;
+}
+.btnCriarStyle {
+    display: flex;
+    justify-content: flex-end;
+}
