@@ -28,7 +28,7 @@ function Dashboard() {
 
         const reorderedCards = Array.from(cards);
         const [moved, Card] = reorderedCards.splice(result.source.index, 1);
-        reorderedCards.splice(result.destination.index, 0, movedCard);
+        reorderedCards.splice(result.destination.index, 0, moved);
         setCards(reorderedCards);
     };
 
