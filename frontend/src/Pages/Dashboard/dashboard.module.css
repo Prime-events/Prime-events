@@ -1,0 +1,51 @@
+.container {
+    display: flex; /* Alinha os elementos em linha */
+    width: 100%; /* Garante que o contêiner ocupe toda a largura */
+    height: calc(100vh - 60px); /* Ajuste a altura para ocupar a tela menos a altura do header */
+    margin-top: 0; /* Remove qualquer margem superior indesejada */
+}
+
+.grid {
+    display: flex;
+    flex-wrap: wrap; /* Permite que os cards se movam para a próxima linha se não houver espaço */
+    justify-content: flex-start; /* Alinha os cards à esquerda */
+    padding: 5px; /* Reduzido para 5px */
+    overflow-x: auto; /* Permite rolagem horizontal se os cards não couberem na tela */
+    flex: 1; /* Faz a grid ocupar o restante do espaço disponível */
+    margin: 0; /* Remove margens indesejadas */
+    background-color: #fff; /* Exemplo de cor de fundo */
+}
+
+.card {
+    flex: 0 0 250px; /* Cada card ocupa 250px de largura */
+    margin: 2px; /* Reduzido para 2px */
+    padding: 10px; /* Reduzido para 10px */
+    text-align: center;
+}
+
+/* Media query para telas menores */
+@media (max-width: 768px) {
+    .grid {
+        padding: 1px; /* Reduzido para 1px */
+        margin-left: 0;
+    }
+    .card {
+        flex: 0 0 150px; /* Cada card ocupa 150px de largura em telas menores */
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        flex-direction: row; /* Mantém a direção em linha */
+        height: auto; /* Permite que a altura se ajuste automaticamente */
+    }
+    .grid {
+        flex: 1; /* Garante que a grid ocupe o restante do espaço disponível */
+        flex-direction: column; /* Mantém os cards em linha */
+        width: 100%; /* Garante que a grid ocupe toda a largura */
+    }
+    .card {
+        flex: 0 0 80px; /* Cada card ocupa 80px de largura em telas menores */
+        margin: 5px; /* Adiciona margem entre os cards */
+    }
+}

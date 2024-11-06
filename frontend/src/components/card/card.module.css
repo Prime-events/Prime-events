@@ -1,0 +1,29 @@
+
+  .card {
+    width: 150px;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    color: white;
+    font-family: Arial, sans-serif;
+    font-size: 18px;
+    user-select: none;
+  }
+  
+  .icon {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .number {
+    font-size: 32px;
+    font-weight: bold;
+  }
+  
+  .text {
+    text-align: center;
+  }
+  
