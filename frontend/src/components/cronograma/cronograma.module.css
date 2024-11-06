@@ -18,6 +18,7 @@
     flex-direction: column;
     padding: 10px;
     box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+    gap: 2rem;
 }
 
 .itemCalendario {
@@ -26,7 +27,7 @@
 }
 
 .itemTaskList {
-    flex: 1;
+    flex: 0.9;
     overflow-y: auto;
     border-top: 1px solid #ddd;
     padding-top: 10px;
@@ -65,4 +66,42 @@
     text-align: center;
     margin-top: 20px;
     font-size: 14px;
+}
+.escolhaData {
+    color: #666;
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.emptyStateContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    text-align: center;
+}
+
+.notFoundImage {
+    width: 170px;
+    height: 150px;
+    opacity: 0.4;
+    
+}
+
+.escolhaDataContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    text-align: center;
+}
+
+.EscolhaDataImagem {
+    width: 170px;
+    height: 150px;
+    opacity: 0.3;
+    
 }

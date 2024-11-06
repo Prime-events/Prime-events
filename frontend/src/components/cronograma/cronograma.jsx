@@ -1,9 +1,12 @@
 import { Calendar, Badge, List } from 'rsuite';
 import 'rsuite/dist/rsuite.min.css';
+import ptBR from 'rsuite/locales/pt_BR';
 import React from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import styles from './cronograma.module.css';
+import NotFound from '../../assets/img/notfound.png';
+import EscolhaDataImagem from '../../assets/img/escolhaData.png';
 
 function getTodoList(date) {
     if (!date) return [];
@@ -52,6 +55,25 @@ const Cronograma = () => {
         setIsOpen(!isOpen);
     };
 
+    const localeConfig = {
+        sunday: 'Dom',
+        monday: 'Seg',
+        tuesday: 'Ter',
+        wednesday: 'Qua',
+        thursday: 'Qui',
+        friday: 'Sex',
+        saturday: 'Sáb',
+        ok: 'OK',
+        today: 'Hoje',
+        yesterday: 'Ontem',
+        hours: 'Horas',
+        minutes: 'Minutos',
+        seconds: 'Segundos',
+        formattedMonthPattern: 'MMMM yyyy',
+        formattedDayPattern: 'dd/MM/yyyy',
+        ...ptBR
+    };
+
     return (
         <div className={`${styles.sidebarWrapper} ${!isOpen ? styles.closed : ''}`}>
             <button 
@@ -84,6 +106,7 @@ const Cronograma = () => {
                                                     compact 
                                                     renderCell={renderCell} 
                                                     onSelect={handleSelect} 
+                                                    locale={localeConfig} 
                                                     style={{ width: '100%' }} 
                                                 />
                                             ) : (
@@ -106,11 +129,30 @@ const TodoList = ({ date }) => {
     const list = getTodoList(date);
     
     if (!date) {
-        return <p className={styles.emptyMessage}>Selecione uma data no calendário.</p>;
+        return (
+            <div className={styles.escolhaDataContainer}>
+                <p className={styles.escolhaData}>Selecione uma data no calendário.</p>
+                <img 
+                    src={EscolhaDataImagem} 
+                    alt="Escolha uma data" 
+                    className={styles.EscolhaDataImagem}
+                />
+            </div>
+        )
     }
     
     if (!list.length) {
-        return <p className={styles.emptyMessage}>Nenhuma tarefa para essa data.</p>;
+        return (
+            <div className={styles.emptyStateContainer}>
+                <p className={styles.emptyMessage}>Nenhuma tarefa para essa data.</p>
+                <img 
+                    src={NotFound} 
+                    alt="Nenhuma tarefa encontrada" 
+                    className={styles.notFoundImage}
+                />
+            </div>
+        );
+        
     }
     
     return (
