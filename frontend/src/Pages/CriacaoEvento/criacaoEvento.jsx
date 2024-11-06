@@ -4,8 +4,10 @@ import SideBar from '../../components/sideBar/sideBar.jsx';
 import styles from "./criacaoEvento.module.css";
 import { IoArrowBackCircleOutline } from "react-icons/io5";
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function CriacaoEvento() {
+    const navigate = useNavigate(); 
     const [hasImagem, setHasImagem] = useState(false);
     const [isValid, setIsValid] = useState(true);
     const [imagemURL, setImagemURL] = useState('');
@@ -86,6 +88,11 @@ function CriacaoEvento() {
             fetchEndereco();
         }
     }, [data.cep]);
+
+    
+    const handleRedirect = () => {
+        navigate('/eventos');
+    };
     return (<>
         <SegundoHeader titulo='Criar evento'/>
         <div className={styles.container}>
@@ -94,7 +101,7 @@ function CriacaoEvento() {
                 <div className={styles.secaoEsquerda}>
                     <div className={styles.itensEsquerda}>
                         <div className={styles.voltarEventos}>
-                            <button className={styles.btnVoltar}><IoArrowBackCircleOutline />Voltar para eventos</button>
+                            <button className={styles.btnVoltar} onClick={handleRedirect}><IoArrowBackCircleOutline />Voltar para eventos</button>
                         </div>
                         <div className={styles.preview}>
                             <div className={styles.itensPreview}>

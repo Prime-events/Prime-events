@@ -6,7 +6,7 @@
     margin: 0 auto;
     padding: 0;
     display: flex;
-    padding: 1.25rem;
+    padding: 3.25rem;
     gap: 1.25rem;
     width: 100%;
     max-width: 1200px;
@@ -14,12 +14,105 @@
 }
 .cimaEvento {
     margin-top: 5rem;
-    
+    font-size: 2.25rem;
+    font-weight: 700;   
+    color: #2A2D3799;
+    opacity: .6;
+    display: flex;
+    gap: 8rem;
+    cursor: pointer;
 }
 .meioEvento {
-    padding: 3rem 0;
-}
-.btnCriarStyle {
+    margin: 5rem 0;
     display: flex;
-    justify-content: flex-end;
+}
+.meioEvento .btnCriarStyle {
+    margin-left: auto;
+}
+.btnCriarStyle button {
+    padding: 0.625rem 1.25rem;
+    font-size: 1rem;
+    color: #000;
+    background-color: #FCA311;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.btnCriarStyle button:hover {
+    opacity: .9;
+}
+.inputContainer {
+    display: flex;
+    gap: 6rem;
+}
+input[type="search"],
+input[type="date"] {
+    border-radius: 24px;
+    border: 1px solid #000;
+    padding: .5rem;
+}
+input[type="search"] {
+    width: 305px;
+}
+.baixoEvento {
+    display: flex;
+    gap: 5rem;
+    border-bottom: 4px solid #0000002E;
+}
+.baixoEvento span {
+    color: #2A2D37E5;
+    display: flex;
+    font-size: 2.25rem;
+    font-weight: 700;
+}
+.endereco label, .data label {
+    display: flex;
+    flex-direction: column;
+}
+.nomeEvento {
+    font-size: 30px;
+    color: #2A2D37D9;
+}
+.infoEvento {
+    font-size: 22px;
+    color: #2A2D37C2;
+}
+.informacoesEvento, .numeroConvidados, .status {
+    display: flex;
+    flex-direction: row;
+    gap: 1.5rem;
+    padding-top: 2rem;
+}
+.data label {
+    font-size: 35px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+}
+.mesEvento {
+    color: var(--laranja);
+}
+.imagem {
+    width: 150px;
+    height: 115px;
+    border-radius: 10px;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+}
+.numeroConvidados, .status {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 115px;
+    font-size: 30px;
+    color: #2A2D37D9;
+}
+.active {
+    text-decoration: underline;
+    color: var(--laranja);
+    opacity: 1;
 }
