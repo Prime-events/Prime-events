@@ -24,6 +24,7 @@
     "react-responsive-carousel": "^3.2.23",
     "react-router-dom": "^6.26.2",
     "reactstrap": "^9.2.3",
+    "rsuite": "^5.74.1",
     "swiper": "^11.1.14"
   },
   "devDependencies": {
