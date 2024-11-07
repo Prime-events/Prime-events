@@ -1,5 +1,6 @@
 .container {
     display: flex;
+    background-color: #fff;
 }
 .containerCriacao {
     box-sizing: border-box;
@@ -10,6 +11,7 @@
     gap: 1.25rem;
     width: 100%;
     max-width: 1200px;
+    
 }
 
 :root {
@@ -48,7 +50,7 @@
     background-color: #fff;
     padding: 1rem;
     border-radius: 0.5rem;
-    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.2);
   }
 
 .tituloPreview {
@@ -65,24 +67,39 @@
     flex-direction: column;
     gap: 0.5rem;
 }
-
+.dateStyle {
+    margin: 15px 0;
+}
 .itensCardPreview span {
     display: block;
     font-size: 1rem;
     color: #555;
 }
-/* .itensCardPreview .dataHoraPreview {
+.nomeLocalPreview {
+    font-size: 18px; 
+    font-weight: 700;
+}
+.nomePreview {
+    display: flex;
+    font-size: 20px; 
+    font-weight: 700;
+    justify-content: center;
+}
+.descricaoPreview {
+    font-style: italic;
+}
+.itensCardPreview .dataHoraPreview.hora {
     display:none;
 }
-.dataHoraPreview.show {
+.dataHoraPreview.hora.show {
     display: block;
-} */
+} 
 /* Seção Direita */
 .secaoDireita {
     flex: 2;
     padding: 1.25rem;
     border-radius: 0.5rem;
-    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.2);
 }
 
 .itensDireita {

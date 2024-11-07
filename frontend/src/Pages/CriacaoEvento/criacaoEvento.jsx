@@ -10,6 +10,7 @@ function CriacaoEvento() {
     const navigate = useNavigate(); 
     const [hasImagem, setHasImagem] = useState(false);
     const [isValid, setIsValid] = useState(true);
+    const [hasDate, setHasDate] = useState(false);
     const [imagemURL, setImagemURL] = useState('');
     const [data, setData] = useState({
         nomeEvento: "",
@@ -41,6 +42,7 @@ function CriacaoEvento() {
             const dataHoraInicial = new Date(newDate.dataEvento);
             dataHoraInicial.setHours(horaInicio, minutoInicio);
             setData((prevData) => ({ ...prevData, dataHoraInicial }));
+            setHasDate(true);
         }
 
         if (newDate.dataEvento && newDate.horarioTermino) {
@@ -83,6 +85,7 @@ function CriacaoEvento() {
             setIsValid(true);
         }
         const cep = data.cep.replace(/\D/g, '');
+        console.log(cep);
         const validaCep = /^[0-9]{8}$/;
         if (validaCep.test(cep)) {
             fetchEndereco();
@@ -108,13 +111,16 @@ function CriacaoEvento() {
                                 <span className={styles.tituloPreview}>Pré-visualização</span>
                                 <div className={styles.cardPreview}>
                                     <div className={styles.itensCardPreview}>
-                                        <span className={styles.nomePreview}>{data.nomeEvento}</span>
+                                    <div className={`${styles.showImagem} ${hasImagem ? styles.active : ''}`} style={{backgroundImage:`url(${imagemURL})`}}></div>
+                                        <label className={styles.nomePreview}>{data.nomeEvento}</label>
                                         <span className={styles.descricaoPreview}>{data.descricaoEvento}</span>
-                                        <span className={`${styles.dataHoraPreview}`}> {`Data: ${date.dataEvento}`}</span>
-                                        <span className={`${styles.dataHoraPreview}`}>{`Início: ${date.horarioInicio}`}</span>
-                                        <span className={`${styles.dataHoraPreview}`}>{`Término: ${date.horarioTermino}`} </span>
-                                        <span className={`${styles.localizacaoPreview}`}>{`${data.nomeLocal}`}</span>
-                                        <span className={`${styles.localizacaoPreview}`}>{` ${data.cep}`}</span>
+                                        <div className={styles.dateStyle}>
+                                            <span className={`${styles.dataHoraPreview}`}> {`${date.dataEvento}`}</span>
+                                            <span className={`${styles.dataHoraPreview} ${styles.hora} ${hasDate ? styles.show : ''}`}>{`${date.horarioInicio} - ${date.horarioTermino}`}</span>
+                                        </div>
+                                        <span className={`${styles.dataHoraPreview}`}>{} </span>
+                                        <label className={`${styles.nomeLocalPreview}`}>{`${data.nomeLocal}`}</label>
+                                        <span className={`${styles.localizacaoPreview}`}>{`${data.cep}`}</span>
                                         <span className={`${styles.localizacaoPreview}`}>{`${data.rua} ${data.numero} ${data.complemento} ${data.bairro}`}</span>
                                         <span className={`${styles.localizacaoPreview}`}>{`${data.cidade} ${data.estado}`}</span>
                                     </div>
