@@ -8,7 +8,7 @@
     display: flex;
     gap: 1.25rem;
     width: 100%;
-    max-width: 1200px;
+    max-width: 75rem;
     flex-direction: column;
 }
 .cimaEvento {
@@ -67,12 +67,12 @@ input[type="date"] {
     padding: .5rem;
 }
 input[type="search"] {
-    width: 305px;
+    width: 19.0625rem;
 }
 .baixoEvento {
     display: flex;
     gap: 5rem;
-    border-bottom: 4px solid #0000002E;
+    border-bottom: 0.25rem solid #0000002E;
 }
 .baixoEvento span {
     color: #2A2D37E5;
@@ -85,11 +85,11 @@ input[type="search"] {
     flex-direction: column;
 }
 .nomeEvento {
-    font-size: 30px;
+    font-size: 1.875rem;
     color: #2A2D37D9;
 }
 .infoEvento {
-    font-size: 22px;
+    font-size: 1.375rem;
     color: #2A2D37C2;
 }
 .informacoesEvento, .numeroConvidados, .status {
@@ -99,7 +99,7 @@ input[type="search"] {
     padding-top: 2rem;
 }
 .data label {
-    font-size: 35px;
+    font-size: 2.1875rem;
     font-weight: 700;
     display: flex;
     align-items: center;
@@ -108,9 +108,9 @@ input[type="search"] {
     color: var(--laranja);
 }
 .imagem {
-    width: 150px;
-    height: 115px;
-    border-radius: 10px;
+    width: 9.375rem;
+    height: 7.1875rem;
+    border-radius: 0.625rem;
     background-position: center;
     background-size: contain;
     background-repeat: no-repeat;
@@ -121,12 +121,182 @@ input[type="search"] {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 115px;
-    font-size: 30px;
+    height:  7.1875rem;
+    font-size: 1.875rem;
     color: #2A2D37D9;
 }
 .active {
     text-decoration: underline;
     color: var(--laranja);
     opacity: 1;
+}
+
+@media (max-width: 1024px) { 
+    .containerEventos {
+        padding: 2rem; 
+        max-width: 90%; 
+    }
+
+    .cimaEvento {
+        gap: 4rem; 
+        font-size: 2rem; 
+    }
+
+    .meioEvento {
+        margin: 2rem 0; 
+    }
+
+    .inputContainer {
+        margin-right: 1.5rem;
+        margin-bottom: 1rem; 
+    }
+
+    #search::placeholder {
+        font-size: 1.5rem;
+        left: 3rem;
+        top: .1rem;
+    }
+
+    .lupa {
+        top: .4rem;
+        width: 2rem;
+    }
+    input[type="search"] {
+        width: 100%;
+    }
+
+    .baixoEvento {
+        gap: 3rem; 
+    }
+
+    .nomeEvento {
+        font-size: 1.625rem; 
+    }
+    .infoEvento {
+        font-size: 1.25rem; 
+    }
+
+    .imagem {
+        width: 7.5rem; 
+        height: 5.625rem;
+    }
+
+    .numeroConvidados,
+    .status {
+        font-size: 1.5rem; 
+        height: auto;
+        padding: 1rem; 
+    }
+}
+
+@media (max-width: 768px) { 
+    .containerEventos {
+        padding: 1.5rem; 
+    }
+
+    .cimaEvento {
+        gap: 2rem; 
+        font-size: 2rem; 
+    }
+
+    .meioEvento {
+        margin: 1.5rem 0; 
+    }
+
+    .inputContainer {
+        margin-right: 2rem; 
+    }
+
+    .btnCriarStyle {
+        margin-left: 0;
+        text-align: center;
+    }
+
+    .baixoEvento {
+        flex-direction: column;
+        gap: 2rem; 
+    }
+
+    .nomeEvento {
+        font-size: 1.375rem; 
+    }
+
+    .infoEvento {
+        font-size: 1.125rem; 
+    }
+
+    .imagem {
+        width: 6.25rem; 
+        height: 4.6875rem; 
+    }
+
+    .numeroConvidados,
+    .status {
+        font-size: 1.25rem; 
+        height: auto;
+        padding: 1rem; 
+    }
+}
+
+@media (max-width: 480px) {
+    .containerEventos {
+        padding: 1rem; 
+    }
+
+    .cimaEvento {
+        gap: 1.5rem; 
+        font-size: 1.55rem; 
+    }
+
+    .meioEvento {
+        flex-direction: column;
+        margin: 1rem 0; 
+    }
+
+    .inputContainer {
+        margin-right: 1.5rem;
+        margin-bottom: 1rem; 
+    }
+    #search::placeholder {
+        font-size: 1.5rem;
+        left: 28%;
+    }
+    .lupa {
+        top: .4rem;
+        width: 2rem;
+    }
+
+    input[type="search"] {
+        width: 100%;
+    }
+
+    .btnCriarStyle {
+        margin-left: 0;
+        text-align: center;
+    }
+
+    .baixoEvento {
+        flex-direction: column;
+        gap: 1.5rem; 
+    }
+
+    .nomeEvento {
+        font-size: 1.25rem; 
+    }
+
+    .infoEvento {
+        font-size: 1rem; 
+    }
+
+    .imagem {
+        width: 5rem; 
+        height: 3.75rem; 
+    }
+
+    .numeroConvidados,
+    .status {
+        font-size: 1.125rem; 
+        height: auto;
+        padding: 0.75rem; 
+    }
 }
