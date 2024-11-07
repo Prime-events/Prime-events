@@ -4,9 +4,8 @@
 .containerEventos {
     box-sizing: border-box;
     margin: 0 auto;
-    padding: 0;
-    display: flex;
     padding: 3.25rem;
+    display: flex;
     gap: 1.25rem;
     width: 100%;
     max-width: 1200px;
@@ -31,7 +30,7 @@
 }
 .btnCriarStyle button {
     padding: 0.625rem 1.25rem;
-    font-size: 1rem;
+    font-size: 1.5rem;
     color: #000;
     background-color: #FCA311;
     border: none;
@@ -44,7 +43,22 @@
 }
 .inputContainer {
     display: flex;
-    gap: 6rem;
+    position: relative;
+    margin-right: 6rem;
+}
+#search {
+    padding-left: 3rem;
+}
+#search::placeholder {
+    position:absolute;
+    left: 5rem;
+    top: .5rem;
+    font-size: 1.4rem;
+}
+.lupa {
+    position: absolute;
+    left: .7rem;
+    top: 0.7rem;
 }
 input[type="search"],
 input[type="date"] {
