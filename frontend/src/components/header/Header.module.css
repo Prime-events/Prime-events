@@ -7,20 +7,21 @@
     align-items: center; 
     width: 100%; 
     padding: 0 20px;
+    position: relative;
 }
 
 /* Estilo do background antes do scroll */
 .navbarBackground {
-    background-color: #fcaa2e4d; /* Cor de fundo inicial */
+    background-color: #fcaa2e4d;
     height: 85px;
-    transition: background-color 0.3s ease, height 0.3s ease; /* Transição suave */
+    transition: background-color 0.3s ease, height 0.3s ease;
 }
 
 /* Estilo do background após o scroll */
 .navbarScrolled {
-    background-color: rgba(0, 0, 0, 0.8); /* Cor de fundo escuro após scroll */
-    height: 70px; /* Altura reduzida após o scroll */
-    transition: background-color 0.3s ease, height 0.3s ease; /* Transição suave */
+    background-color: rgba(0, 0, 0, 0.8);
+    height: 70px;
+    transition: background-color 0.3s ease, height 0.3s ease;
 }
 
 /* Estilos adicionais */
@@ -35,4 +36,28 @@
 
 nav {
     font-size: 20px;
+}
+
+/* Novo estilo para o toggler */
+.navbarToggler {
+    position: fixed !important;
+    right: 20px;
+    z-index: 1000;
+}
+
+/* Estilo para o menu collapse */
+
+
+/* Media query para desktop */
+@media (min-width: 992px) {
+    .navbarToggler {
+        display: none;
+    }
+
+    .navCollapse {
+        position: static;
+        background-color: transparent;
+        width: auto;
+        padding: 0;
+    }
 }
