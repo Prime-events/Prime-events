@@ -6,7 +6,7 @@
 }
 
 .grid {
-    display: flex; /* Ativa o grid */
+    display: flex; 
     flex-wrap: wrap;
     height: max-content;
     gap: 10px; /* Espaçamento entre os itens da grid */
