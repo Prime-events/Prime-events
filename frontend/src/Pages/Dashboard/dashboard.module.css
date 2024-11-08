@@ -6,19 +6,15 @@
 }
 
 .grid {
-    display: flex;
-    flex-wrap: wrap; /* Permite que os cards se movam para a próxima linha se não houver espaço */
-    justify-content: flex-start; /* Alinha os cards à esquerda */
+    display: flex; /* Ativa o grid */
+    flex-wrap: wrap;
+    height: max-content;
+    gap: 10px; /* Espaçamento entre os itens da grid */
     padding: 5px; /* Reduzido para 5px */
-    overflow-x: auto; /* Permite rolagem horizontal se os cards não couberem na tela */
-    flex: 1; /* Faz a grid ocupar o restante do espaço disponível */
     margin: 0; /* Remove margens indesejadas */
-    background-color: #fff; /* Exemplo de cor de fundo */
 }
 
 .card {
-    flex: 0 0 250px; /* Cada card ocupa 250px de largura */
-    margin: 2px; /* Reduzido para 2px */
     padding: 10px; /* Reduzido para 10px */
     text-align: center;
 }
@@ -31,6 +27,7 @@
     }
     .card {
         flex: 0 0 150px; /* Cada card ocupa 150px de largura em telas menores */
+        
     }
 }
 
