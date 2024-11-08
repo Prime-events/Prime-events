@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom';
 function Formulario() {
   const [formData, setFormData] = useState({
     nome: '',
+    sobrenome: '',
     email: '',
     senha: '',
   });
@@ -27,11 +28,13 @@ function Formulario() {
     console.log('Form data:', formData);
     await createUser({
       nome: formData.nome,
+      sobrenome: formData.sobrenome,
       email: formData.email,
       senha: formData.senha
     });
     setFormData({
       nome: '',
+      sobrenome: '',
       email: '',
       senha: '',
     });
@@ -79,6 +82,13 @@ function Formulario() {
                 name="nome"
                 placeholder="Nome"
                 value={formData.nome}
+                onChange={handleChange}
+              />
+              <input
+                type="text"
+                name="sobrenome"
+                placeholder="Sobrenome"
+                value={formData.sobrenome}
                 onChange={handleChange}
               />
               <input

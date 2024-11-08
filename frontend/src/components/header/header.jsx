@@ -4,13 +4,12 @@ import styles from "./Header.module.css";
 
 function Header() {
     const [collapsed, setCollapsed] = useState(true);
-    const [scrolled, setScrolled] = useState(false); // Estado para o background do header
+    const [scrolled, setScrolled] = useState(false);
 
     const toggleNavbar = () => {
         setCollapsed(!collapsed);
     };
 
-    // Função para monitorar o scroll
     const handleScroll = () => {
         if (window.scrollY > 50) {
             setScrolled(true);
@@ -31,7 +30,7 @@ function Header() {
         <div>
             <Navbar
                 className={`navbar navbar-expand-lg navbar-dark fixed-top ${scrolled ? styles.navbarScrolled : styles.navbarBackground
-                    }`} // Muda a classe de acordo com o scroll
+                    }`}
                 light
             >
                 <div className={`${styles.containerHeader}`}>
@@ -40,25 +39,24 @@ function Header() {
                             <h3 style={{ margin: 0 }}>PRIME</h3>
                             <span className={styles.subTitle} style={{ margin: 0 }}>EVENTS</span>
                         </div>
-
                     </NavbarBrand>
 
-                    <NavbarToggler onClick={toggleNavbar} className="me-2" />
+                    <NavbarToggler onClick={toggleNavbar} className={`me-2 ${styles.navbarToggler}`} />
                     <Collapse isOpen={!collapsed} navbar>
-                        <Nav className="ms-auto" navbar>
+                        <Nav className="ms-auto" navbar style={{ textAlign: 'center' }}>
                             <NavItem>
-                                <NavLink href="/" className="active" aria-current="page">
+                                <NavLink href="/" className="active" aria-current="page" style={{ textDecoration: 'none' }}>
                                     HOME
                                 </NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink href="#segunda">SOBRE NÓS</NavLink>
+                                <NavLink href="#segunda" style={{ textDecoration: 'none' }}>SOBRE NÓS</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink href="#terceira">SERVIÇO</NavLink>
+                                <NavLink href="#terceira" style={{ textDecoration: 'none' }}>SERVIÇO</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink href="/formulario">ENTRAR</NavLink>
+                                <NavLink href="/formulario" style={{ textDecoration: 'none' }}>ENTRAR</NavLink>
                             </NavItem>
                         </Nav>
                     </Collapse>
