@@ -34,7 +34,7 @@ function Dashboard() {
 
     return (
         <>
-            <SegundoHeader titulo="Dashboard" />
+            <SegundoHeader titulo="Início" />
             <div className={style.container}>
                 <SideBar />
                 <DragDropContext onDragEnd={onDragEnd}>

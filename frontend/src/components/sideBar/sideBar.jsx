@@ -1,15 +1,13 @@
 import {useState} from 'react'
 import styles from "./sideBar.module.css"
+import { useLocation } from 'react-router-dom';
 
 function SideBar() {
     const [isOpen, setIsOpen] = useState(false);
-    const [isActive, setIsActive] = useState('dashboard');
+    const isActive = useLocation().pathname;
 
     function toggleSideBar() {
         setIsOpen(!isOpen);
-    }
-    function toggleActive(link) {
-        setIsActive(link);
     }
 
     return ( 
@@ -25,20 +23,20 @@ function SideBar() {
                 </div>
                 <div className={styles.middleSideBar}>
                     <ul className={styles.sideBarList}>
-                        <li className={`${styles.sideBarListItem} ${isActive === 'dashboard' ? styles.active : ''}`}>
-                            <a className={styles.sideBarLink} href="/dashboard" onClick={() => toggleActive('dashboard')}>
-                                {/* DashBoard Icon*/}
+                        <li className={`${styles.sideBarListItem} ${isActive === 'inicio' ? styles.active : ''}`}>
+                            <a className={styles.sideBarLink} href="/inicio">
+                                {/* inicio Icon*/}
                                 <svg className={styles.sideBarIcon} viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M10.0044 3.61865H3.00439V10.6187H10.0044V3.61865Z" stroke="#2A2D37" strokeOpacity="0.6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                                     <path d="M21.0044 3.61865H14.0044V10.6187H21.0044V3.61865Z" stroke="#2A2D37" strokeOpacity="0.6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                                     <path d="M21.0044 14.6187H14.0044V21.6187H21.0044V14.6187Z" stroke="#2A2D37" strokeOpacity="0.6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                                     <path d="M10.0044 14.6187H3.00439V21.6187H10.0044V14.6187Z" stroke="#2A2D37" strokeOpacity="0.6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                                 </svg>
-                                <div className={styles.sideBarOpened}>Dashboard</div>
+                                <div className={styles.sideBarOpened}>inicio</div>
                             </a>
                             </li>
                             <li className={`${styles.sideBarListItem} ${isActive === 'eventos' ? styles.active : ''}`}>
-                                <a className={styles.sideBarLink} href="/eventos" onClick={() => toggleActive('eventos')}>
+                                <a className={styles.sideBarLink} href="/eventos">
                                     {/* Eventos Icon*/}
                                     <svg className={styles.sideBarIcon} viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M16.5044 10.0186L7.50439 4.82861" stroke="#2A2D37" strokeWidth="2" strokeOpacity="0.6" strokeLinecap="round" strokeLinejoin="round"/>
@@ -50,7 +48,7 @@ function SideBar() {
                                 </a>
                             </li>
                             <li className={`${styles.sideBarListItem} ${isActive === 'notificacao' ? styles.active : ''}`}>
-                                <a className={styles.sideBarLink} href="#" onClick={() => toggleActive('notificacao')}>
+                                <a className={styles.sideBarLink} href="#">
                                     {/* Notificação Icon*/}
                                     <svg className={styles.sideBarIcon} viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M18.0044 8.61865C18.0044 7.02735 17.3723 5.50123 16.247 4.37601C15.1218 3.25079 13.5957 2.61865 12.0044 2.61865C10.4131 2.61865 8.88697 3.25079 7.76175 4.37601C6.63654 5.50123 6.00439 7.02735 6.00439 8.61865C6.00439 15.6187 3.00439 17.6187 3.00439 17.6187H21.0044C21.0044 17.6187 18.0044 15.6187 18.0044 8.61865Z" stroke="#2A2D37" strokeOpacity="0.6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -60,7 +58,7 @@ function SideBar() {
                                 </a>
                             </li>
                             <li className={`${styles.sideBarListItem} ${isActive === 'configuracao' ? styles.active : ''}`}>
-                                <a className={styles.sideBarLink} href="#" onClick={() => toggleActive('configuracao')}>
+                                <a className={styles.sideBarLink} href="#">
                                     {/* Configuração Icon*/}
                                     <svg className={styles.sideBarIcon} viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M12.0044 15.6187C13.6612 15.6187 15.0044 14.2755 15.0044 12.6187C15.0044 10.9618 13.6612 9.61865 12.0044 9.61865C10.3475 9.61865 9.00439 10.9618 9.00439 12.6187C9.00439 14.2755 10.3475 15.6187 12.0044 15.6187Z" stroke="#2A2D37" strokeOpacity="0.6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -74,7 +72,7 @@ function SideBar() {
                 <div className={styles.bottomSideBar}>
                 <ul className={styles.sideBarList}>
                     <li className={`${styles.sideBarListItem} ${isActive === 'ajuda' ? styles.active : ''}`}>
-                        <a className={styles.sideBarLink} href="#" onClick={() => toggleActive('ajuda')}>
+                        <a className={styles.sideBarLink} href="#">
                             {/* Ajuda Icon*/}
                             <svg className={styles.sideBarIcon} viewBox="0 0 22 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M10.6 22.4948C16.1228 22.4948 20.6 18.0176 20.6 12.4948C20.6 6.9719 16.1228 2.49475 10.6 2.49475C5.07713 2.49475 0.599976 6.9719 0.599976 12.4948C0.599976 18.0176 5.07713 22.4948 10.6 22.4948Z" />
