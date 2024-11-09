@@ -40,17 +40,17 @@
 }
 
 @media (max-width: 480px) {
-    .container {
-        flex-direction: row; /* Mantém a direção em linha */
-        height: auto; /* Permite que a altura se ajuste automaticamente */
+    .containerCriacao {
+        flex-direction: row;
+        width: auto;
     }
     .grid {
-        flex: 1; /* Garante que a grid ocupe o restante do espaço disponível */
-        flex-direction: column; /* Mantém os cards em linha */
-        width: 100%; /* Garante que a grid ocupe toda a largura */
+        flex: 1;
+        flex-direction: column;
+        width: 100%; 
     }
     .card {
-        flex: 0 0 80px; /* Cada card ocupa 80px de largura em telas menores */
-        margin: 5px; /* Adiciona margem entre os cards */
+        flex: 0 0 80px; 
+        margin: 5px; 
     }
 }
