@@ -1,13 +1,16 @@
 import { useEffect, useState } from 'react';
 import SegundoHeader from '../../components/header/segundoHeader/segundoHeader.jsx'
-import SideBar from '../../components/sideBar/sideBar.jsx';
+import SideBar from '../../components/sideBar/SideBar.jsx';
 import styles from "./criacaoEvento.module.css";
 import { IoArrowBackCircleOutline } from "react-icons/io5";
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function CriacaoEvento() {
+    const navigate = useNavigate(); 
     const [hasImagem, setHasImagem] = useState(false);
     const [isValid, setIsValid] = useState(true);
+    const [hasDate, setHasDate] = useState(false);
     const [imagemURL, setImagemURL] = useState('');
     const [data, setData] = useState({
         nomeEvento: "",
@@ -39,6 +42,7 @@ function CriacaoEvento() {
             const dataHoraInicial = new Date(newDate.dataEvento);
             dataHoraInicial.setHours(horaInicio, minutoInicio);
             setData((prevData) => ({ ...prevData, dataHoraInicial }));
+            setHasDate(true);
         }
 
         if (newDate.dataEvento && newDate.horarioTermino) {
@@ -81,11 +85,17 @@ function CriacaoEvento() {
             setIsValid(true);
         }
         const cep = data.cep.replace(/\D/g, '');
+        console.log(cep);
         const validaCep = /^[0-9]{8}$/;
         if (validaCep.test(cep)) {
             fetchEndereco();
         }
     }, [data.cep]);
+
+    
+    const handleRedirect = () => {
+        navigate('/eventos');
+    };
     return (<>
         <SegundoHeader titulo='Criar evento'/>
         <div className={styles.container}>
@@ -94,20 +104,23 @@ function CriacaoEvento() {
                 <div className={styles.secaoEsquerda}>
                     <div className={styles.itensEsquerda}>
                         <div className={styles.voltarEventos}>
-                            <button className={styles.btnVoltar}><IoArrowBackCircleOutline />Voltar para eventos</button>
+                            <button className={styles.btnVoltar} onClick={handleRedirect}><IoArrowBackCircleOutline />Voltar para eventos</button>
                         </div>
                         <div className={styles.preview}>
                             <div className={styles.itensPreview}>
                                 <span className={styles.tituloPreview}>Pré-visualização</span>
                                 <div className={styles.cardPreview}>
                                     <div className={styles.itensCardPreview}>
-                                        <span className={styles.nomePreview}>{data.nomeEvento}</span>
+                                    <div className={`${styles.showImagem} ${hasImagem ? styles.active : ''}`} style={{backgroundImage:`url(${imagemURL})`}}></div>
+                                        <label className={styles.nomePreview}>{data.nomeEvento}</label>
                                         <span className={styles.descricaoPreview}>{data.descricaoEvento}</span>
-                                        <span className={`${styles.dataHoraPreview}`}> {`Data: ${date.dataEvento}`}</span>
-                                        <span className={`${styles.dataHoraPreview}`}>{`Início: ${date.horarioInicio}`}</span>
-                                        <span className={`${styles.dataHoraPreview}`}>{`Término: ${date.horarioTermino}`} </span>
-                                        <span className={`${styles.localizacaoPreview}`}>{`${data.nomeLocal}`}</span>
-                                        <span className={`${styles.localizacaoPreview}`}>{` ${data.cep}`}</span>
+                                        <div className={styles.dateStyle}>
+                                            <span className={`${styles.dataHoraPreview}`}> {`${date.dataEvento}`}</span>
+                                            <span className={`${styles.dataHoraPreview} ${styles.hora} ${hasDate ? styles.show : ''}`}>{`${date.horarioInicio} - ${date.horarioTermino}`}</span>
+                                        </div>
+                                        <span className={`${styles.dataHoraPreview}`}>{} </span>
+                                        <label className={`${styles.nomeLocalPreview}`}>{`${data.nomeLocal}`}</label>
+                                        <span className={`${styles.localizacaoPreview}`}>{`${data.cep}`}</span>
                                         <span className={`${styles.localizacaoPreview}`}>{`${data.rua} ${data.numero} ${data.complemento} ${data.bairro}`}</span>
                                         <span className={`${styles.localizacaoPreview}`}>{`${data.cidade} ${data.estado}`}</span>
                                     </div>

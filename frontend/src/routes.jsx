@@ -6,6 +6,7 @@ import SegundoHeader from './components/header/segundoHeader/segundoHeader.jsx';
 import Eventos from './Pages/Eventos/eventos.jsx';
 import CriacaoEvento from './Pages/CriacaoEvento/criacaoEvento.jsx';
 import Cronograma from './components/cronograma/cronograma.jsx';
+import InformacaoEvento from './Pages/InformacaoEvento/infoEvento.jsx';
 
 function RoutesApp(){
 
@@ -19,6 +20,7 @@ function RoutesApp(){
            <Route path='/segundoHeader' element = {<SegundoHeader/>}/>
             <Route path='/criarEvento' element = {<CriacaoEvento/>}/>
            <Route path='/cronograma' element = {<Cronograma/>}/>
+           <Route path='/informacaoevento' element = {<InformacaoEvento/>}/>
          </Routes>
        </BrowserRouter>
     );
