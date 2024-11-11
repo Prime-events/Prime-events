@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import SegundoHeader from "../../components/header/segundoHeader/segundoHeader";
 import SideBar from "../../components/sideBar/sideBar";
 import Card from '../../components/card/card';
 import style from './dashboard.module.css';
+import Cronograma from '../../components/cronograma/cronograma';
 
 function Dashboard() {
     const [cards, setCards] = useState([
@@ -27,39 +28,45 @@ function Dashboard() {
         if (!result.destination) return;
 
         const reorderedCards = Array.from(cards);
-        const [moved, Card] = reorderedCards.splice(result.source.index, 1);
+        const [moved] = reorderedCards.splice(result.source.index, 1);
         reorderedCards.splice(result.destination.index, 0, moved);
         setCards(reorderedCards);
     };
 
     return (
         <>
-            <SegundoHeader titulo="Dashboard" />
+            <SegundoHeader titulo="Início" />
             <div className={style.container}>
                 <SideBar />
-                <DragDropContext onDragEnd={onDragEnd}>
-                    <Droppable droppableId="grid" direction={isMobile ? "vertical" : "horizontal"}>
-                        {(provided) => (
-                            <div className={style.grid} {...provided.droppableProps} ref={provided.innerRef}>
-                                {cards.map((card, index) => (
-                                    <Draggable key={card.id} draggableId={card.id} index={index}>
-                                        {(provided) => (
-                                            <div
-                                                ref={provided.innerRef}
-                                                {...provided.draggableProps}
-                                                {...provided.dragHandleProps}
-                                                className={style.card}
-                                            >
-                                                <Card color={card.color} icon={card.icon} number={card.number} text={card.text} />
-                                            </div>
-                                        )}
-                                    </Draggable>
-                                ))}
-                                {provided.placeholder}
-                            </div>
-                        )}
-                    </Droppable>
-                </DragDropContext>
+                <div className={style.containerCriacao}>
+                    <DragDropContext onDragEnd={onDragEnd}>
+                        <Droppable droppableId="grid" direction={isMobile ? "vertical" : "horizontal"}>
+                            {(provided) => (
+                                <div className={style.grid} {...provided.droppableProps} ref={provided.innerRef}>
+                                    {cards.map((card, index) => (
+                                        <Draggable key={card.id} draggableId={card.id} index={index}>
+                                            {(provided) => (
+                                                <div
+                                                    ref={provided.innerRef}
+                                                    {...provided.draggableProps}
+                                                    {...provided.dragHandleProps}
+                                                    className={style.card}
+                                                >
+                                                    <Card color={card.color} icon={card.icon} number={card.number} text={card.text} />
+                                                </div>
+                                            )}
+                                        </Draggable>
+                                    ))}
+                                    {provided.placeholder}
+                                                
+                                </div>
+                            )}
+                        </Droppable>
+                    </DragDropContext>     
+                </div>
+                <div>
+                    <Cronograma />
+                </div>
             </div>
         </>
     );
