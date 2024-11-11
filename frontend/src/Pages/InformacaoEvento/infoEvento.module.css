@@ -60,28 +60,40 @@ html {
         width: 100%;
         background-color: #fff;
         display: flex;
+        margin-right: 1rem;
+        align-items: center;
         gap: 0.1rem;
-        overflow-y: auto;
         height: calc(100vh - 60px); /* Ajuste o valor 60px conforme a altura do seu header */
     }
+
+    .secaoEsquerda > .containereImagemEvento{
+        width: 100%;
+    }
+    .secaoEsquerda > .containerImagemMapa{
+        width: 100%;
+    }
+
+    .containereImagemEvento > .imagemEvento,
+    .containerImagemMapa > .imagemMapa{
+        width:100%;
+    }
     
-    .secaoEsquerda {
+    .containerInformacoes > .secaoEsquerda {
         background-color: #fff;
         border-radius: 8px;
-        padding: 1.5rem;
-        width: 40%;
+        width: 90%;
         display: flex;
         flex-direction: column;
         align-items: center;
         gap: 1rem;
-        height: 100%; /* Ajustado para ocupar 100% da altura do container */
+        height: 100%; 
     }
     
-    .secaoDireita {
+    .containerInformacoes > .secaoDireita {
         background-color: #fff;
         border-radius: 8px;
-        padding: 1.5rem;
-        width: 60%;
+        margin-top: -1rem;
+        width: 90%;
         height: 100%; /* Ajustado para ocupar 100% da altura do container */
         display: flex;
         flex-direction: column;
@@ -105,6 +117,21 @@ html {
         width: 100%;
         max-height: 120px;
         overflow: hidden;
+    }
+
+    .secaoDireita > .botoes{
+        display: flex;
+        width: 100%;
+        display: flex;
+        gap: 0.5rem;
+        margin-top: 2rem;
+    }
+
+    .botoes > .botao{
+        height: 3rem;
+        font-size: 10px;
+        width: 6.3rem;
+        font-weight: 600;
     }
 
     
@@ -149,7 +176,6 @@ html {
         margin-top: 2rem;
         width: 100%;
         display: flex;
-        flex-direction: column; /* Empilhando os botões para dar mais espaço */
         gap: 0.5rem;
     }
 
@@ -229,18 +255,21 @@ html {
 }
 
 .botao {
-    background-color: #ff6b6b;
-    color: #fff;
+    background-color: #fff;
+    color: #FCA311;
     padding: 0.5rem 1rem;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     font-size: 0.9rem;
     transition: background-color 0.3s;
+    border: 1px solid rgba(0, 0, 0, 0.180);
+    font-weight: 600;
 }
 
 .botao:hover {
-    background-color: #ff4b4b;
+    border-color: rgba(0, 0, 0, 0.3);
+    background-color: #d6d6d667;
 }
 
 /* Ajustes para telas menores */
