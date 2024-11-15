@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import imgLogo from '../../../assets/img/logo 1.png';
 import perfil from '../../../assets/img/imgPerfilPE.png';
 import styles from "./SegundoHeader.module.css";
@@ -15,9 +15,16 @@ import { IoIosCheckmarkCircle } from "react-icons/io";
 
 function SegundoHeader({titulo}) {
 
-  const [modal, setModal] = useState(false);
+    const [modal, setModal] = useState(false);
     const [activeTab, setActiveTab] = useState('geral');
     const [theme, setTheme] = useState('Sistema'); // Estado para o tema
+    const [nome, setNome] = useState('Jhon');
+    const [sobrenome, setSobrenome] = useState('Doe');
+    const [nomeCompleto, setNomeCompleto] = useState('');
+
+    useEffect(() => {
+        setNomeCompleto(nome + " " + sobrenome);
+    }, []);
 
     const toggleModal = () => {
         setModal(!modal);
@@ -31,6 +38,10 @@ function SegundoHeader({titulo}) {
         console.log(`Tema selecionado: ${selectedTheme}`);
     };
 
+    const handleNomeSobrenome = () => {
+        setNomeCompleto(nome + " " + sobrenome);
+        toggleModal();
+    }
     return (
         <header className={styles.header}>
             <div className={styles.itensHeader}>
@@ -54,7 +65,7 @@ function SegundoHeader({titulo}) {
                     <div className={styles.userLogado}>
                         <img src={perfil} alt="perfil" className={styles.perfil} />
                         <div className={styles.nome}>
-                            <span>Jhon Doe</span>
+                            <span>{nomeCompleto}</span>
                         </div>
                         <div className={styles.dropDown}>
                             <UncontrolledDropdown group>
@@ -142,11 +153,11 @@ function SegundoHeader({titulo}) {
                                             <Row>
                                                 <FormGroup className={styles.formNome}>
                                                     <Label for="exampleNome">Nome *</Label>
-                                                    <Input className={styles.inputNome} id="exampleNome" name="nome" type="text" value='Ueslei' />
+                                                    <Input className={styles.inputNome} id="exampleNome" name="nome" type="text" maxLength={15} placeholder={nome} value={nome} onChange={e => setNome(e.target.value)} />
                                                 </FormGroup>
                                                 <FormGroup className={styles.formSobrenome}>
                                                     <Label for="exampleSobrenome">Sobrenome *</Label>
-                                                    <Input className={styles.inputSobrenome} id="exampleSobrenome" name="sobrenome" type="text" value='Lima' />
+                                                    <Input className={styles.inputSobreNome} id="exampleNome" name="nome" maxLength={15} type="text" placeholder={sobrenome} value={sobrenome} onChange={e => setSobrenome(e.target.value)} />
                                                 </FormGroup>
                                             </Row>
                                         </Form>
@@ -166,7 +177,7 @@ function SegundoHeader({titulo}) {
                                             </button>
                                         </div>
                                         <div className={styles.salvar}>
-                                            <button id={styles.btnSalvar}>Salvar</button>
+                                            <button id={styles.btnSalvar} onClick={handleNomeSobrenome}>Salvar</button>
                                         </div>
                                     </div>
                                 )}

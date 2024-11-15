@@ -1,10 +1,17 @@
 .container {
     display: flex; /* Alinha os elementos em linha */
-    width: 100%; /* Garante que o contêiner ocupe toda a largura */
-    height: calc(100vh - 60px); /* Ajuste a altura para ocupar a tela menos a altura do header */
-    margin-top: 0; /* Remove qualquer margem superior indesejada */
 }
-
+.containerCriacao {
+    box-sizing: border-box;
+    margin: 0 auto;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 1.25rem;
+    gap: 1.25rem;
+    width: 100%;
+    max-width: 1200px;
+}
 .grid {
     display: flex; 
     flex-wrap: wrap;
@@ -12,6 +19,7 @@
     gap: 10px; /* Espaçamento entre os itens da grid */
     padding: 5px; /* Reduzido para 5px */
     margin: 0; /* Remove margens indesejadas */
+    justify-content: center;
 }
 
 .card {
@@ -32,17 +40,17 @@
 }
 
 @media (max-width: 480px) {
-    .container {
-        flex-direction: row; /* Mantém a direção em linha */
-        height: auto; /* Permite que a altura se ajuste automaticamente */
+    .containerCriacao {
+        flex-direction: row;
+        width: auto;
     }
     .grid {
-        flex: 1; /* Garante que a grid ocupe o restante do espaço disponível */
-        flex-direction: column; /* Mantém os cards em linha */
-        width: 100%; /* Garante que a grid ocupe toda a largura */
+        flex: 1;
+        flex-direction: column;
+        width: 100%; 
     }
     .card {
-        flex: 0 0 80px; /* Cada card ocupa 80px de largura em telas menores */
-        margin: 5px; /* Adiciona margem entre os cards */
+        flex: 0 0 80px; 
+        margin: 5px; 
     }
 }
