@@ -14,6 +14,7 @@ import { RiUserSettingsLine } from "react-icons/ri";
 import { IoIosCheckmarkCircle } from "react-icons/io";
 import { useNavigate } from 'react-router-dom';
 import {getUser} from './api';
+import {updateUser} from './apiUpdate';
 
 
 function SegundoHeader({titulo}) {
@@ -68,10 +69,21 @@ function SegundoHeader({titulo}) {
         console.log(`Tema selecionado: ${selectedTheme}`);
     };
 
-    const handleNomeSobrenome = () => {
+    const handleNomeSobrenome = async () => {
         setNomeCompleto(nome + " " + sobrenome);
+
+        try {
+        const email = localStorage.getItem('email');
+        const updates = { nome, sobrenome };
+        const updatedUser = await updateUser(email, updates);
+        console.log('Usuário atualizado:', updatedUser);
+        } catch (error) {
+        console.error('Erro ao atualizar usuário:', error);
+        }
+
         toggleModal();
-    }
+    };
+
     return (
         <header className={styles.header}>
             <div className={styles.itensHeader}>
