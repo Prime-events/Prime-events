@@ -9,27 +9,59 @@ const Evento = sequelize.define(
             autoIncrement: true,
             primaryKey: true,
         },
-        nome:{
+        nomeEvento:{
             type: DataTypes.STRING,
             allowNull: false,
         },
-        descricao:{
+        descricaoEvento:{
             type: DataTypes.STRING,
             allowNull: true,
         },
-        data_hora_inicial:{
+        dataHoraInicial:{
             type: DataTypes.DATE,
-            allowNull:false,
+            allowNull: true,
         },
-        data_hora_final:{
+        dataHoraFinal:{
             type: DataTypes.DATE,
-            allowNull:false
+            allowNull: true,
         },
-        local:{
+        nomeLocal: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: true,
         },
-    },
+        cep: {
+            type: DataTypes.STRING(8),
+            allowNull: true,
+        },
+        rua: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
+        complemento: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
+        numero: {
+            type: DataTypes.STRING(20),
+            allowNull: true,
+        },
+        bairro: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
+        cidade: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
+        estado: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
+        imagem: {
+            type: DataTypes.BLOB('long'),
+            allowNull: true,
+        },
+    }
   );
 
 Evento.associate = (models) => {
