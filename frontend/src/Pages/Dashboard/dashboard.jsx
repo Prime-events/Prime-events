@@ -6,6 +6,8 @@ import Card from '../../components/card/card';
 import style from './dashboard.module.css';
 import Cronograma from '../../components/cronograma/cronograma';
 
+
+
 function Dashboard() {
     const [cards, setCards] = useState([
         { id: '1', color: 'green', icon: '✔️', number: '237', text: 'Eventos concluídos' },

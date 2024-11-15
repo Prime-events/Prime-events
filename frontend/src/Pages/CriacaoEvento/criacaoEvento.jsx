@@ -5,6 +5,7 @@ import styles from "./criacaoEvento.module.css";
 import { IoArrowBackCircleOutline } from "react-icons/io5";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { createEvento } from './api.js';
 
 function CriacaoEvento() {
     const navigate = useNavigate(); 
@@ -59,7 +60,6 @@ function CriacaoEvento() {
             ...prevData,
             [name]: value,
         }));
-        console.log(data);
     };
     const handleImageChange = (e) => {
         const file = e.target.files[0];
@@ -96,6 +96,13 @@ function CriacaoEvento() {
     const handleRedirect = () => {
         navigate('/eventos');
     };
+
+    const handleSubmitEvento = async (e) => {
+        e.preventDefault();
+        console.log(data);
+        await createEvento(data);
+        navigate('/eventos');
+    }
     return (<>
         <SegundoHeader titulo='Criar evento'/>
         <div className={styles.container}>
@@ -131,16 +138,17 @@ function CriacaoEvento() {
                 </div>
                 <div className={styles.secaoDireita}>
                     <div className={styles.itensDireita}>
-                        <div className={`${styles.showImagem} ${hasImagem ? styles.active : ''}`} style={{backgroundImage:`url(${imagemURL})`}}>
-                        </div>
+                        <form onSubmit={handleSubmitEvento}>
+                            <div className={`${styles.showImagem} ${hasImagem ? styles.active : ''}`} style={{backgroundImage:`url(${imagemURL})`}}>
+                            </div>
                             <label htmlFor="file-upload" className={styles.btnUploadImagem}>
                                     Adicionar Imagem
                             </label>
-                            <input id="file-upload" type="file" onChange={handleImageChange} accept="image/*" required/>
-                        <div className={styles.cardEvento}>
-                            <span className={styles.tituloCardDireita}>Visão geral do Evento</span><br/>
-                            <div className={styles.nomeEvento}>
-                                <div className={styles.inputContainer}>
+                            <input id="file-upload" type="file" onChange={handleImageChange} accept="image/*"/>
+                            <div className={styles.cardEvento}>
+                                <span className={styles.tituloCardDireita}>Visão geral do Evento</span><br/>
+                                <div className={styles.nomeEvento}>
+                                    <div className={styles.inputContainer}>
                                         <input
                                             type="text"
                                             name="nomeEvento"
@@ -150,143 +158,145 @@ function CriacaoEvento() {
                                         />
                                         <label className={styles.floatingLabel}>Nome do Evento</label>
                                     </div>
-                            </div>
-                            <div className={styles.descricaoEvento}>
-                                <div className={styles.inputContainer}>
-                                    <input
-                                        type="text"
-                                        name="descricaoEvento"
-                                        value={data.descricaoEvento}
-                                        onChange={handleChange}
-                                        className={data.descricaoEvento ? styles.hasValue : ""}
-                                    />
-                                    <label className={styles.floatingLabel}>Descrição do Evento</label>
                                 </div>
-                            </div>
-                            <span className={styles.tituloCardDireita}>Data e Localização</span>
-                            <div className={styles.dataHoraEvento}>
-                                <span>Data</span>
-                                <input
-                                    type="date"
-                                    name="dataEvento"
-                                    value={date.dataEvento}
-                                    onChange={handleDate}
-                                    className={date.dataEvento ? styles.hasValue : ""}
-                                /><br/>
-                                <span>Início</span>
-                                <input
-                                    type="time"
-                                    name="horarioInicio"
-                                    value={date.horarioInicio}
-                                    onChange={handleDate}
-                                    className={date.horarioInicio ? styles.hasValue : ""}
-                                /><br/>
-                                <span>Término</span>
-                                <input
-                                    type="time"
-                                    name="horarioTermino"
-                                    value={date.horarioTermino}
-                                    onChange={handleDate}
-                                    className={date.horarioTermino ? styles.hasValue : ""}
-                                />
-                            </div>
+                                <div className={styles.descricaoEvento}>
+                                    <div className={styles.inputContainer}>
+                                        <input
+                                            type="text"
+                                            name="descricaoEvento"
+                                            value={data.descricaoEvento}
+                                            onChange={handleChange}
+                                            className={data.descricaoEvento ? styles.hasValue : ""}
+                                        />
+                                        <label className={styles.floatingLabel}>Descrição do Evento</label>
+                                    </div>
+                                </div>
+                                <span className={styles.tituloCardDireita}>Data e Localização</span>
+                                <div className={styles.dataHoraEvento}>
+                                    <span>Data</span>
+                                    <input
+                                        type="date"
+                                        name="dataEvento"
+                                        value={date.dataEvento}
+                                        onChange={handleDate}
+                                        className={date.dataEvento ? styles.hasValue : ""}
+                                    /><br/>
+                                    <span>Início</span>
+                                    <input
+                                        type="time"
+                                        name="horarioInicio"
+                                        value={date.horarioInicio}
+                                        onChange={handleDate}
+                                        className={date.horarioInicio ? styles.hasValue : ""}
+                                    /><br/>
+                                    <span>Término</span>
+                                    <input
+                                        type="time"
+                                        name="horarioTermino"
+                                        value={date.horarioTermino}
+                                        onChange={handleDate}
+                                        className={date.horarioTermino ? styles.hasValue : ""}
+                                    />
+                                </div>
 
-                            <div className={styles.localizacaoEvento}>
-                                <div className={styles.inputContainer}>
-                                    <input
-                                        type="text"
-                                        name="nomeLocal"
-                                        value={data.nomeLocal}
-                                        onChange={handleChange}                                    
-                                        className={data.nomeLocal ? styles.hasValue : ""}
-                                    />
-                                    <label className={styles.floatingLabel}>Nome do local</label>
-                                </div>
-                                <label className={`${styles.invalidLabel} ${isValid ? '' : styles.invalido}`}>CEP Inválido</label>
-                                <div className={styles.inputContainer}>
-                                    <input
-                                        type="number"
-                                        name="cep"
-                                        value={data.cep}
-                                        onChange={handleChange}
-                                        max="99999999"
-                                        onInput={data.cep.length > 8 ? setData((prevData) => ({...prevData, cep: data.cep.slice(0,8)})) : null}
-                                        className={data.cep ? styles.hasValue : ""}
-                                    />
-                                    <label className={styles.floatingLabel}>CEP</label>    
-                                </div>
-                                <div className={styles.inputContainer}>
-                                    <input
-                                        type="text"
-                                        name="rua"
-                                        value={data.rua}
-                                        onChange={handleChange}
-                                        maxLength={99}
-                                        className={data.rua ? styles.hasValue : ""}
-                                    />
-                                    <label className={styles.floatingLabel}>Endereço</label>
-                                </div>
-                                <div className={styles.inputContainerRow}>
+                                <div className={styles.localizacaoEvento}>
+                                    <div className={styles.inputContainer}>
+                                        <input
+                                            type="text"
+                                            name="nomeLocal"
+                                            value={data.nomeLocal}
+                                            onChange={handleChange}                                    
+                                            className={data.nomeLocal ? styles.hasValue : ""}
+                                        />
+                                        <label className={styles.floatingLabel}>Nome do local</label>
+                                    </div>
+                                    <label className={`${styles.invalidLabel} ${isValid ? '' : styles.invalido}`}>CEP Inválido</label>
                                     <div className={styles.inputContainer}>
                                         <input
                                             type="number"
-                                            name="numero"
-                                            value={data.numero}
+                                            name="cep"
+                                            value={data.cep}
                                             onChange={handleChange}
-                                            className={data.numero ? styles.hasValue : ""}
+                                            max="99999999"
+                                            onInput={data.cep.length > 8 ? setData((prevData) => ({...prevData, cep: data.cep.slice(0,8)})) : null}
+                                            className={data.cep ? styles.hasValue : ""}
                                         />
-                                        <label className={styles.floatingLabel}>Número</label>
+                                        <label className={styles.floatingLabel}>CEP</label>    
                                     </div>
                                     <div className={styles.inputContainer}>
                                         <input
                                             type="text"
-                                            name="complemento"
-                                            value={data.complemento}
+                                            name="rua"
+                                            value={data.rua}
                                             onChange={handleChange}
                                             maxLength={99}
-                                            className={data.complemento ? styles.hasValue : ""}
+                                            className={data.rua ? styles.hasValue : ""}
                                         />
-                                        <label className={styles.floatingLabel}>Complemento</label>
+                                        <label className={styles.floatingLabel}>Endereço</label>
+                                    </div>
+                                    <div className={styles.inputContainerRow}>
+                                        <div className={styles.inputContainer}>
+                                            <input
+                                                type="number"
+                                                name="numero"
+                                                value={data.numero}
+                                                onChange={handleChange}
+                                                className={data.numero ? styles.hasValue : ""}
+                                            />
+                                            <label className={styles.floatingLabel}>Número</label>
+                                        </div>
+                                        <div className={styles.inputContainer}>
+                                            <input
+                                                type="text"
+                                                name="complemento"
+                                                value={data.complemento}
+                                                onChange={handleChange}
+                                                maxLength={99}
+                                                className={data.complemento ? styles.hasValue : ""}
+                                            />
+                                            <label className={styles.floatingLabel}>Complemento</label>
+                                        </div>
+                                    </div>
+                                    <div className={styles.inputContainer}>
+                                        <input
+                                            type="text"
+                                            name="bairro"
+                                            value={data.bairro}
+                                            onChange={handleChange}
+                                            maxLength={50}
+                                            className={data.bairro ? styles.hasValue : ""}
+                                        />
+                                        <label className={styles.floatingLabel}>Bairro</label>
+                                    </div>
+                                    <div className={styles.inputContainer}>
+                                        <input
+                                            type="text"
+                                            name="cidade"
+                                            value={data.cidade}
+                                            onChange={handleChange}
+                                            maxLength={50}
+                                            className={data.cidade ? styles.hasValue : ""}
+                                        />
+                                        <label className={styles.floatingLabel}>Cidade</label>
+                                    </div>
+                                    <div className={styles.inputContainer}>
+                                        <input
+                                            type="text"
+                                            name="estado"
+                                            value={data.estado}
+                                            onChange={handleChange}
+                                            maxLength={50}
+                                            className={data.estado ? styles.hasValue : ""}
+                                        />
+                                        <label className={styles.floatingLabel}>Estado</label>                  
                                     </div>
                                 </div>
-                                <div className={styles.inputContainer}>
-                                    <input
-                                        type="text"
-                                        name="bairro"
-                                        value={data.bairro}
-                                        onChange={handleChange}
-                                        maxLength={50}
-                                        className={data.bairro ? styles.hasValue : ""}
-                                    />
-                                    <label className={styles.floatingLabel}>Bairro</label>
-                                </div>
-                                <div className={styles.inputContainer}>
-                                    <input
-                                        type="text"
-                                        name="cidade"
-                                        value={data.cidade}
-                                        onChange={handleChange}
-                                        maxLength={50}
-                                        className={data.cidade ? styles.hasValue : ""}
-                                    />
-                                    <label className={styles.floatingLabel}>Cidade</label>
-                                </div>
-                                <div className={styles.inputContainer}>
-                                    <input
-                                        type="text"
-                                        name="estado"
-                                        value={data.estado}
-                                        onChange={handleChange}
-                                        maxLength={50}
-                                        className={data.estado ? styles.hasValue : ""}
-                                    />
-                                    <label className={styles.floatingLabel}>Estado</label>
+                                <div className={styles.map}></div>
+                                <div className={styles.btnConcluirStyle}>
+                                    <button className={styles.btnConcluir} type='submit'>Concluir</button>
                                 </div>
                             </div>
-                            <div className={styles.map}></div>
-                            <div className={styles.btnConcluirStyle}>
-                            <button className={styles.btnConcluir}>Concluir</button></div>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>

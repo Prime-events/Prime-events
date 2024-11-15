@@ -32,19 +32,20 @@ function Formulario() {
       email: formData.email,
       senha: formData.senha
     });
-    setFormData({
-      nome: '',
-      sobrenome: '',
-      email: '',
-      senha: '',
-    });
+      setFormData({
+        nome: '',
+        sobrenome: '',
+        email: '',
+        senha: '',
+      });
+      setIsSignUp(false);
   };
 
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
       // Lógica para autenticar o usuário ou validar o token
-      navigate('/dashboard'); //Alterar caminho ao ch
+      navigate('/inicio'); //Alterar caminho ao ch
     }
   }, [navigate]);
 
@@ -59,7 +60,8 @@ function Formulario() {
     const data = await response.json(); // Transformar a resposta em JSON
     if (response.ok) { // Verifique se a resposta do login foi bem-sucedida
       localStorage.setItem('token', data.token);
-      navigate('/dashboard'); // Redirecione para a página /dashboard
+      localStorage.setItem('email', formData.email);
+      navigate('/inicio'); // Redirecione para a página /dashboard
     } else {
       console.log('Erro ao fazer login:', response.statusText);
     }

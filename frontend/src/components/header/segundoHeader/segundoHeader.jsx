@@ -12,19 +12,44 @@ import { GoGear } from "react-icons/go";
 import { PiGearSixLight } from "react-icons/pi";
 import { RiUserSettingsLine } from "react-icons/ri";
 import { IoIosCheckmarkCircle } from "react-icons/io";
+import { useNavigate } from 'react-router-dom';
+import {getUser} from './api';
+import {updateUser} from './apiUpdate';
+
 
 function SegundoHeader({titulo}) {
-
+    const navigate = useNavigate();
     const [modal, setModal] = useState(false);
     const [activeTab, setActiveTab] = useState('geral');
     const [theme, setTheme] = useState('Sistema'); // Estado para o tema
-    const [nome, setNome] = useState('Jhon');
-    const [sobrenome, setSobrenome] = useState('Doe');
+    const [nome, setNome] = useState('');
+    const [sobrenome, setSobrenome] = useState('');
     const [nomeCompleto, setNomeCompleto] = useState('');
 
     useEffect(() => {
-        setNomeCompleto(nome + " " + sobrenome);
-    }, []);
+        const fetchUserData = async () => {
+            try {
+                const email = localStorage.getItem('email');
+                if (!email) {
+                console.error('Email não encontrado no localStorage');
+                return;
+                }
+                console.log('Email from localStorage:', email);
+    
+                const data = await getUser(email);
+                console.log('Dados do usuário:', data);
+    
+                const { nome, sobrenome } = data;
+                setNome(nome);
+                setSobrenome(sobrenome);
+                setNomeCompleto(`${nome} ${sobrenome}`);
+            } catch (error) {
+                console.error('Erro:', error);
+            }
+            };
+    
+            fetchUserData();
+        }, []);
 
     const toggleModal = () => {
         setModal(!modal);
@@ -33,15 +58,32 @@ function SegundoHeader({titulo}) {
         }
     };
 
+
+    const handleLogout = () => {
+        localStorage.clear();
+        navigate('/'); // Redirecione para a página de login
+    };
+
     const handleThemeChange = (selectedTheme) => {
         setTheme(selectedTheme);
         console.log(`Tema selecionado: ${selectedTheme}`);
     };
 
-    const handleNomeSobrenome = () => {
+    const handleNomeSobrenome = async () => {
         setNomeCompleto(nome + " " + sobrenome);
+
+        try {
+        const email = localStorage.getItem('email');
+        const updates = { nome, sobrenome };
+        const updatedUser = await updateUser(email, updates);
+        console.log('Usuário atualizado:', updatedUser);
+        } catch (error) {
+        console.error('Erro ao atualizar usuário:', error);
+        }
+
         toggleModal();
-    }
+    };
+
     return (
         <header className={styles.header}>
             <div className={styles.itensHeader}>
@@ -78,8 +120,8 @@ function SegundoHeader({titulo}) {
                                         <GoGear />
                                         <span className={styles.optionText}>Configurações</span>
                                     </DropdownItem>
-                                    <DropdownItem>
-                                        <Link to="/" className={styles.logoutLink}>
+                                    <DropdownItem onClick={handleLogout}>
+                                        <Link  className={styles.logoutLink}>
                                             <FiLogOut />
                                             <span className={styles.optionText}>Sair</span>
                                         </Link>
@@ -191,3 +233,4 @@ function SegundoHeader({titulo}) {
 }
 
 export default SegundoHeader;
+
