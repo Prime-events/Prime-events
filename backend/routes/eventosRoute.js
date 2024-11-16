@@ -1,5 +1,5 @@
 const express = require('express');
-const EventoController = require('../controllers/eventos_controller');
+const EventoController = require('../controllers/EventoController');
 
 const routes = express.Router();
 
@@ -9,4 +9,4 @@ routes.post('/eventos', EventoController.criarEvento);
 routes.put('/eventos/:id', EventoController.atualizarEvento);
 routes.delete('/eventos/:id', EventoController.deletarEvento);
 
-module.exports = routes
+module.exports = routes;
