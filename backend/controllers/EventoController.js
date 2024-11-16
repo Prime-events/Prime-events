@@ -22,12 +22,27 @@ class EventoController {
     }
 
     static listarEventoPorId = async (req, res) => {
-        const id = req.params.id_evento;
         try {
-            const evento = await Evento.findByPk(id);
+            const evento = await Evento.findByPk(req.params.id_evento);
             if (!evento) {
-                res.status(404).json({ message: 'Evento não encontrado!' });
+                return res.status(404).json({ message: 'Evento não encontrado!' });
             } 
+            res.status(200).json(evento);
+        } catch (error) {
+            console.error('Erro ao buscar evento!');
+            res.status(404).json({ message: 'Erro ao buscar evento!' });
+        }
+    }
+    static listarEventosUsuario = async (req, res) => {
+        try {
+            const evento = await Evento.findAll({
+                where: {
+                    id_usuario: req.params.id_usuario
+                },
+            });
+            if (!evento) {
+                return res.status(404).json({ message: 'Evento não encontrado!' });
+            }
             res.status(200).json(evento);
         } catch (error) {
             console.error('Erro ao buscar evento!');
@@ -40,7 +55,7 @@ class EventoController {
         try {
             const evento = await Evento.findByPk(id);
             if (!evento) {
-                res.status(404).json({ message: 'Evento não encontrado!' });
+                return res.status(404).json({ message: 'Evento não encontrado!' });
             } 
             await evento.update(req.body);
             res.status(200).json({ message: "Evento atualizado com sucesso!", evento });
@@ -60,7 +75,6 @@ class EventoController {
                 }
             });
             res.status(200).json({ message: 'Evento deletado com sucesso!' });
-
         } catch (error) {
             console.error('Erro ao deletar evento: ', error);
             res.status(500).json({ message: 'Erro ao deletar evento!' });

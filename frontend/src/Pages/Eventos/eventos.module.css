@@ -71,18 +71,23 @@ input[type="search"] {
 }
 .baixoEvento {
     display: flex;
-    gap: 5rem;
-    border-bottom: 0.25rem solid #0000002E;
+    gap: 6rem;
+    border-bottom: 0.15rem solid #0000002E;
 }
 .baixoEvento span {
     color: #2A2D37E5;
     display: flex;
+    gap:4rem;
     font-size: 2.25rem;
     font-weight: 700;
+}
+.endereco {
+    padding-bottom: .5rem;
 }
 .endereco label, .data label {
     display: flex;
     flex-direction: column;
+    padding-bottom: .2rem;
 }
 .nomeEvento {
     font-size: 1.875rem;
@@ -96,7 +101,7 @@ input[type="search"] {
     display: flex;
     flex-direction: row;
     gap: 1.5rem;
-    padding-top: 2rem;
+    padding-top: 1rem;
 }
 .data label {
     font-size: 2.1875rem;
@@ -130,7 +135,6 @@ input[type="search"] {
     color: var(--laranja);
     opacity: 1;
 }
-
 @media (max-width: 1024px) { 
     .containerEventos {
         padding: 2rem; 

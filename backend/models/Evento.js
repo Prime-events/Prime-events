@@ -65,8 +65,8 @@ const Evento = sequelize.define(
     }
   );
 
-  Evento.belongsTo(Usuario, { foreignKey: 'id_usuario' });
-  
+Evento.belongsTo(Usuario, { foreignKey: 'id_usuario' });
+
 Evento.associate = (models) => {
     Evento.hasMany(models.convidados, { foreignKey: 'id_evento' });
     Evento.hasMany(models.programacao_evento, { foreignKey: 'id_evento' });

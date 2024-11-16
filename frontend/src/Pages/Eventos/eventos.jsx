@@ -2,14 +2,43 @@ import { Link } from "react-router-dom";
 import SegundoHeader from "../../components/header/segundoHeader/segundoHeader";
 import SideBar from "../../components/sideBar/sideBar";
 import styles from "./eventos.module.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { listarEventosUsuario } from "./api";
+import { getUser } from "../../components/header/segundoHeader/api";
 
 function Eventos(){
     const [isActive, setIsActive] = useState('eventos');
+    const [eventos, setEventos] = useState([]);
+    const mesesAbreviados = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
 
     const toggleActive = (state) => {
         setIsActive(state);
     }
+
+    useEffect(() => {
+        const fetchEventos = async () => {
+            try {
+                const email = localStorage.getItem('email');
+                const data_usuario = await getUser(email);
+                const { id_usuario } = data_usuario;
+                const data_eventos = await listarEventosUsuario(id_usuario);
+                console.log('data:', data_eventos);
+                const eventosComUrl = data_eventos.map((evento) => {
+                    if (evento.imagem) {
+                        const blob = new Blob([evento.imagem], { type: 'image/jpeg' });
+                        evento.imagemUrl = URL.createObjectURL(blob);
+                        console.log(evento.imagemUrl);
+                    }
+                    return evento;
+                });
+                
+                setEventos(eventosComUrl);
+            } catch (error) {
+                console.error('Erro:', error);
+            }
+        };
+        fetchEventos();
+    }, []);
 
     return (
         <>
@@ -36,33 +65,36 @@ function Eventos(){
                                 <button>Criar Evento</button>
                             </Link>
                         </div>
-                        
                     </div>
-                    <div className={styles.baixoEvento}>  
-                        <div className={styles.containerEvento}>
-                            <span>Evento</span> 
-                            <div className={styles.informacoesEvento}>         
-                                <div className={styles.data}>
-                                    <label className={styles.mesEvento}>Jan</label>
-                                    <label className={styles.diaEvento}>24</label>
-                                </div>
-                                <div className={styles.imagem} style={{backgroundImage: `url(https://cdn.pixabay.com/photo/2016/09/19/21/50/sun-flower-1681385_640.jpg)`}}></div> 
-                                <div className={styles.endereco}>
-                                    <label className={styles.nomeEvento}>Nome do Evento</label>
-                                    <label className={styles.infoEvento}>Endereço</label>
-                                    <label className={styles.infoEvento}>Data e Hora</label>
+                    {eventos.map((evento) => (
+                        <div key={evento.id_evento} className={styles.baixoEvento}>
+                            <div  className={styles.containerEventoInfo}>
+                                <span>Evento</span> 
+                                <div className={styles.informacoesEvento}>         
+                                    <div className={styles.data}>
+                                        <label className={styles.mesEvento}>{mesesAbreviados[new Date(evento.dataHoraInicial).getMonth()]}</label>
+                                        <label className={styles.diaEvento}>{new Date(evento.dataHoraInicial).getDate()}</label>
+                                    </div>
+                                    <div className={styles.imagem} style={{backgroundImage: evento.imagemUrl}}></div> 
+                                    <div className={styles.endereco}>
+                                        <label className={styles.nomeEvento}>{evento.nomeEvento}</label>
+                                        <label className={styles.infoEvento}>{`${evento.nomeLocal}`}</label>
+                                        <label className={styles.infoEvento}>{`${evento.rua} ${evento.numero} ${evento.complemento} ${evento.bairro} ${evento.cidade}`}</label>
+                                        <label className={styles.infoEvento}> {`${new Date(evento.dataHoraInicial).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })} - 
+                                        ${new Date(evento.dataHoraFinal).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}`}</label>
+                                    </div>  
                                 </div>  
-                            </div>  
-                        </div>    
-                        <div className={styles.containerConvidados}>
-                            <span>Convidados</span>
-                            <div className={styles.numeroConvidados}>50</div> 
-                        </div>      
-                        <div className={styles.containerStatus}>      
-                            <span>Status</span>
-                            <div className={styles.status}>Em Progresso</div>  
-                        </div>        
-                    </div>
+                            </div>   
+                            <div className={styles.containerConvidados}>
+                                <span>Convidados</span>
+                                <div className={styles.numeroConvidados}>50</div> 
+                            </div>      
+                            <div className={styles.containerStatus}>      
+                                <span>Status</span>
+                                <div className={styles.status}>Em Progresso</div> 
+                            </div> 
+                        </div>
+                    ))}  
                 </div>
             </div>
         </>
