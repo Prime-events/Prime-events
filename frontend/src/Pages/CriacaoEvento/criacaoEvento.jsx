@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import SegundoHeader from '../../components/header/segundoHeader/segundoHeader.jsx'
-import SideBar from '../../components/sideBar/sideBar.jsx';
+import SideBar from '../../components/sideBar/SideBar.jsx';
 import styles from "./criacaoEvento.module.css";
 import { IoArrowBackCircleOutline } from "react-icons/io5";
 import axios from 'axios';

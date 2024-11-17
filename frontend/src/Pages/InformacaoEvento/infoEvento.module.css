@@ -1,0 +1,202 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow-x: hidden; 
+    overflow-y: auto;   
+}
+
+.container {
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+}
+
+.container > .containerInformacoes {
+    width: 100%;
+    margin-top: -1.5rem;
+    padding: 2rem;
+    background-color: #fff;
+    display: flex;
+    gap: 2rem;
+}
+
+/* Seção esquerda (Sidebar) */
+.containerInformacoes > .secaoEsquerda {
+    background-color: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    height: fit-content; /* Ajusta à altura do conteúdo */
+}
+
+/* Seção direita (Conteúdo) */
+.secaoDireita {
+    background-color: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    height: fit-content; /* Ajusta à altura do conteúdo */
+}
+
+
+.secaoEsquerda > .containereImagemEvento,
+.containerImagemMapa {
+    width: 87%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nomeEvento {
+    font-size: clamp(1.2rem, 2vw, 1.8rem);
+    font-weight: bold;
+    text-align: center;
+}
+
+.imagemEvento,
+.imagemMapa {
+    width: 90%;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.infoEvento {
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 0.5rem;
+    font-size: clamp(0.875rem, 1.5vw, 1rem);
+    margin-top: 4rem;
+}
+
+.infoItem {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.icon {
+    color: #FCA311;
+    font-size: 1.4rem;
+}
+
+.descricao {
+    margin-top: 2rem;
+    font-size: clamp(0.875rem, 1.5vw, 1rem);
+    overflow-y: auto;
+    max-height: 50vh; 
+}
+
+.legendaDescricao {
+    background-color: white;
+    width: 100%;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    padding: 5px 0;
+}
+
+.descricao p {
+    margin-top: 0.5rem;
+    line-height: 1.4;
+}
+
+.botoes {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: space-between;
+    margin-top: 1rem;
+    padding-top: 1rem;
+}
+
+.botao {
+    background-color: #fff;
+    color: #FCA311;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: clamp(0.8rem, 1.5vw, 0.9rem);
+    transition: background-color 0.3s;
+    border: 1px solid rgba(0, 0, 0, 0.180);
+    font-weight: 600;
+}
+
+.botao:hover {
+    border-color: rgba(0, 0, 0, 0.3);
+    background-color: #d6d6d667;
+}
+
+
+.editarInformacoes .btnEditar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.625rem 1.25rem;
+    font-size: 1rem;
+    color: #000;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    font-size: 0.9rem;
+    background-color: transparent;
+}
+
+.editarInformacoes{
+    display: flex;
+    justify-content: right;
+}
+
+.itensTopoSecao{
+    display: flex;
+}
+
+.itensTopoSecao {
+    justify-content: space-between;
+    
+}
+
+.voltarEventos{
+    width: 87%;
+    display: flex;
+    justify-content: start;
+}
+
+.voltarEventos .btnVoltar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.625rem 1.25rem;
+    font-size: 1rem;
+    color: #000;
+    border: none;
+    background-color: #FCA311;
+    border-radius: 0.25rem;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .container > .containerInformacoes {
+        flex-direction: column;
+    }
+
+    .containerInformacoes > .secaoEsquerda,
+    .secaoDireita {
+        width: 100%;
+    }
+    
+    .secaoDireita {
+        max-height: none; 
+    }
+
+    .descricao {
+        max-height: 40vh; 
+    }
+}
