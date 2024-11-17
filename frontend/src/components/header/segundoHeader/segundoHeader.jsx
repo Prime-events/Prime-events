@@ -133,7 +133,7 @@ function SegundoHeader({ titulo }) {
 
             const status = error.response?.status || error.status;
             const message = error.response?.data?.message || error.message;
-    
+
             if (status === 422) {
                 toast.error("Senha atual incorreta!");
             } else if (status) {
@@ -146,27 +146,27 @@ function SegundoHeader({ titulo }) {
 
     const handleEmailChange = async (e) => {
         e.preventDefault();
-    
+
         try {
             const updates = {
                 currentPassword,
                 newEmail
             };
-    
+
             const response = await updateUserEmail(currentEmail, updates);
-    
+
             localStorage.setItem('email', newEmail);
             setCurrentEmail(newEmail);
             handleEmailModalClose();
             toast.success("Email atualizado com sucesso!");
-    
+
         } catch (error) {
-            
+
             console.error('Erro ao atualizar email:', error);
-    
+
             const status = error.response?.status || error.status;
             const message = error.response?.data?.message || error.message;
-    
+
             if (status === 422) {
                 toast.error("Senha atual incorreta!");
             } else if (status) {
@@ -407,27 +407,39 @@ function SegundoHeader({ titulo }) {
                                         className={styles.inputDisabled}
                                     />
                                 </FormGroup>
-                                <FormGroup>
-                                    <Label for="newEmail">Novo E-mail *</Label>
+                                <FormGroup className={styles.floatingGroup}>
                                     <Input
                                         type="email"
                                         id="newEmail"
                                         value={newEmail}
                                         onChange={(e) => setNewEmail(e.target.value)}
                                         required
-                                        className={styles.inputEmail}
+                                        className={`${styles.inputEmail} ${newEmail ? 'hasValue' : ''}`}
+                                        placeholder=" "
                                     />
+                                    <Label
+                                        for="newEmail"
+                                        className={styles.floatingLabel}
+                                    >
+                                        Novo E-mail *
+                                    </Label>
                                 </FormGroup>
-                                <FormGroup>
-                                    <Label for="currentPassword">Senha Atual *</Label>
+                                <FormGroup className={styles.floatingGroup}>
                                     <Input
                                         type="password"
                                         id="currentPassword"
                                         value={currentPassword}
                                         onChange={(e) => setCurrentPassword(e.target.value)}
                                         required
-                                        className={styles.inputPassword}
+                                        className={`${styles.inputPassword} ${currentPassword ? 'hasValue' : ''}`}
+                                        placeholder=" "
                                     />
+                                    <Label
+                                        for="currentPassword"
+                                        className={styles.floatingLabel}
+                                    >
+                                        Senha Atual *
+                                    </Label>
                                 </FormGroup>
                                 <div className={styles.emailModalButtons}>
                                     <Button
@@ -457,40 +469,58 @@ function SegundoHeader({ titulo }) {
                         </ModalHeader>
                         <ModalBody>
                             <Form onSubmit={handlePasswordChange} className={styles.passwordForm}>
-                                <FormGroup>
-                                    <Label for="currentPasswordChange">Senha Atual *</Label>
+                                <FormGroup className={styles.floatingGroup}>
                                     <Input
                                         type="password"
                                         id="currentPasswordChange"
                                         value={currentPasswordChange}
                                         onChange={(e) => setCurrentPasswordChange(e.target.value)}
                                         required
-                                        className={styles.inputPassword}
+                                        className={`${styles.inputPassword} ${currentPasswordChange ? 'hasValue' : ''}`}
+                                        placeholder=" "
                                     />
+                                    <Label
+                                        for="currentPasswordChange"
+                                        className={styles.floatingLabel}
+                                    >
+                                        Senha Atual *
+                                    </Label>
                                 </FormGroup>
-                                <FormGroup>
-                                    <Label for="newPassword">Nova Senha *</Label>
+                                <FormGroup className={styles.floatingGroup}>
                                     <Input
                                         type="password"
                                         id="newPassword"
                                         value={newPassword}
                                         onChange={(e) => setNewPassword(e.target.value)}
                                         required
-                                        className={styles.inputPassword}
+                                        className={`${styles.inputPassword} ${newPassword ? 'hasValue' : ''}`}
+                                        placeholder=" "
                                         minLength={8}
                                     />
+                                    <Label
+                                        for="newPassword"
+                                        className={styles.floatingLabel}
+                                    >
+                                        Nova Senha *
+                                    </Label>
                                 </FormGroup>
-                                <FormGroup>
-                                    <Label for="confirmPassword">Confirmar Senha *</Label>
+                                <FormGroup className={styles.floatingGroup}>
                                     <Input
                                         type="password"
                                         id="confirmPassword"
                                         value={confirmPassword}
                                         onChange={(e) => setConfirmPassword(e.target.value)}
                                         required
-                                        className={styles.inputPassword}
+                                        className={`${styles.inputPassword} ${confirmPassword ? 'hasValue' : ''}`}
+                                        placeholder=" "
                                         minLength={8}
                                     />
+                                    <Label
+                                        for="confirmPassword"
+                                        className={styles.floatingLabel}
+                                    >
+                                        Confirmar Senha *
+                                    </Label>
                                 </FormGroup>
                                 {passwordError && (
                                     <div className={styles.errorMessage} style={{ color: 'red', marginBottom: '1rem' }}>
