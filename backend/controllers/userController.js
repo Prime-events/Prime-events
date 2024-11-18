@@ -28,7 +28,7 @@ class UserController {
 
     static LoginUser = async (req, res) => {
         const { email, senha } = req.body;
-        console.log(email+", " + senha);
+        console.log(email + ", " + senha);
         if (!email || !senha) {
             return res.status(422).send('Todos os campos são obrigatórios.');
         }
@@ -37,7 +37,7 @@ class UserController {
         if (!user) {
             return res.status(404).json({ message: 'Usuário não encontrado!' });
         }
- 
+
         // Verifica se as senhas coincidem
         const verificaSenha = await bcrypt.compare(senha, user.senha);
         if (!verificaSenha) {
@@ -72,25 +72,25 @@ class UserController {
 
     static getUser = async (req, res) => {
         const { email } = req.params; // Desestruturação para pegar o email do body 
-        try 
-        { const userDados = await usuarioModel.findOne({ 
-            where: { email: email } 
-        }); // Verifica se encontrou o usuário 
-        if (!userDados) { 
-            return res.status(404).json({ message: "Usuário não encontrado" }); 
-        } // Se encontrou, retorna os dados selecionados 
-        const userInfo = { 
-            id_usuario: userDados.id_usuario,
-            nome: userDados.nome, 
-            sobrenome: userDados.sobrenome, 
-            email: userDados.email, // Adicione outros campos que deseja retornar 
-        }; 
-        res.status(200).json(userInfo); } 
-        catch (error) { 
-            console.error("Erro ao buscar usuário:", error); 
-            res.status(500).json({ 
-                message: "Erro interno no servidor", 
-                error: error.message 
+        try {
+            const userDados = await usuarioModel.findOne({
+                where: { email: email }
+            }); // Verifica se encontrou o usuário 
+            if (!userDados) {
+                return res.status(404).json({ message: "Usuário não encontrado" });
+            } // Se encontrou, retorna os dados selecionados 
+            const userInfo = {
+                nome: userDados.nome,
+                sobrenome: userDados.sobrenome,
+                email: userDados.email, // Adicione outros campos que deseja retornar 
+            };
+            res.status(200).json(userInfo);
+        }
+        catch (error) {
+            console.error("Erro ao buscar usuário:", error);
+            res.status(500).json({
+                message: "Erro interno no servidor",
+                error: error.message
             });
         }
     }
@@ -137,6 +137,83 @@ class UserController {
             });
         }
     }
+
+    static updateEmail = async (req, res) => {
+        const { email } = req.params;
+        const { currentPassword, newEmail } = req.body;
+        try {
+            const userDados = await usuarioModel.findOne({
+                where: { email: email }
+            });
+            if (!userDados) {
+                return res.status(404).json({
+                    message: "Usuário não encontrado"
+                });
+            }
+
+            const verificaSenha = await bcrypt.compare(currentPassword, userDados.senha);
+            if (!verificaSenha) {
+                console.log("verificação de senha atual para trocar email deu inválida.");
+                return res.status(422).json({ message: 'Senha inválida!' });
+            }
+
+            userDados.email = newEmail || userDados.email
+
+            await userDados.save(); // Salva as alterações
+
+            // Retorna os dados atualizados
+            const userInfo = {
+                email: userDados.email,
+            };
+
+            res.status(200).json(userInfo);
+
+        } catch (error) {
+            console.error("Erro ao atualizar email:", error);
+            res.status(500).json({
+                message: "Erro interno no servidor",
+                error: error.message
+            });
+        }
+    }
+
+    static updateSenha = async (req, res) => {
+        const { email } = req.params;
+        const { currentPasswordChange, newPassword, confirmPassword } = req.body;
+
+        try {
+            const userDados = await usuarioModel.findOne({ where: { email: email } });
+            if (!userDados) {
+                return res.status(404).json({
+                    message: "Usuário não encontrado"
+                });
+            }
+
+            const verificaSenha = await bcrypt.compare(currentPasswordChange, userDados.senha);
+            console.log('Senha verificada:', verificaSenha);
+
+            if (!verificaSenha) {
+                return res.status(422).json({ message: 'Senha inválida!' });
+            }
+
+            const salt = await bcrypt.genSalt(12);
+            const senhaHash = await bcrypt.hash(newPassword, salt);
+
+            userDados.senha = senhaHash;
+
+            await userDados.save();
+
+            res.status(200).json({ message: "Senha atualizada com sucesso!" });
+
+        } catch (error) {
+            console.error("Erro ao atualizar senha:", error);
+            res.status(500).json({
+                message: "Erro interno no servidor",
+                error: error.message
+            });
+        }
+    }
+
 
 }
 

@@ -16,7 +16,7 @@ const pool = mysql.createPool({
     database: dbDatabase
 }).promise();
 
-const sequelize = new Sequelize(dbDatabase, dbUser  , '', {
+const sequelize = new Sequelize(dbDatabase, dbUser, dbPassword, {
   host: dbHost,
   dialect: 'mysql',
   pool: {
@@ -26,6 +26,7 @@ const sequelize = new Sequelize(dbDatabase, dbUser  , '', {
     idle: 10000
   }
 });
+
 
 async function connectToDatabase() {
   try {
