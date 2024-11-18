@@ -15,7 +15,7 @@ export const loginUser = async (user) => {
             error.response = response;  // Anexa a resposta ao erro para acessarmos depois
             throw error;
         }
-        return await response.json();
+        return response;
     } catch (error) {
         console.error("Erro na API:", error);
         throw error;
