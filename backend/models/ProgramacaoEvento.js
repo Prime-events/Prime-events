@@ -1,5 +1,6 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require('../config/db');
+const Evento = require("./Evento");
 
 const ProgramacaoEvento = sequelize.define('programacao_evento', {
     id_programacao: {
@@ -26,8 +27,7 @@ const ProgramacaoEvento = sequelize.define('programacao_evento', {
 },
 );
 
-ProgramacaoEvento.associate = (models) => {
-    ProgramacaoEvento.belongsTo(models.eventos, { foreignKey: 'id_evento' });
-};
+ProgramacaoEvento.belongsTo(Evento, { foreignKey: 'id_evento' });
+
 
 module.exports = ProgramacaoEvento;

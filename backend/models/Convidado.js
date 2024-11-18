@@ -1,5 +1,6 @@
 const { DataTypes } = require("sequelize");
 const sequelize  = require ('../config/db');
+const Evento = require("./Evento");
 
 const Convidado = sequelize.define(
     'convidados',
@@ -25,9 +26,8 @@ const Convidado = sequelize.define(
     }
 );
     
-    Convidado.associate = (models) => {
-        Convidado.belongsTo(models.eventos, { foreignKey: 'id_evento' });
-    }
+Convidado.belongsTo(Evento, { foreignKey: 'id_evento' });
+
     module.exports = Convidado;
     
     
