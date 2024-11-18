@@ -123,6 +123,7 @@ class UserController {
 
             // Retorna os dados atualizados
             const userInfo = {
+                id_usuario: userDados.id_usuario,
                 nome: userDados.nome,
                 sobrenome: userDados.sobrenome,
                 email: userDados.email,
