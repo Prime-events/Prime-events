@@ -28,7 +28,7 @@ const Convidado = sequelize.define(
     
 Convidado.belongsTo(Evento, { foreignKey: 'id_evento' });
 
-    module.exports = Convidado;
+module.exports = Convidado;
     
     
     

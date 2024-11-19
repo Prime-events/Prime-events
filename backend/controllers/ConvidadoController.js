@@ -30,17 +30,19 @@ class ConvidadoController {
     }
 
     static listarConvidadoPorId = async (req, res) => {
-        const id = req.params.id;
         try {
-            const Convidado = await Convidado.findByPk(id);
-            if (Convidado) {
-                res.status(200).json(Convidado);
-            } else {
-                res.status(404).json({ message: 'Convidado não encontrado!' });
+            const convidado = await Convidado.findAll({
+                where: {
+                    id_evento: req.params.id_evento
+                },
+            });
+            if (!convidado) {
+                return res.status(404).json({ message: 'Convidado não encontrado!' });
             }
+            res.status(200).json(convidado);
         } catch (error) {
-            console.error('Erro ao buscar Convidado!');
-            res.status(404).json({ message: 'Erro ao buscar Convidado!' });
+            console.error('Erro ao buscar convidado!');
+            res.status(404).json({ message: 'Erro ao buscar convidado!' });
         }
     }
 
