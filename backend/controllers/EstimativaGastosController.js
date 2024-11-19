@@ -13,33 +13,51 @@ const EstimativaController = {
                 id_evento,
                 id_categoria
             });
-            res.status(201).json(estimativaGasto);
         } catch (error) {
             res.status(500).json({ error: error.message });
         }
     },
 
-    async getEstimativaByCategoria(req, res) {
+    async getEstimativaByEvento(req, res) {
         try {
-            const { id_categoria } = req.params;
-            const estimativaGasto = await EstimativaGastos.findOne({
-                where: { id_categoria },
-                attributes: ['nome_item', 'quantidade_item', 'valor_item'],
-                include: [
-                    {
-                        model: Categoria,
-                        attributes: ['nome'],
-                    }
-                ]
+            const { id_evento } = req.params;
+            const estimativaGasto = await EstimativaGastos.findAll({
+                where: { id_evento },
+                attributes: ['nome_item', 'quantidade_item', 'valor_item', 'id_categoria'],
             });
-            if (!estimativaGasto) {
+    
+            if (!estimativaGasto || estimativaGasto.length === 0) {
                 return res.status(404).json({ message: 'Estimativa não encontrada para a categoria fornecida' });
             }
-            res.status(200).json(estimativaGasto);
+    
+            // Buscar o nome da categoria para cada item em estimativaGasto
+            const result = await Promise.all(estimativaGasto.map(async (item) => {
+                const categoria = await Categoria.findByPk(item.id_categoria, {
+                    attributes: ['nome']
+                });
+    
+                return {
+                    nome_item: item.nome_item,
+                    quantidade_item: item.quantidade_item,
+                    valor_item: item.valor_item,
+                    categoria_nome: categoria ? categoria.nome : 'Categoria não encontrada'
+                };
+            }));
+    
+
+            res.status(200).json(result);
         } catch (error) {
+            console.error("Erro ao buscar estimativa:", error.message);
             res.status(500).json({ error: error.message });
         }
     },
+    
+    
+    
+    
+    
+    
+    
 
     async getAllEstimativaGastos(req, res) {
         try {
