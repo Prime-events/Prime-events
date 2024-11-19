@@ -15,6 +15,7 @@ import { createConvidado, listarConvidadosEvento } from './api.js';
 import { Button, Form, FormGroup, Label, Input, Modal, ModalHeader, ModalBody, Table } from 'reactstrap';
 import { createCategoria, getAllCategorias, createGasto, getAllEstimativaGastos} from './apiEstimativa.js';
 import { getUser } from '../../components/header/segundoHeader/api.js';
+import { listarEvento } from '../Eventos/api.js';
 
 function InformacaoEvento() {
     const [isConvidadoOpen, setIsConvidadoOpen] = useState(false);
@@ -37,6 +38,7 @@ function InformacaoEvento() {
     const [valor, setValor] = useState('');
     const [totalSoma, setTotalSoma] = useState(0);
     const [listaItens, setListaItens] = useState([]);
+    const [evento, setEvento] = useState({});
 
     useEffect(() => {
         const fetchConvidados = async () => {
@@ -52,12 +54,24 @@ function InformacaoEvento() {
             }
         };
         
-
+        fetchInformacoesEvento();
         fetchConvidados();
         fetchCategorias();
         fetchGastos();
     }, []);
-    
+    const fetchInformacoesEvento = async () => {
+        try {
+            const id_evento = localStorage.getItem('idEvento');
+            setConvidadoInfo((prevData) => ({...prevData, id_evento: id_evento}));
+            const data_evento = await listarEvento(id_evento);
+            console.log('data:', data_evento);
+            setEvento(data_evento);
+
+        } catch (error) {
+            console.error('Erro:', error);
+        }
+    }
+
     const fetchGastos = async () => {
         try {
             const id_evento = localStorage.getItem('idEvento');
@@ -94,7 +108,7 @@ function InformacaoEvento() {
         navigate('/eventos');
     };
 
-    const handleChange = (e) => {
+    const handleChangeConvidado = (e) => {
         const { name, value } = e.target;
         setConvidadoInfo((prevData) => ({
             ...prevData,
@@ -210,7 +224,7 @@ function InformacaoEvento() {
 
                     <div className={styles.secaoDireita}>
                         <div className={styles.itensTopoSecao}>
-                            <span className={styles.nomeEvento}>Festa de casamento</span>
+                            <span className={styles.nomeEvento}>{evento.nomeEvento}</span>
                             <div className={styles.editarInformacoes}>
                                 <button className={styles.btnEditar}><FaRegEdit style={{ fontSize: '1.4rem' }} />Editar informações</button>
                             </div>
@@ -219,27 +233,27 @@ function InformacaoEvento() {
                             <div className={styles.infoItem}>
                                 <FaCalendarAlt className={styles.icon} />
                                 <span>Data:</span>
-                                <span>24/01/2025</span>
+                                <span>{evento.dataHoraInicial ? new Date(evento.dataHoraInicial).toLocaleDateString('pt-BR'): ''}</span>
                             </div>
                             <div className={styles.infoItem}>
                                 <FaClock className={styles.icon} />
                                 <span>Hora de Início:</span>
-                                <span>16:00</span>
+                                <span>{evento.dataHoraInicial ? new Date(evento.dataHoraInicial).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }) : ''}</span>
                             </div>
                             <div className={styles.infoItemLocalizacao}>
                                 <TiLocation className={styles.icon} style={{ fontSize: '2rem', marginLeft: '-5px' }} />
                                 <span>Localização: </span>
-                                <span>Largo do Caranguejo, Itinga</span>
+                                <span>{`${evento.rua} ${evento.numero} ${evento.complemento} ${evento.bairro} ${evento.cidade}`}</span>
                             </div>
                             <div className={styles.infoItem}>
                                 <FaClock className={styles.icon} />
                                 <span>Hora de Término:</span>
-                                <span>20:00</span>
+                                <span>{evento.dataHoraInicial ? new Date(evento.dataHoraFinal).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }) : ''}</span>
                             </div>
                         </div>
                         <div className={styles.descricao}>
                             <div className={styles.legendaDescricao}><strong>Descrição:</strong></div>
-                            <p>Durante a cerimônia, os noivos, vestidos com trajes inspirados em contos de fadas, trocam votos sob um arco floral, ao som suave de uma harpa. Após a cerimônia, os convidados desfrutam de um banquete com mesas adornadas com toalhas de cetim e pratos gourmet.</p>
+                            <p>{evento.descricaoEvento}</p>
                         </div>
                         <div className={styles.botoes}>
                             <button className={styles.botao} onClick={() => setIsConvidadoOpen(true)} >Lista de convidados</button>
@@ -260,7 +274,7 @@ function InformacaoEvento() {
                                     type='text'
                                     name='nome'
                                     value={convidadoInfo.nome}
-                                    onChange={handleChange}
+                                    onChange={handleChangeConvidado}
                                     maxLength={40}
                                     className={convidadoInfo.nome ? styles.hasValue : ""}
                                     ></input>
@@ -271,7 +285,7 @@ function InformacaoEvento() {
                                     type='text'
                                     name='telefone'
                                     value={convidadoInfo.telefone}
-                                    onChange={handleChange}
+                                    onChange={handleChangeConvidado}
                                     maxLength={11}
                                     className={convidadoInfo.telefone ? styles.hasValue : ""}
                                     ></input>
