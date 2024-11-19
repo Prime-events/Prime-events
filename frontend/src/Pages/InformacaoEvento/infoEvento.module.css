@@ -182,6 +182,82 @@ html, body {
     cursor: pointer;
 }
 
+.timeLineModal {
+    max-width: 80%; 
+    width: 80%;     
+}
+
+.secoes{
+    display: flex;
+}
+.tituloCronograma{
+    width: 100%;
+    font-size: 2rem;
+    text-align: center;
+}
+.secoes > .secaoEsquerda {
+    width: 55%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.secaoEsquerda > .itensSecaoEsq{
+    width: 100%;
+    display: flex;
+    margin-top: 2rem;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.formTarefa{
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.secoes > .secaoDireita {
+    width: 45%;
+    overflow-y: auto;
+    max-height: 60vh;
+
+}
+
+.inputTarefa {
+    width: 100%; 
+    height: 3rem;
+    border: 1px solid white; 
+    border-radius: 14px; 
+    outline: none; 
+    padding: 0.5rem;
+    background-color: #f9f9f9;
+    color: #333;
+    font-size: 1rem; 
+    transition: border-color 0.3s ease;
+}
+
+/* Efeito ao focar no input */
+.inputTarefa:focus {
+    border-color: #FCA311; /* Altera a cor da borda ao focar */
+    background-color: #ffffff; /* Torna o fundo branco ao focar */
+    box-shadow: 0 0 0px rgba(255, 183, 0, 0.851); /* Adiciona um leve efeito de sombra */
+}
+
+.btnAdicionarTarefa{
+    margin-top: 2rem;
+    padding: 0.625rem 1.25rem;
+    font-size: 1rem;
+    color: #000;
+    background-color: #FCA311;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btnAdicionarTarefa:hover{
+    opacity: 0.8;
+}
+
 @media (max-width: 768px) {
     .container > .containerInformacoes {
         flex-direction: column;
