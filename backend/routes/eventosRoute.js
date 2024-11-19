@@ -4,7 +4,8 @@ const EventoController = require('../controllers/EventoController');
 const routes = express.Router();
 
 routes.get('/eventos', EventoController.listarEventos);
-routes.get('/eventos/:id', EventoController.listarEventoPorId);
+routes.get('/eventos/:id_evento', EventoController.listarEventoPorId);
+routes.get('/eventos/usuario/:id_usuario', EventoController.listarEventosUsuario);
 routes.post('/eventos', EventoController.criarEvento);
 routes.put('/eventos/:id', EventoController.atualizarEvento);
 routes.delete('/eventos/:id', EventoController.deletarEvento);

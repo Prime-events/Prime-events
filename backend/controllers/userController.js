@@ -30,7 +30,7 @@ class UserController {
         const { email, senha } = req.body;
         console.log(email + ", " + senha);
         if (!email || !senha) {
-            return res.status(422).send('Todos os campos são obrigatórios.');
+            return res.status(423).send('Todos os campos são obrigatórios.');
         }
 
         const user = await usuarioModel.findOne({ where: { email: email } });
@@ -124,6 +124,7 @@ class UserController {
 
             // Retorna os dados atualizados
             const userInfo = {
+                id_usuario: userDados.id_usuario,
                 nome: userDados.nome,
                 sobrenome: userDados.sobrenome,
                 email: userDados.email,

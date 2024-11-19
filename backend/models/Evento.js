@@ -1,5 +1,6 @@
 const { DataTypes } = require("sequelize");
 const sequelize  = require ('../config/db');
+const Usuario = require("./Usuario");
 
 const Evento = sequelize.define(
     'eventos',
@@ -64,8 +65,9 @@ const Evento = sequelize.define(
     }
   );
 
+Evento.belongsTo(Usuario, { foreignKey: 'id_usuario' });
+
 Evento.associate = (models) => {
-    Evento.belongsTo(models.usuarios, { foreignKey: 'id_usuario' });
     Evento.hasMany(models.convidados, { foreignKey: 'id_evento' });
     Evento.hasMany(models.programacao_evento, { foreignKey: 'id_evento' });
     Evento.hasMany(models.estimativa_gastos, { foreignKey: 'id_evento' });

@@ -6,6 +6,7 @@ import { IoArrowBackCircleOutline } from "react-icons/io5";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { createEvento } from './api.js';
+import { getUser } from '../../components/header/segundoHeader/api.js';
 
 function CriacaoEvento() {
     const navigate = useNavigate(); 
@@ -27,6 +28,7 @@ function CriacaoEvento() {
         cidade: "",
         estado: "",
         imagem: null,
+        id_usuario: "",
     });
     const [date, setDate] = useState({
         dataEvento: "",
@@ -107,6 +109,20 @@ function CriacaoEvento() {
         await createEvento(data);
         navigate('/eventos');
     }
+    useEffect(() => {
+        const fetchUserData = async () => {
+            try {
+                const email = localStorage.getItem('email');
+                const data_usuario = await getUser(email);
+                const { id_usuario } = data_usuario;
+                setData((prevData) => ({...prevData, id_usuario: id_usuario}));
+            } catch (error) {
+                console.error('Erro:', error);
+            }
+        };
+        fetchUserData();
+    }, []);
+    
     return (<>
         <SegundoHeader titulo='Criar evento'/>
         <div className={styles.container}>
@@ -217,12 +233,12 @@ function CriacaoEvento() {
                                     <label className={`${styles.invalidLabel} ${isValid ? '' : styles.invalido}`}>CEP Inválido</label>
                                     <div className={styles.inputContainer}>
                                         <input
-                                            type="number"
+                                            type="text"
                                             name="cep"
                                             value={data.cep}
                                             onChange={handleChange}
-                                            max="99999999"
-                                            onInput={data.cep.length > 8 ? setData((prevData) => ({...prevData, cep: data.cep.slice(0,8)})) : null}
+                                            maxLength={9}
+                                            onInput={data.cep.length > 9 ? setData((prevData) => ({...prevData, cep: data.cep.slice(0,8)})) : null}
                                             className={data.cep ? styles.hasValue : ""}
                                         />
                                         <label className={styles.floatingLabel}>CEP</label>    
