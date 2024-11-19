@@ -80,7 +80,6 @@ class UserController {
                 return res.status(404).json({ message: "Usuário não encontrado" });
             } // Se encontrou, retorna os dados selecionados 
             const userInfo = {
-                id_usuario:userDados.id_usuario,
                 nome: userDados.nome,
                 sobrenome: userDados.sobrenome,
                 email: userDados.email, // Adicione outros campos que deseja retornar 
