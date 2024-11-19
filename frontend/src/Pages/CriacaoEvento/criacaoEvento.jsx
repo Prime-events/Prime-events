@@ -75,6 +75,10 @@ function CriacaoEvento() {
 
     useEffect(() => {
         const fetchEndereco = async () => {
+            if(!localStorage.getItem('token')){
+                console.error('É preciso fazer login para ter acesso');
+                navigate('/formulario');
+            }
             const response = await axios.get(`https://viacep.com.br/ws/${data.cep}/json/`);
             if (response.data.erro) {
                 setIsValid(false);
