@@ -126,7 +126,11 @@ const EstimativaController = {
     async getAllCategorias(req, res) {
         try {
             const categorias = await Categoria.findAll();
-            res.status(200).json(categorias);
+            const nomeCategorias = categorias.map(categoria => ({
+                id: categoria.id_categoria,
+                nome: categoria.nome
+            }));
+            res.status(200).json(nomeCategorias);
         } catch (error) {
             res.status(500).json({ error: error.message });
         }

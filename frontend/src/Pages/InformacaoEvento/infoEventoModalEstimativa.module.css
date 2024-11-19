@@ -18,7 +18,7 @@
 .listaEstimativa {
     display: block;
     max-height: 50vh; /* Define a altura máxima da tabela */
-    overflow-x: auto; /* Adiciona rolagem horizontal */
+    overflow-y: auto; 
 }
 
 .listaEstimativa thead, .listaEstimativa tbody {

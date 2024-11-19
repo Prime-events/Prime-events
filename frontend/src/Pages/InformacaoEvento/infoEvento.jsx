@@ -11,14 +11,20 @@ import { FaRegEdit } from "react-icons/fa";
 import { IoArrowBackCircleOutline } from "react-icons/io5";
 import { useNavigate } from 'react-router-dom';
 import { Button, Form, FormGroup, Label, Input, Modal, ModalHeader, ModalBody, Table } from 'reactstrap';
-import { createCategoria } from './apiEstimativa.js';
+import { createCategoria, getAllCategorias} from './apiEstimativa.js';
 import { getUser } from '../../components/header/segundoHeader/api.js';
 
 function InformacaoEvento() {
     const navigate = useNavigate();
     const [CriarCategoriaModal, setCriarCategoriaModal] = useState(false);
-    const [nomeCategoria, setnomeCategoria] = useState(' ');
+    const [CriarGastoModal, setCriarGastoModal] = useState(false);
     const [estimativaModal, setEstimativaModal] = useState(false);
+    const [nomeCategoria, setnomeCategoria] = useState(' ');
+    const [categoria, setCategoria] = useState([]);
+    const [categoriaSelecionada, setCategoriaSelecionada] = useState('');
+    const [nomeGasto, setNomeGasto] = useState('');
+    const [quantidade, setQuantidade] = useState('');
+    const [valor, setValor] = useState('');
     const [listaItens, setListaItens] = useState([
         { id: 1, nome: 'Item 1', quantidade: 2, valor: 100, categoria: 'Categoria 1' },
         { id: 2, nome: 'Item 2', quantidade: 5, valor: 200, categoria: 'Categoria 2' },
@@ -36,6 +42,23 @@ function InformacaoEvento() {
         { id: 2, nome: 'Item 2', quantidade: 5, valor: 200, categoria: 'Categoria 2' },
     ]);
 
+    useEffect(() => {
+        fetchCategorias();
+    }, []);
+    
+    const fetchCategorias = async () => {
+        try {
+            const categorias = await getAllCategorias();
+            setCategoria(categorias);
+        } catch (error) {
+            console.error('Erro ao obter categorias:', error);
+        }
+    };
+    
+    
+    const handleCategoriaChange = (e) => { 
+        setCategoriaSelecionada(e.target.value); 
+    };
 
     const handleRedirect = () => {
         navigate('/eventos');
@@ -44,20 +67,29 @@ function InformacaoEvento() {
     const handleOpenModal = () =>{
 
     }
-    const handleOpenCriarCategoriaModal = () =>{
-        setCriarCategoriaModal(true);
-        setEstimativaModal(false);
-    }
-    const handleCloseCriarCategoriaModal = () =>{
-        setCriarCategoriaModal(false);
-    }
-    
     const handleOpenEstimativaModal = () => {
         setEstimativaModal(true);
     };
     const handleCloseEstimativaModal = () => {
         setEstimativaModal(false);
     };
+    const handleOpenCriarCategoriaModal = () =>{
+        setCriarCategoriaModal(true);
+        setEstimativaModal(false);
+    }
+    const handleCloseCriarCategoriaModal = () =>{
+        setCriarCategoriaModal(false);
+        setnomeCategoria('');
+    }
+    const handleOpenCriarGastoModal = async () => {
+        setCriarGastoModal(true);
+        setEstimativaModal(false);
+        // Chame fetchCategorias aqui
+        await fetchCategorias();
+    };
+    const handleCloseCriarGastoModal = () =>{
+        setCriarGastoModal(false);
+    }
     const handleCriarCategoria = async (e) => {
         e.preventDefault();
     
@@ -86,6 +118,10 @@ function InformacaoEvento() {
             console.error('Erro ao criar categoria:', error);
         }
     };
+
+    const handleCriarGasto = () =>{
+
+    }
     
 
     return (
@@ -154,7 +190,7 @@ function InformacaoEvento() {
                         Estimativa de Gasto
                     </ModalHeader>
                     <ModalBody className={styleModal.modalBodyEstimativa}>
-                        <Button >Criar Gasto</Button>
+                        <Button onClick={handleOpenCriarGastoModal} >Criar Gasto</Button>
                         <Button className={styleModal.btnCriarCategoria} onClick={handleOpenCriarCategoriaModal}>Criar Categoria</Button>
                         <Table bordered className={styleModal.listaEstimativa}>
                             <thead>
@@ -209,6 +245,75 @@ function InformacaoEvento() {
                                 <Button
                                     type="submit"
                                     >
+                                    Criar
+                                </Button>
+                            </div>
+                        </Form>
+                    </ModalBody>
+                </div>
+            </Modal>
+            <Modal isOpen={CriarGastoModal} toggle={handleCloseCriarGastoModal} className={styleModal.customModal} centered>
+                <div className={styleModal.modalContainer}>
+                <ModalHeader toggle={handleCloseCriarGastoModal} className={styleModal.headerConfiguracoes}>
+                    Criar Gasto
+                </ModalHeader>
+                    <ModalBody className={styleModal.modalBodyEstimativa}>
+                        <Form className='CategoriaForm' onSubmit={handleCriarGasto}>
+                            <FormGroup>
+                                <Label for="NomeGasto">Nome do Gasto</Label>
+                                <Input
+                                    type="text"
+                                    id="NomeGasto"
+                                    value={nomeGasto}
+                                    onChange={(e) => setNomeGasto(e.target.value)}
+                                    required
+                                />
+                            </FormGroup>
+                            <FormGroup>
+                                <Label for="Categoria">Categoria</Label>
+                                <Input
+                                    type="select"
+                                    id="Categoria"
+                                    value={categoriaSelecionada}
+                                    onChange={handleCategoriaChange}
+                                    required
+                                >
+                                    <option value="" disabled>Selecione uma categoria</option>
+                                    {categoria.map(categoria => (
+                                        <option key={categoria.id} value={categoria.id}>{categoria.nome}</option>
+                                    ))}
+                                </Input>
+                            </FormGroup>
+                            <FormGroup>
+                                <Label for="Quantidade">Quantidade</Label>
+                                <Input
+                                    type="number"
+                                    id="Quantidade"
+                                    value={quantidade}
+                                    onChange={(e) => setQuantidade(e.target.value)}
+                                    required
+                                />
+                            </FormGroup>
+                            <FormGroup>
+                                <Label for="Valor">Valor</Label>
+                                <Input
+                                    type="number"
+                                    id="Valor"
+                                    value={valor}
+                                    onChange={(e) => setValor(e.target.value)}
+                                    required
+                                />
+                            </FormGroup>
+                            <div className={styleModal.categoriaModalButtons}>
+                                <Button
+                                    type="button"
+                                    onClick={handleCloseCriarGastoModal}
+                                >
+                                    Cancelar
+                                </Button>
+                                <Button
+                                    type="submit"
+                                >
                                     Criar
                                 </Button>
                             </div>
