@@ -40,10 +40,12 @@ function Eventos(){
         };
         fetchEventos();
     }, []);
+
+
     const handleRedirect = (id_evento) => {
         localStorage.setItem('idEvento', id_evento);
         navigate('/informacaoEvento');
-    };
+    }
     return (
         <>
             <SegundoHeader titulo="Eventos"/>
@@ -72,7 +74,7 @@ function Eventos(){
                     </div>
                     <div>
                         {eventos.map((evento) => (
-                            <div key={evento.id_evento} className={styles.baixoEvento}  onClick={handleRedirect(evento.id_evento)}>
+                            <div key={evento.id_evento} className={styles.baixoEvento} onClick={() => handleRedirect(evento.id_evento)}>
                                 <div className={styles.containerEventoInfo}>
                                     <span>Evento</span> 
                                     <div className={styles.informacoesEvento}>         

@@ -25,6 +25,7 @@ function InformacaoEvento() {
     const navigate = useNavigate();
 
     const handleRedirect = () => {
+        localStorage.removeItem('idEvento');
         navigate('/eventos');
     };
 
@@ -36,6 +37,7 @@ function InformacaoEvento() {
         }));
     };
     const handleSubmitConvidado = async (e) => {
+        if (convidadoInfo.nome == "") return;
         e.preventDefault();
         console.log(convidadoInfo);
         await createConvidado(convidadoInfo);
@@ -148,19 +150,21 @@ function InformacaoEvento() {
                             </div>
                         </div>
                         <button onClick={handleSubmitConvidado}>Adicionar Convidado</button> <button>Gerar Link <FaLink/></button>
-                        <table className={styles.containerConvidados}>
-                            <th>Nome</th>
-                            <th>Telefone</th>
-                            <th>Presença</th>
-                            {/*map lista*/}
-                            {convidados.map((convidado) => (
-                            <tr key={convidado.id_convidado}>
-                                <td>{convidado.nome}</td>
-                                <td>{convidado.telefone}</td>
-                                <td>{convidado.presenca}</td>
-                            </tr>
-                            ))}
-                        </table>
+                        <div className={styles.containerTabela}>
+                            <table className={styles.containerConvidados}>
+                                <th>Nome</th>
+                                <th>Telefone</th>
+                                <th>Presença</th>
+                                {/*map lista*/}
+                                {convidados.map((convidado) => (
+                                <tr key={convidado.id_convidado}>
+                                    <td>{convidado.nome}</td>
+                                    <td>{convidado.telefone}</td>
+                                    <td>{convidado.presenca}</td>
+                                </tr>
+                                ))}
+                            </table>
+                        </div>
                 </div>
                     
                 </Modal>
