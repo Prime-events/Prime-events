@@ -54,7 +54,7 @@ function Eventos(){
                 <div className={styles.containerEventos}>
                     <div className={styles.cimaEvento}>
                         <span className={`${isActive === 'eventos' ? styles.active : ''}`} onClick={() => toggleActive('eventos')}>Eventos Pendentes</span>
-                        <span className={`${isActive === 'concluido' ? styles.active : ''}`} onClick={() => toggleActive('concluido')}>Concluídos</span>
+                        <span className={`${isActive === 'concluido' ? styles.active : ''}`} onClick={() => toggleActive('concluido')}>Todos</span>
                     </div>
                     <div className={styles.meioEvento}>                        
                         <div className={styles.inputContainer}>
@@ -87,7 +87,7 @@ function Eventos(){
                                             <label className={styles.nomeEvento}>{evento.nomeEvento}</label>
                                             <label className={styles.infoEvento}>{`${evento.nomeLocal}`}</label>
                                             <label className={styles.infoEvento}>{`${evento.rua} ${evento.numero} ${evento.complemento} ${evento.bairro} ${evento.cidade}`}</label>
-                                            <label className={styles.infoEvento}> {`${new Date(evento.dataHoraInicial).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })} - 
+                                            <label className={styles.infoEvento}>{`${new Date(evento.dataHoraInicial).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })} - 
                                             ${new Date(evento.dataHoraFinal).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}`}</label>
                                         </div>  
                                     </div>  
