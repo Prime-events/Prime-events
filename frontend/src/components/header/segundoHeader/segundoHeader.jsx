@@ -41,6 +41,10 @@ function SegundoHeader({ titulo }) {
     useEffect(() => {
         const fetchUserData = async () => {
             try {
+                if(!localStorage.getItem('token')){
+                    console.error('É preciso fazer login para ter acesso');
+                    navigate('/formulario');
+                }
                 const email = localStorage.getItem('email');
                 if (!email) {
                     console.error('Email não encontrado no localStorage');
@@ -62,7 +66,7 @@ function SegundoHeader({ titulo }) {
         };
 
         fetchUserData();
-    }, []);
+    }, [navigate]);
 
     const toggleConfigModal = () => {
         setConfigModal(!configModal);

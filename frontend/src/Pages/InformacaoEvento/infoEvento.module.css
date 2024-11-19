@@ -182,6 +182,7 @@ html, body {
     cursor: pointer;
 }
 
+
 @media (max-width: 768px) {
     .container > .containerInformacoes {
         flex-direction: column;

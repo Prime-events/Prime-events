@@ -1,14 +1,16 @@
 import { useState, useEffect } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import SegundoHeader from "../../components/header/segundoHeader/segundoHeader";
-import SideBar from "../../components/sideBar/sideBar";
+import SideBar from "../../components/sideBar/SideBar";
 import Card from '../../components/card/card';
 import style from './dashboard.module.css';
 import Cronograma from '../../components/cronograma/cronograma';
+import { useNavigate } from 'react-router-dom'
 
 
 
 function Dashboard() {
+    const navigate = useNavigate();
     const [cards, setCards] = useState([
         { id: '1', color: 'green', icon: '✔️', number: '237', text: 'Eventos concluídos' },
         { id: '2', color: 'red', icon: '❌', number: '63', text: 'Eventos cancelados' },

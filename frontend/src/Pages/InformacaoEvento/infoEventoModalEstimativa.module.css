@@ -1,0 +1,58 @@
+.customModal { 
+    width: 70vw; /* Aumenta a largura do modal */ 
+}
+.modalContainer {
+    padding: 20px;
+    width: 100%; /* Garante que o modal container ocupe 100% da largura do modal */
+}
+
+.headerConfiguracoes {
+    background-color: #f4f4f4;
+    border-bottom: 1px solid #ddd;
+}
+
+.modalBodyEstimativa {
+    padding: 15px;
+}
+
+.listaEstimativa {
+    display: block;
+    max-height: 50vh; /* Define a altura máxima da tabela */
+    overflow-x: auto; /* Adiciona rolagem horizontal */
+}
+
+.listaEstimativa thead, .listaEstimativa tbody {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
+.listaEstimativa th, .listaEstimativa td {
+    text-align: center;
+    white-space: nowrap; /* Evita que o texto quebre e permite rolagem horizontal */
+}
+
+.listaEstimativa th {
+    background-color: #f0f0f0;
+}
+
+.listaEstimativa td {
+    vertical-align: middle;
+}
+
+
+.btnCriarCategoria{
+    float: right;
+    margin-bottom: 1vh;
+}
+
+.CategoriaForm{
+    display: flex;
+    flex-direction: column;
+    gap: 1.3rem;
+}
+
+.categoriaModalButtons{
+    display: flex;
+    gap: 1.5rem;
+}
