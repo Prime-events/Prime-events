@@ -48,6 +48,7 @@ function InformacaoEvento() {
     const [totalSoma, setTotalSoma] = useState(0);
     const [listaItens, setListaItens] = useState([]);
     const [evento, setEvento] = useState({});
+    const [timelineModal, setTimelineModal] = useState(false);
 
     useEffect(() => {
         const fetchConvidados = async () => {
@@ -131,10 +132,7 @@ function InformacaoEvento() {
         await createConvidado(convidadoInfo);
     }
     
-    
-    const handleOpenModal = () =>{
 
-    }
     const handleOpenEstimativaModal = () => {
         setEstimativaModal(true);
     };
@@ -214,7 +212,6 @@ function InformacaoEvento() {
 
     const handleTimelineModalOpen = () => {
         setTimelineModal(true);
-
     };
 
     const handleTimelineModalClose = () => {
@@ -276,7 +273,7 @@ function InformacaoEvento() {
                         <div className={styles.botoes}>
                             <button className={styles.botao} onClick={() => setIsConvidadoOpen(true)} >Lista de convidados</button>
                             <button className={styles.botao} onClick={handleOpenEstimativaModal}>Estimativa de gastos</button>
-                            <button className={styles.botao}>Cronograma</button>
+                            <button className={styles.botao} onClick={handleTimelineModalOpen} >Cronograma</button>
                         </div>
                     </div>
                 </div>
@@ -471,114 +468,93 @@ function InformacaoEvento() {
             </Modal>
 
             <Modal
-                    isOpen={handleTimelineModalOpen }
-                    toggle={handleTimelineModalClose}
-                    className={styles.timeLineModal}
-                    centered
-                >
-                    <div className={styles.modalContainer}>
-                        <ModalHeader toggle={handleTimelineModalClose} className={styles.headerConfiguracoes}>
-                            Timeline do evento
-                        </ModalHeader>
-                        <ModalBody>
-                            <div className={styles.secoes}>
-                                <div className={styles.secaoEsquerda}>
-                                    <span className={styles.tituloCronograma}>Cronograma do Evento</span>
-                                    <div className={styles.itensSecaoEsq}>
-                                        <div className={styles.itensHorario}>
-                                            <span>Horário</span>
-                                            <input
-                                                type="time"
-                                                name="horario"
-                                                
-                                            />
-                                        </div>
-                                        <Form className={styles.formularioTarefa}>
-                                            <Row>
-                                                <FormGroup className={styles.formTarefa}>
-                                                    <Label for="exampleTarefa">Descrição da tarefa *</Label>
-                                                    <Input
-                                                        className={styles.inputTarefa}
-                                                        id="exampleTarefa"
-                                                        name="tarefa"
-                                                        type="text"
-                                                        required
-                                                        maxLength={25}
-                                                        onChange={e => setTarefa(e.target.value)}
-                                                    />
-                                                </FormGroup>
-                                            </Row>
-                                            <button className={styles.btnAdicionarTarefa} >Adicionar</button>
-                                        </Form>
-
+                isOpen={timelineModal} // Controle do estado do modal
+                toggle={handleTimelineModalClose}
+                className={styles.timeLineModal}
+                centered
+            >
+                <div className={styles.modalContainer}>
+                    <ModalHeader toggle={handleTimelineModalClose} className={styles.headerConfiguracoes}>
+                        Timeline do evento
+                    </ModalHeader>
+                    <ModalBody>
+                        <div className={styles.secoes}>
+                            <div className={styles.secaoEsquerda}>
+                                <span className={styles.tituloCronograma}>Cronograma do Evento</span>
+                                <div className={styles.itensSecaoEsq}>
+                                    <div className={styles.itensHorario}>
+                                        <span>Horário</span>
+                                        <input
+                                            type="time"
+                                            name="horario"
+                                        />
                                     </div>
-                                </div>
-                                <div className={styles.secaoDireita}>
-                                    <Timeline position="horizontal">
-                                        <TimelineItem>
-                                            <TimelineOppositeContent color="text.secondary">
-                                                09:30 am
-                                            </TimelineOppositeContent>
-                                            <TimelineSeparator>
-                                                <TimelineDot />
-                                                <TimelineConnector />
-                                            </TimelineSeparator>
-                                            <TimelineContent>Início do evento</TimelineContent>
-                                        </TimelineItem>
-                                        <TimelineItem>
-                                            <TimelineOppositeContent color="text.secondary">
-                                                10:00 am
-                                            </TimelineOppositeContent>
-                                            <TimelineSeparator>
-                                                <TimelineDot />
-                                                <TimelineConnector />
-                                            </TimelineSeparator>
-                                            <TimelineContent>Início da cerimonia</TimelineContent>
-                                        </TimelineItem>
-                                        <TimelineItem>
-                                            <TimelineOppositeContent color="text.secondary">
-                                                12:00 pm
-                                            </TimelineOppositeContent>
-                                            <TimelineSeparator>
-                                                <TimelineDot />
-                                                <TimelineConnector />
-                                            </TimelineSeparator>
-                                            <TimelineContent>Fim da cerimonia</TimelineContent>
-                                        </TimelineItem>
-                                        <TimelineItem>
-                                            <TimelineOppositeContent color="text.secondary">
-                                                9:00 pm
-                                            </TimelineOppositeContent>
-                                            <TimelineSeparator>
-                                                <TimelineDot />
-                                            </TimelineSeparator>
-                                            <TimelineContent>Encerramento do evento</TimelineContent>
-                                        </TimelineItem>
-                                        <TimelineItem>
-                                            <TimelineOppositeContent color="text.secondary">
-                                                9:00 pm
-                                            </TimelineOppositeContent>
-                                            <TimelineSeparator>
-                                                <TimelineDot />
-                                            </TimelineSeparator>
-                                            <TimelineContent>Encerramento do evento</TimelineContent>
-                                        </TimelineItem>
-                                        <TimelineItem>
-                                            <TimelineOppositeContent color="text.secondary">
-                                                9:00 pm
-                                            </TimelineOppositeContent>
-                                            <TimelineSeparator>
-                                                <TimelineDot />
-                                            </TimelineSeparator>
-                                            <TimelineContent>Encerramento do evento</TimelineContent>
-                                        </TimelineItem>
-                                    </Timeline>
+                                    <Form className={styles.formularioTarefa}>
+                                        <Row>
+                                            <FormGroup className={styles.formTarefa}>
+                                                <Label for="exampleTarefa">Descrição da tarefa *</Label>
+                                                <Input
+                                                    className={styles.inputTarefa}
+                                                    id="exampleTarefa"
+                                                    name="tarefa"
+                                                    type="text"
+                                                    required
+                                                    maxLength={25}
+                                                    onChange={(e) => setTarefa(e.target.value)}
+                                                />
+                                            </FormGroup>
+                                        </Row>
+                                        <button className={styles.btnAdicionarTarefa}>Adicionar</button>
+                                    </Form>
                                 </div>
                             </div>
-                        </ModalBody>
-                    </div>
-                </Modal>
-
+                            <div className={styles.secaoDireita}>
+                                <Timeline position="horizontal">
+                                    <TimelineItem>
+                                        <TimelineOppositeContent color="text.secondary">
+                                            09:30 am
+                                        </TimelineOppositeContent>
+                                        <TimelineSeparator>
+                                            <TimelineDot />
+                                            <TimelineConnector />
+                                        </TimelineSeparator>
+                                        <TimelineContent>Início do evento</TimelineContent>
+                                    </TimelineItem>
+                                    <TimelineItem>
+                                        <TimelineOppositeContent color="text.secondary">
+                                            10:00 am
+                                        </TimelineOppositeContent>
+                                        <TimelineSeparator>
+                                            <TimelineDot />
+                                            <TimelineConnector />
+                                        </TimelineSeparator>
+                                        <TimelineContent>Início da cerimonia</TimelineContent>
+                                    </TimelineItem>
+                                    <TimelineItem>
+                                        <TimelineOppositeContent color="text.secondary">
+                                            12:00 pm
+                                        </TimelineOppositeContent>
+                                        <TimelineSeparator>
+                                            <TimelineDot />
+                                            <TimelineConnector />
+                                        </TimelineSeparator>
+                                        <TimelineContent>Fim da cerimonia</TimelineContent>
+                                    </TimelineItem>
+                                    <TimelineItem>
+                                        <TimelineOppositeContent color="text.secondary">
+                                            9:00 pm
+                                        </TimelineOppositeContent>
+                                        <TimelineSeparator>
+                                            <TimelineDot />
+                                        </TimelineSeparator>
+                                        <TimelineContent>Encerramento do evento</TimelineContent>
+                                    </TimelineItem>
+                                </Timeline>
+                            </div>
+                        </div>
+                    </ModalBody>
+                </div>
+            </Modal>
         </>
     );
 }
