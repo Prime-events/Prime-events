@@ -56,3 +56,24 @@
     display: flex;
     gap: 1.5rem;
 }
+
+.customModal {
+    width: 80%; /* Aumentar a largura do modal */
+    max-width: 800px; /* Definir um valor máximo de largura */
+}
+
+.modalContainer {
+    padding: 20px;
+    width: 100%;
+}
+
+.inputLarger {
+    width: 100%; /* Aumentar a largura dos inputs e combobox */
+    max-width: 100%; /* Garantir que ocupem todo o espaço disponível */
+    box-sizing: border-box;
+}
+
+.categoriaModalButtons {
+    display: flex;
+    justify-content: space-between;
+}
