@@ -54,6 +54,7 @@ function ListaConvidados({ open, setOpen }) {
     const handleSubmitConvidado = async () => {
         if (convidadoInfo.nome == "") return;
         await createConvidado(convidadoInfo);
+        setConvidadoInfo((prevData) => ({...prevData, nome: "", telefone: ""}))
     }
     const handleAtualizarDadosConvidado = async () => {
         const convidadoParaAtualizar = convidados.find(convidado => convidado.id === editar); 

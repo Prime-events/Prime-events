@@ -37,6 +37,7 @@ input[type="text"] {
     width: 50rem;
     height: 100rem;
     max-height: 50vh;
+    max-width: 100%;
 }
 
 .inputContainerRow {
@@ -88,3 +89,43 @@ input[type="text"] {
     border: none;
     padding: .1rem;
 }
+
+
+@media (max-width: 768px) {
+    .containerTabela {
+        max-height: 35vh; 
+        padding: 0.25rem;
+    }
+
+    .containerConvidados {
+        font-size: 1rem; 
+    }
+
+    .containerConvidados th,
+    .containerConvidados td {
+        padding: 0.5rem; 
+        font-size: 0.9rem;
+    }
+
+    .containerTabela::-webkit-scrollbar {
+        width: 6px; 
+    }
+}
+
+@media (max-width: 480px) {
+    .containerTabela {
+        max-height: 30vh;
+        padding: 0.25rem;
+    }
+
+    .containerConvidados {
+        font-size: 0.9rem; 
+    }
+
+    .containerConvidados th,
+    .containerConvidados td {
+        padding: 0.25rem; 
+        font-size: 0.8rem;
+    }
+}
+    
