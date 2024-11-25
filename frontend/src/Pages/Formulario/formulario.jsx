@@ -7,7 +7,7 @@ import { loginUser } from './apiLogin';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import { IoArrowBackCircleOutline } from "react-icons/io5";
 
 
 function Formulario() {
@@ -107,9 +107,12 @@ function Formulario() {
     setIsSignUp(!isSignUp);
   };
 
+  const handleRedirect = () => {
+    navigate('/');
+};
+
   return (
     <>
-
       <ToastContainer
         position="top-right"
         autoClose={3000}
@@ -122,8 +125,10 @@ function Formulario() {
         pauseOnHover
         theme="light"
       />
-
       <body className='bodyForm'>
+      <div className='voltarInicio'>
+        <button className='btnVoltar' onClick={handleRedirect}><IoArrowBackCircleOutline />Voltar para página inicial</button>
+      </div>
         <div className={`containerForm ${isSignUp ? 'active' : ''}`} id="container">
           {isSignUp ? (
             <div className="form-container sign-up">
@@ -190,7 +195,7 @@ function Formulario() {
           <div className="toggle-container">
             <div className="toggle">
               <div className="toggle-panel toggle-left">
-                <h1>Bem vindo de volta!</h1>
+                <h1>Seja Bem vindo!</h1>
                 <p>Insira os seus dados pessoais para usar todos os recursos do site</p>
                 <button className="hidden" onClick={toggleForm} id="login">
                   Entrar
