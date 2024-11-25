@@ -73,6 +73,7 @@ input[type="search"] {
     display: flex;
     gap: 6rem;
     border-bottom: 0.15rem solid #0000002E;
+    cursor: pointer;
 }
 .baixoEvento span {
     color: #2A2D37E5;
