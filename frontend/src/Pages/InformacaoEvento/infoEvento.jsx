@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './infoEvento.module.css';
 import styleModal from './infoEventoModalEstimativa.module.css';
 import SideBar from '../../components/sideBar/SideBar.jsx';
@@ -7,25 +7,17 @@ import ImgCerimonia from '../../assets/img/imgCerimonia.png';
 import ImgMapa from '../../assets/img/imgMapa.png';
 import { FaCalendarAlt, FaClock } from 'react-icons/fa';
 import { TiLocation } from "react-icons/ti";
-import { FaRegEdit, FaLink } from "react-icons/fa";
+import { FaRegEdit } from "react-icons/fa";
 import { IoArrowBackCircleOutline } from "react-icons/io5";
 import { useNavigate } from 'react-router-dom';
-import ModalO from '../../components/modal/Modal.jsx';
-import { createConvidado, listarConvidadosEvento } from './api.js';
 import { Button, Form, FormGroup, Label, Input, Modal, ModalHeader, ModalBody, Table } from 'reactstrap';
 import { createCategoria, getAllCategorias, createGasto, getAllEstimativaGastos} from './apiEstimativa.js';
 import { getUser } from '../../components/header/segundoHeader/api.js';
 import { listarEvento } from '../Eventos/api.js';
+import ListaConvidados from '../../components/listaConvidados/listaConvidados.jsx';
 
 function InformacaoEvento() {
     const [isConvidadoOpen, setIsConvidadoOpen] = useState(false);
-    const [convidadoInfo, setConvidadoInfo] = useState({
-        id_evento: "",
-        nome: "",
-        telefone: "",
-    })
-    const [convidados, setConvidados] = useState([]);
-
     const navigate = useNavigate();
     const [CriarCategoriaModal, setCriarCategoriaModal] = useState(false);
     const [CriarGastoModal, setCriarGastoModal] = useState(false);
@@ -40,29 +32,15 @@ function InformacaoEvento() {
     const [listaItens, setListaItens] = useState([]);
     const [evento, setEvento] = useState({});
 
-    useEffect(() => {
-        const fetchConvidados = async () => {
-            try {
-                const id_evento = localStorage.getItem('idEvento');
-                setConvidadoInfo((prevData) => ({...prevData, id_evento: id_evento}));
-                const data_convidados = await listarConvidadosEvento(id_evento);
-                console.log('data:', data_convidados);
-                setConvidados(data_convidados);
-
-            } catch (error) {
-                console.error('Erro:', error);
-            }
-        };
-        
+    useEffect(() => {   
         fetchInformacoesEvento();
-        fetchConvidados();
         fetchCategorias();
         fetchGastos();
     }, []);
+
     const fetchInformacoesEvento = async () => {
         try {
             const id_evento = localStorage.getItem('idEvento');
-            setConvidadoInfo((prevData) => ({...prevData, id_evento: id_evento}));
             const data_evento = await listarEvento(id_evento);
             console.log('data:', data_evento);
             setEvento(data_evento);
@@ -108,20 +86,9 @@ function InformacaoEvento() {
         navigate('/eventos');
     };
 
-    const handleChangeConvidado = (e) => {
-        const { name, value } = e.target;
-        setConvidadoInfo((prevData) => ({
-            ...prevData,
-            [name]: value,
-        }));
-    };
-    const handleSubmitConvidado = async (e) => {
-        if (convidadoInfo.nome == "") return;
-        e.preventDefault();
-        console.log(convidadoInfo);
-        await createConvidado(convidadoInfo);
-    }
-    
+    const toggleConvidado = () => {
+        setIsConvidadoOpen(prevState => !prevState);
+      };
     
     const handleOpenModal = () =>{
 
@@ -256,61 +223,13 @@ function InformacaoEvento() {
                             <p>{evento.descricaoEvento}</p>
                         </div>
                         <div className={styles.botoes}>
-                            <button className={styles.botao} onClick={() => setIsConvidadoOpen(true)} >Lista de convidados</button>
+                            <button className={styles.botao} onClick={toggleConvidado} >Lista de convidados</button>
                             <button className={styles.botao} onClick={handleOpenEstimativaModal}>Estimativa de gastos</button>
                             <button className={styles.botao}>Cronograma</button>
                         </div>
                     </div>
                 </div>
-                <ModalO open={isConvidadoOpen} onClose={() => setIsConvidadoOpen(false)}>
-                    
-                    <div className={styles.containerModalConvidado}>
-                        <div className={styles.tituloModal}>
-                            Lista de convidados
-                        </div>
-                        <div className={styles.inputContainerRow}>
-                            <div className={styles.inputContainer}>    
-                                <input
-                                    type='text'
-                                    name='nome'
-                                    value={convidadoInfo.nome}
-                                    onChange={handleChangeConvidado}
-                                    maxLength={40}
-                                    className={convidadoInfo.nome ? styles.hasValue : ""}
-                                    ></input>
-                                <label className={styles.floatingLabel}>Nome: </label>
-                            </div>
-                            <div className={styles.inputContainer}>
-                                <input
-                                    type='text'
-                                    name='telefone'
-                                    value={convidadoInfo.telefone}
-                                    onChange={handleChangeConvidado}
-                                    maxLength={11}
-                                    className={convidadoInfo.telefone ? styles.hasValue : ""}
-                                    ></input>
-                                <label className={styles.floatingLabel}>Telefone: </label>
-                            </div>
-                        </div>
-                        <button onClick={handleSubmitConvidado}>Adicionar Convidado</button> <button>Gerar Link <FaLink/></button>
-                        <div className={styles.containerTabela}>
-                            <table className={styles.containerConvidados}>
-                                <th>Nome</th>
-                                <th>Telefone</th>
-                                <th>Presença</th>
-                                {/*map lista*/}
-                                {convidados.map((convidado) => (
-                                <tr key={convidado.id_convidado}>
-                                    <td>{convidado.nome}</td>
-                                    <td>{convidado.telefone}</td>
-                                    <td>{convidado.presenca}</td>
-                                </tr>
-                                ))}
-                            </table>
-                        </div>
-                </div>
-                    
-                </ModalO>
+                <ListaConvidados open={isConvidadoOpen} setOpen={setIsConvidadoOpen}/>
             </div>
             
             <Modal isOpen={estimativaModal} toggle={handleCloseEstimativaModal} className={styleModal.customModal} centered>
