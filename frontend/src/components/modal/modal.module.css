@@ -7,8 +7,9 @@
     z-index: 1000;
     background-color: #fff;
     border-radius: 20px;
+    overflow-y: hidden;
+    max-height: 85vh; 
 }
-
 .botaoFecharStyle {
     display: flex;
     justify-content: end;
@@ -33,7 +34,7 @@
     border: none;
     border-radius: 0.25rem;
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: background-color 0.2s ease;
 }
 .containerModal button:hover {
     opacity: .9;
@@ -46,4 +47,46 @@
     right: 0;
     background-color: rgba(0,0,0,.7);
     z-index: 1000;
+}
+@media (max-width: 1024px) {
+    .containerModal {
+        width: 85%; 
+        padding: 1.5rem; 
+        border-radius: 15px; 
+    }
+}
+@media (max-width: 784px) {
+    .containerModal {
+        width: 90%; 
+        padding: 1.5rem; 
+        border-radius: 15px; 
+    }
+
+    .botaoFechar {
+        font-size: 1rem;
+    }
+
+    .containerModal button {
+        font-size: 0.9rem; 
+        padding: 0.5rem 1rem; 
+    }
+    .overlayModal {
+        background-color: rgba(0, 0, 0, 0.6);
+    }
+}
+
+@media (max-width: 480px) {
+    .containerModal {
+        width: 95%; 
+        padding: 1rem;
+    }
+
+    .botaoFechar {
+        font-size: 0.875rem;
+    }
+
+    .containerModal button {
+        font-size: 0.875rem; 
+        padding: 0.5rem 0.75rem; 
+    }
 }

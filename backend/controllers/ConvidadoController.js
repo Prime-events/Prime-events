@@ -29,7 +29,7 @@ class ConvidadoController {
         }
     }
 
-    static listarConvidadoPorId = async (req, res) => {
+    static listarConvidadoPorIdEvento = async (req, res) => {
         try {
             const convidado = await Convidado.findAll({
                 where: {
@@ -47,25 +47,23 @@ class ConvidadoController {
     }
 
     static atualizarConvidado = async (req, res) => {
-        const id = req.params.id;
         const { nome, telefone, presenca, id_evento } = req.body;
 
         try {
-            const Convidado = await Convidado.findByPk(id);
-            if (Convidado) {
-                const dados = {};
-            
-                if (nome !== undefined) dados.nome = nome;
-                if (telefone !== undefined) dados.telefone = telefone;
-                if (presenca !== undefined) dados.presenca = presenca;
-                if (id_evento !== undefined) dados.id_evento = id_evento;
+            const convidado = await Convidado.findByPk(req.params.id);
 
-                
-                await convidado.update(dados);
-                res.status(200).json({ message: 'Convidado atualizado com sucesso!' });
-            } else {
-                res.status(404).json({ message: 'Convidado não encontrado!' });
+            if (!convidado) {
+                return res.status(404).json({ message: 'Convidado não encontrado!' });
             }
+            const dados = {};
+            if (nome !== undefined) dados.nome = nome;
+            if (telefone !== undefined) dados.telefone = telefone;
+            if (presenca !== undefined) dados.presenca = presenca;
+            if (id_evento !== undefined) dados.id_evento = id_evento;
+
+            await convidado.update(dados);
+            res.status(200).json({ message: 'Convidado atualizado com sucesso!' });
+            
         } catch (error) {
             console.error('Erro ao atualizar Convidado: ', error);
             res.status(500).json({ message: 'Erro ao atualizar Convidado!' });
@@ -74,12 +72,10 @@ class ConvidadoController {
     }
 
     static deletarConvidado = async (req, res) => {
-        const id = req.params.id;
-
         try {
             await Convidado.destroy({
                 where: {
-                    id: id
+                    id: req.params.id
                 }
             });
             res.status(200).json({ message: 'Convidado deletado com sucesso!' });

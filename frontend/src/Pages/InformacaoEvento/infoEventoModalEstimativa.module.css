@@ -7,7 +7,7 @@
 }
 
 .headerConfiguracoes {
-    background-color: #f4f4f4;
+    text-align: center;
     border-bottom: 1px solid #ddd;
 }
 
@@ -76,4 +76,12 @@
 .categoriaModalButtons {
     display: flex;
     justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.valorTotal{
+    border-top: 1px solid #ddd;
+}
+.valorTotal>h4{
+    padding-top: 2vh;
 }

@@ -1,0 +1,168 @@
+input:focus + .floatingLabel,
+input.hasValue + .floatingLabel {
+    top: -0.8rem;
+    font-size: 1rem;
+    color: #FCA311;
+}
+.floatingLabel {
+    position: absolute;
+    left: 0.75rem;
+    top: 0.875rem;
+    font-size: 1rem;
+    color: #999;
+    transition: 0.2s ease all;
+    pointer-events: none;
+}
+input[type="text"] {
+    width: 100%;
+    padding: 0.75rem;
+    margin-top: 0.5rem;
+    border: 0.0625rem  solid #ddd;
+    border-radius: 0.25rem;
+    font-size: 1rem;
+    z-index: 1;
+}
+.inputContainer {
+    position: relative;
+    margin-bottom: 1rem;
+}
+.tituloModal {
+    display: flex;
+    font-size: 1.5rem;
+    justify-content: center;
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+.containerModalConvidado {
+    width: 50rem;
+    height: 100rem;
+    max-height: 65vh;
+    max-width: 100%;
+}
+
+.inputContainerRow {
+    display: flex;
+    gap: 1rem;
+}
+.inputContainerRow .inputContainer {
+    flex: 1;
+}
+.containerTabela {
+    max-height: 75%;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.containerConvidados{
+    font-size: 1rem;
+    border-radius: 10px;
+    border-collapse: collapse;
+}
+.containerConvidados th, td {
+    border: .6px solid rgba(0,0,0,.2);
+    padding: .5rem;
+    padding-right: 3rem;
+    text-align: left;
+}
+.containerConvidados td {
+    vertical-align: middle;
+    position: relative;
+}
+.containerTabela::-webkit-scrollbar {
+    width: 8px;
+}
+.containerTabela::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+.containerTabela::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.botoesMeio {
+    margin-bottom: 1rem;
+}
+.botaoContainerRow {
+    display: flex;
+}                                                                                                   
+.botoesAlterarExcluir {
+    display: flex;
+    border: none;
+    gap: .3rem;
+    align-items: center;
+    justify-content: center;
+}
+input[type="checkbox"] {
+    appearance: none;
+    position: relative;
+    cursor: pointer;
+    width: 1.5rem;
+    height: 1.5rem;
+    background-color: #fff;
+    border: .6px solid rgba(0,0,0,.4);
+    border-radius: 0.25rem;
+}
+input[type="checkbox"]::before {
+    content: "";
+    /* Posicionar no meio */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    /* Tamanho do marcador */
+    width: 0.75rem;
+    height: 0.75rem;
+    /* Formato do marcador */
+    clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+    /* Posicionar no meio */
+    transform: translate(-50%, -50%) scale(0);
+    transform-origin: center;
+    transition: 0.125s transform ease-in-out;
+    /* Cor do marcador */
+    box-shadow: inset 1rem 1rem #fff;
+  }
+  input[type="checkbox"]:checked {
+    background-color: var(--laranja);
+    border-color: var(--laranja);
+  }
+  input[type="checkbox"]:checked::before {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  input[type="checkbox"]:focus {
+    border-color: var(--laranja);
+  }
+
+@media (max-width: 768px) {
+    .containerTabela {
+        padding: 0.25rem;
+    }
+
+    .containerConvidados {
+        font-size: 1rem; 
+    }
+
+    .containerConvidados th,
+    .containerConvidados td {
+        padding: 0.5rem; 
+        font-size: 0.9rem;
+    }
+
+    .containerTabela::-webkit-scrollbar {
+        width: 6px; 
+    }
+}
+
+@media (max-width: 480px) {
+    .containerTabela {
+        max-height: 70%;
+        padding: 0.25rem;
+    }
+
+    .containerConvidados {
+        font-size: 0.9rem; 
+    }
+
+    .containerConvidados th,
+    .containerConvidados td {
+        padding: 0.25rem; 
+        font-size: 0.8rem;
+    }
+}
+    
