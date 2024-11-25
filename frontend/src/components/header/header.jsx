@@ -6,31 +6,45 @@ function Header() {
     const [collapsed, setCollapsed] = useState(true);
     const [scrolled, setScrolled] = useState(false);
 
+    // Função para controlar o toggle do menu mobile
     const toggleNavbar = () => {
         setCollapsed(!collapsed);
     };
 
-    const handleScroll = () => {
-        if (window.scrollY > 50) {
-            setScrolled(true);
-        } else {
-            setScrolled(false);
-        }
-    };
-
+    // Efeito para monitorar o scroll da página
     useEffect(() => {
+        const handleScroll = () => {
+            // Verifica se o scroll passou de 80px
+            const isScrolled = window.scrollY > 80;
+            if (isScrolled !== scrolled) {
+                setScrolled(isScrolled);
+            }
+        };
+
+        // Adiciona o event listener
         window.addEventListener('scroll', handleScroll);
 
+        // Cleanup: remove o event listener
         return () => {
             window.removeEventListener('scroll', handleScroll);
         };
-    }, []);
+    }, [scrolled]);
+
+    const scrollToSection = (e, sectionId) => {
+        e.preventDefault();
+        const section = document.querySelector(sectionId);
+        if (section) {
+            section.scrollIntoView({ behavior: 'smooth' });
+        }
+        setCollapsed(true);
+    };
 
     return (
         <div>
             <Navbar
-                className={`navbar navbar-expand-lg navbar-dark fixed-top ${scrolled ? styles.navbarScrolled : styles.navbarBackground
-                    }`}
+                className={`navbar navbar-expand-lg navbar-dark fixed-top ${
+                    styles.navbarBackground
+                } ${scrolled ? styles.navbarScrolled : ''}`}
                 light
             >
                 <div className={`${styles.containerHeader}`}>
@@ -45,18 +59,38 @@ function Header() {
                     <Collapse isOpen={!collapsed} navbar>
                         <Nav className="ms-auto" navbar style={{ textAlign: 'center' }}>
                             <NavItem>
-                                <NavLink href="/" className="active" aria-current="page" style={{ textDecoration: 'none' }}>
+                                <NavLink 
+                                    href="#primeira" 
+                                    className="active" 
+                                    aria-current="page" 
+                                    onClick={(e) => scrollToSection(e, '#primeira')}
+                                    style={{ textDecoration: 'none' }}
+                                >
                                     HOME
                                 </NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink href="#segunda" style={{ textDecoration: 'none' }}>SOBRE NÓS</NavLink>
+                                <NavLink 
+                                    href="#segunda" 
+                                    onClick={(e) => scrollToSection(e, '#segunda')}
+                                    style={{ textDecoration: 'none' }}
+                                >
+                                    SOBRE NÓS
+                                </NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink href="#terceira" style={{ textDecoration: 'none' }}>SERVIÇO</NavLink>
+                                <NavLink 
+                                    href="#terceira" 
+                                    onClick={(e) => scrollToSection(e, '#terceira')}
+                                    style={{ textDecoration: 'none' }}
+                                >
+                                    SERVIÇO
+                                </NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink href="/formulario" style={{ textDecoration: 'none' }}>ENTRAR</NavLink>
+                                <NavLink href="/formulario" style={{ textDecoration: 'none' }}>
+                                    ENTRAR
+                                </NavLink>
                             </NavItem>
                         </Nav>
                     </Collapse>
