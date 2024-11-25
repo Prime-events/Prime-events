@@ -103,31 +103,37 @@ function ListaConvidados({ open, setOpen }) {
             <button onClick={() => {handleSubmitConvidado(), setIsSubmitted(true)}}>Adicionar Convidado</button> <button>Gerar Link <FaLink/></button>
             </div>
             <div className={styles.containerTabela}>
-                <table className={styles.containerConvidados}>
-                    <th>Nome</th>
-                    <th>Telefone</th>
-                    <th>Presença</th>
-                    {/*map lista*/}
-                    {convidados.map((convidado) => (
-                    <tr key={convidado.id_convidado}>
-                        <td>
-                            {editar === convidado.id ? 
-                            <input type='text' name='nome' value={convidado.nome} onChange={(e) => handleChangeConvidado(e,convidado.id)}></input>
-                        : convidado.nome}
-                        </td>
-                        <td>{editar === convidado.id ? 
-                            <input type='text' name='telefone' value={convidado.telefone} onChange={(e) => handleChangeConvidado(e,convidado.id)}></input>
-                        : convidado.telefone}</td>
-                        
-                        <td>{editar === convidado.id ? 
-                            <input type='checkbox' name='presenca' checked={convidado.presenca} onChange={() => handlePresenca(convidado.id)}></input>
-                        : convidado.presenca ? "Sim" : "Não"}</td>
-                        <div className={styles.botaoContainerRow}>
-                        {editar === convidado.id ? <td><button onClick={handleAtualizarDadosConvidado}>Alterar</button></td>:<td className={styles.botoesAlterarExcluir}><button onClick={() => toggleEditar(convidado.id)}>Editar</button></td>}
-                        <td className={styles.botoesAlterarExcluir}><button onClick={() => {handleExcluirConvidado(convidado.id)}}>Excluir</button></td>
-                        </div>
-                    </tr>
-                    ))}
+                <table  className={styles.containerConvidados}>
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Telefone</th>
+                            <th>Presença</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {convidados.map((convidado) => (
+                            <tr key={convidado.id_convidado}>
+                            <td>
+                                {editar === convidado.id ? 
+                                <input type='text' name='nome' value={convidado.nome} onChange={(e) => handleChangeConvidado(e,convidado.id)}></input>
+                                : convidado.nome}
+                            </td>
+                            <td>{editar === convidado.id ? 
+                                <input type='text' name='telefone' value={convidado.telefone} onChange={(e) => handleChangeConvidado(e,convidado.id)}></input>
+                                : convidado.telefone}</td>
+                            
+                            <td>{editar === convidado.id ? 
+                                <input type='checkbox' name='presenca' checked={convidado.presenca} onChange={() => handlePresenca(convidado.id)}></input>
+                                : convidado.presenca ? "Sim" : "Não"}</td>
+                            
+                            <td className={styles.botoesAlterarExcluir}>
+                                {editar === convidado.id ? (<button onClick={handleAtualizarDadosConvidado}>Alterar</button>) : (<button onClick={() => toggleEditar(convidado.id)}>Editar</button>)}
+                                <button onClick={() => {handleExcluirConvidado(convidado.id)}}>Excluir</button>
+                            </td>
+                        </tr>
+                        ))}
+                    </tbody>
                 </table>
             </div>
         </div>                  
