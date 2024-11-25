@@ -72,37 +72,45 @@ function Eventos(){
                             </Link>
                         </div>
                     </div>
-                    <div>
-                        {eventos.map((evento) => (
-                            <div key={evento.id_evento} className={styles.baixoEvento} onClick={() => handleRedirect(evento.id_evento)}>
-                                <div className={styles.containerEventoInfo}>
-                                    <span>Evento</span> 
-                                    <div className={styles.informacoesEvento}>         
-                                        <div className={styles.data}>
-                                            <label className={styles.mesEvento}>{mesesAbreviados[new Date(evento.dataHoraInicial).getMonth()]}</label>
-                                            <label className={styles.diaEvento}>{new Date(evento.dataHoraInicial).getDate()}</label>
-                                        </div>
-                                        <div className={styles.imagem} style={{backgroundImage: evento.imagemUrl}}></div> 
-                                        <div className={styles.endereco}>
-                                            <label className={styles.nomeEvento}>{evento.nomeEvento}</label>
-                                            <label className={styles.infoEvento}>{`${evento.nomeLocal}`}</label>
-                                            <label className={styles.infoEvento}>{`${evento.rua} ${evento.numero} ${evento.complemento} ${evento.bairro} ${evento.cidade}`}</label>
-                                            <label className={styles.infoEvento}>{`${new Date(evento.dataHoraInicial).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })} - 
-                                            ${new Date(evento.dataHoraFinal).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}`}</label>
-                                        </div>  
-                                    </div>  
-                                </div>   
-                                <div className={styles.containerConvidados}>
-                                    <span>Convidados</span>
-                                    <div className={styles.numeroConvidados}>50</div> 
-                                </div>      
-                                <div className={styles.containerStatus}>      
-                                    <span>Status</span>
-                                    <div className={styles.status}>Em Progresso</div> 
-                                </div> 
-                            </div>
-                        ))}
-                    </div>  
+                    <div className={styles.baixoEvento}>
+                        <table  className={styles.tabelaEventoStyle}>
+                            <thead>
+                                <tr>
+                                    <th>Eventos</th>
+                                    <th>Convidados</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {eventos.map((evento) => (
+                                    <tr key={evento.id_evento}>
+                                        <td>
+                                            <div className={styles.informacoesEvento}>        
+                                                    <div className={styles.data}>
+                                                        <label className={styles.mesEvento}>{mesesAbreviados[new Date(evento.dataHoraInicial).getMonth()]}</label>
+                                                        <label className={styles.diaEvento}>{new Date(evento.dataHoraInicial).getDate()}</label>
+                                                    </div>
+                                                    <div className={styles.imagem} style={{backgroundImage: evento.imagemUrl}}></div>
+                                                    <div className={styles.endereco}>
+                                                        <label className={styles.nomeEvento}>{evento.nomeEvento}</label>
+                                                        <label className={styles.infoEvento}>{`${evento.nomeLocal}`}</label>
+                                                        <label className={styles.infoEvento}>{`${evento.rua} ${evento.numero} ${evento.complemento} ${evento.bairro} ${evento.cidade}`}</label>
+                                                        <label className={styles.infoEvento}>{`${new Date(evento.dataHoraInicial).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })} -
+                                                        ${new Date(evento.dataHoraFinal).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}`}</label>
+                                                    </div>
+                                            </div>  
+                                        </td>
+                                        <td>
+                                            <div className={styles.numeroConvidados}>50</div>
+                                        </td>                           
+                                        <td> 
+                                            <div className={styles.status}>Em Progresso</div> 
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </>
