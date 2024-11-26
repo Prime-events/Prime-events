@@ -50,18 +50,19 @@ export const createGasto = async (evento) => {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                nome_item: evento.nome,
-                valor_item: evento.valor,
-                quantidade_item: evento.quantidade,
+                nome_item: evento.nome_item,
+                valor_item: evento.valor_item,
+                quantidade_item: evento.quantidade_item,
                 id_evento: evento.id_evento,
-                id_categoria: evento.categoriaId
+                id_categoria: evento.id_categoria
             }),
         });
+        console.log("As info do gasto dentro da API são: " + JSON.stringify(evento, null, 2));
+
 
         if (!response.ok) {
             const errorData = await response.json();
             console.error('Erro no servidor:', errorData);
-            throw new Error(`HTTP error! status: ${response.status} - ${JSON.stringify(errorData)}`);
         }
 
         const data = await response.json();
