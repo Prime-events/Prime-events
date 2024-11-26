@@ -100,3 +100,42 @@ export const getAllEstimativaGastos = async (id_evento) => {
         throw error;
     }
 };
+
+
+const API_URL_ATUALIZARGASTO = 'http://localhost:3001/atualizarGasto'; // Certifique-se que está em minúsculas
+
+export const updateGasto = async (id, updatedGasto) => {
+    const response = await fetch(`${API_URL_ATUALIZARGASTO}/${id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(updatedGasto)
+    });
+
+    if (!response.ok) {
+        const errorMessage = await response.text(); // Captura a mensagem de erro do servidor
+        throw new Error(errorMessage);
+    }
+
+    return await response.json();
+};
+
+const API_URL_DELETARGASTO = 'http://localhost:3001/deletarGasto';
+
+export const deletarGasto = async (id) => {
+    try {
+        const response = await fetch(`${API_URL_DELETARGASTO}/${id}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+        if (!response.ok) {
+            throw new Error("Erro ao excluir Gasto");
+        }
+    } catch (error) {
+        console.error("Erro na exclusão do Gasto", error);
+        throw error;
+    }
+};

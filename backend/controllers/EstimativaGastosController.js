@@ -1,5 +1,6 @@
 const EstimativaGastos = require('../models/EstimativaGastos');
 const Categoria = require('../models/Categoria');
+const { where } = require('sequelize');
 
 const EstimativaController = {
     // EstimativaGastos Handlers
@@ -13,6 +14,7 @@ const EstimativaController = {
                 id_evento,
                 id_categoria
             });
+            console.log(estimativaGasto);
         } catch (error) {
             res.status(500).json({ error: error.message });
         }
@@ -22,8 +24,7 @@ const EstimativaController = {
         try {
             const { id_evento } = req.params;
             const estimativaGasto = await EstimativaGastos.findAll({
-                where: { id_evento },
-                attributes: ['nome_item', 'quantidade_item', 'valor_item', 'id_categoria'],
+                where: { id_evento: id_evento }
             });
     
             if (!estimativaGasto || estimativaGasto.length === 0) {
@@ -37,14 +38,13 @@ const EstimativaController = {
                 });
     
                 return {
+                    id_estimativa: item.id_estimativa,
                     nome_item: item.nome_item,
                     quantidade_item: item.quantidade_item,
                     valor_item: item.valor_item,
                     categoria_nome: categoria ? categoria.nome : 'Categoria não encontrada'
                 };
             }));
-    
-
             res.status(200).json(result);
         } catch (error) {
             console.error("Erro ao buscar estimativa:", error.message);
@@ -58,15 +58,6 @@ const EstimativaController = {
     
     
     
-
-    async getAllEstimativaGastos(req, res) {
-        try {
-            const estimativaGastos = await EstimativaGastos.findAll();
-            res.status(200).json(estimativaGastos);
-        } catch (error) {
-            res.status(500).json({ error: error.message });
-        }
-    },
 
     async getEstimativaGastosById(req, res) {
         try {
@@ -83,18 +74,13 @@ const EstimativaController = {
 
     async updateEstimativaGastos(req, res) {
         try {
-            const { id } = req.params;
-            const { nome_item, valor_item, quantidade_item, id_evento, id_categoria } = req.body;
-            const estimativaGasto = await EstimativaGastos.findByPk(id);
-            if (!estimativaGasto) {
-                return res.status(404).json({ message: 'Estimativa não encontrada' });
-            }
+            const { nome_item, valor_item, quantidade_item, id_evento } = req.body;
+            const estimativaGasto = await EstimativaGastos.findByPk(req.params.id_estimativa);
             await estimativaGasto.update({
                 nome_item,
                 valor_item,
                 quantidade_item,
                 id_evento,
-                id_categoria
             });
             res.status(200).json(estimativaGasto);
         } catch (error) {
@@ -104,18 +90,21 @@ const EstimativaController = {
 
     async deleteEstimativaGastos(req, res) {
         try {
-            const { id } = req.params;
-            const estimativaGasto = await EstimativaGastos.findByPk(id);
+            console.log(`Tentando deletar gasto com ID: ${req.params.id_estimativa}`);
+            const estimativaGasto = await EstimativaGastos.findByPk(req.params.id_estimativa);
             if (!estimativaGasto) {
-                return res.status(404).json({ message: 'Estimativa não encontrada' });
+                console.log(`Gasto com ID ${req.params.id_estimativa} não encontrado.`);
+                return res.status(404).json({ error: 'Gasto não encontrado' });
             }
             await estimativaGasto.destroy();
             res.status(204).json({ message: 'Estimativa deletada com sucesso' });
         } catch (error) {
+            console.error('Erro ao deletar gasto:', error);
             res.status(500).json({ error: error.message });
         }
     },
-
+    
+    
     // Categoria Handlers
     async createCategoria(req, res) {
         try {
