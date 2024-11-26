@@ -27,6 +27,102 @@
     text-align: center;
 }
 
+.tabelaEventosPendentes{
+    margin-top: 0.4rem;
+    overflow-y: auto;
+    max-height: 50vh;
+}
+
+.naoEncontrado{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5rem;
+}
+
+.imagemNaoEncontrado{
+    width: 400px;
+    height: 350px;
+    opacity: 0.8;
+}
+
+.containerEventos {
+    box-sizing: border-box;
+    margin: 0 auto;
+    padding: 3.25rem;
+    display: flex;
+    gap: 1.25rem;
+    width: 100%;
+    max-width: 75rem;
+    flex-direction: column;
+}
+
+.baixoEvento {
+    display: flex;
+    gap: 4rem;
+    border-bottom: 0.15rem solid #0000002E;
+    cursor: pointer;
+}
+.baixoEvento span {
+    color: #2A2D37E5;
+    display: flex;
+    gap:4rem;
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+.endereco {
+    padding-bottom: .5rem;
+}
+.endereco label, .data label {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: .2rem;
+}
+.nomeEvento {
+    font-size: 1.4rem;
+    color: #2A2D37D9;
+    font-weight: 600;
+}
+.infoEvento {
+    font-size: 1.2rem;
+    color: #2A2D37C2;
+}
+.informacoesEvento, .numeroConvidados, .status {
+    display: flex;
+    flex-direction: row;
+    gap: 0.3rem;
+    padding-top: 0.4rem;
+}
+.data label {
+    font-size: 1.7rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+}
+.mesEvento {
+    color: var(--laranja);
+}
+.imagem {
+    width: 9.375rem;
+    height: 7.1875rem;
+    border-radius: 0.625rem;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+}
+.numeroConvidados, .status {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height:  7.1875rem;
+    font-size: 1.2rem;
+    color: #2A2D37D9;
+}
+
 /* Media query para telas menores */
 @media (max-width: 768px) {
     .grid {
