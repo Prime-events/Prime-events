@@ -84,7 +84,7 @@ function Eventos(){
                             <tbody>
                                 {eventos.map((evento) => (
                                     <tr key={evento.id_evento}>
-                                        <td>
+                                        <td onClick={() => handleRedirect(evento.id_evento)}>
                                             <div className={styles.informacoesEvento}>        
                                                     <div className={styles.data}>
                                                         <label className={styles.mesEvento}>{mesesAbreviados[new Date(evento.dataHoraInicial).getMonth()]}</label>
@@ -95,8 +95,8 @@ function Eventos(){
                                                         <label className={styles.nomeEvento}>{evento.nomeEvento}</label>
                                                         <label className={styles.infoEvento}>{`${evento.nomeLocal}`}</label>
                                                         <label className={styles.infoEvento}>{`${evento.rua} ${evento.numero} ${evento.complemento} ${evento.bairro} ${evento.cidade}`}</label>
-                                                        <label className={styles.infoEvento}>{`${new Date(evento.dataHoraInicial).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })} -
-                                                        ${new Date(evento.dataHoraFinal).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}`}</label>
+                                                        {evento.dataHoraInicial == undefined ? '' : <label className={styles.infoEvento}>{`${new Date(evento.dataHoraInicial).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })} -
+                                                        ${evento.dataHoraFinal == undefined ? '' : new Date(evento.dataHoraFinal).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}`}</label>}
                                                     </div>
                                             </div>  
                                         </td>
