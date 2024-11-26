@@ -184,7 +184,6 @@ function InformacaoEvento() {
 
     const handleCriarGasto = async (event) => {
         event.preventDefault();
-    
         const gastoAtualizado = {
             nome_item: nomeGasto, // Corrigido o nome da chave para coincidir com o back-end
             valor_item: valor, // Corrigido o nome da chave para coincidir com o back-end
@@ -192,7 +191,10 @@ function InformacaoEvento() {
             id_evento: localStorage.getItem('idEvento'),
             id_categoria: categoriaSelecionada // Corrigido o nome da chave para coincidir com o back-end
         };
+        console.log("As info do gasto são: " + JSON.stringify(gastoAtualizado, null, 2));
+
         handleCloseCriarGastoModal(); // Fechar o modal após criação/edição do gasto
+
         setGastosAtualizados(prevState => !prevState); // Atualizar a lista de gastos
         try {
             if (isEditMode && gastoAtualizado) {
@@ -204,12 +206,12 @@ function InformacaoEvento() {
                 const response = await createGasto(gastoAtualizado);
                 console.log("Resposta do servidor:", response);
             }
-            
+
         } catch (error) {
             console.error('Erro ao criar/atualizar gasto:', error.message);
         }
     };
-
+    
     const handleDeletarGasto = async(id) =>{
         await deletarGasto(id);
         setGastosAtualizados(prevState => !prevState); // Atualizar a lista de gastos
