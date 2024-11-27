@@ -96,7 +96,7 @@ function Eventos(){
                             <tbody>
                                 {eventos.map((evento) => (
                                     <tr key={evento.id_evento}>
-                                        <td onClick={() => handleRedirect(evento.id_evento)}>
+                                        <td>
                                             <div className={styles.informacoesEvento}>        
                                                     <div className={styles.data}>
                                                         <label className={styles.mesEvento}>{mesesAbreviados[new Date(evento.dataHoraInicial).getMonth()]}</label>
@@ -104,7 +104,7 @@ function Eventos(){
                                                     </div>
                                                     <div className={styles.imagem} style={{backgroundImage: evento.imagemUrl}}></div>
                                                     <div className={styles.endereco}>
-                                                        <label className={styles.nomeEvento}>{evento.nomeEvento}</label>
+                                                        <label className={styles.nomeEvento} onClick={() => handleRedirect(evento.id_evento)}>{evento.nomeEvento}</label>
                                                         <label className={styles.infoEvento}>{`${evento.nomeLocal}`}</label>
                                                         <label className={styles.infoEvento}>{`${evento.rua} ${evento.numero} ${evento.complemento} ${evento.bairro} ${evento.cidade}`}</label>
                                                         {evento.dataHoraInicial == undefined ? '' : <label className={styles.infoEvento}>{`${new Date(evento.dataHoraInicial).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })} -
