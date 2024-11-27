@@ -5,43 +5,55 @@ import styles from "./eventos.module.css";
 import { useEffect, useState } from "react";
 import { listarEventosUsuario } from "./api";
 import { getUser } from "../../components/header/segundoHeader/api";
+import { listarConvidadosEvento } from "../../components/listaConvidados/api";
 
 function Eventos(){
     const navigate = useNavigate();
     const [isActive, setIsActive] = useState('eventos');
     const [eventos, setEventos] = useState([]);
     const mesesAbreviados = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
+    const [convidadosPorEvento, setConvidadosPorEvento] = useState({});
 
     const toggleActive = (state) => {
         setIsActive(state);
     }
 
     useEffect(() => {
-        const fetchEventos = async () => {
-            try {
-                const email = localStorage.getItem('email');
-                const data_usuario = await getUser(email);
-                const { id_usuario } = data_usuario;
-                const data_eventos = await listarEventosUsuario(id_usuario);
-                console.log('data:', data_eventos);
-                const eventosComUrl = data_eventos.map((evento) => {
-                    if (evento.imagem) {
-                        const blob = new Blob([evento.imagem], { type: 'image/jpeg' });
-                        evento.imagemUrl = URL.createObjectURL(blob);
-                        console.log(evento.imagemUrl);
-                    }
-                    return evento;
-                });
-                
-                setEventos(eventosComUrl);
-            } catch (error) {
-                console.error('Erro:', error);
-            }
-        };
         fetchEventos();
+
     }, []);
+    
+    useEffect(() => {
+        if (eventos.length > 0) {
+            eventos.forEach((evento) => {
+                fetchNumeroConvidados(evento.id_evento);
+            });
+        }   
+    }, [eventos]);
 
-
+    const fetchEventos = async () => {
+        try {
+            const email = localStorage.getItem('email');
+            const data_usuario = await getUser(email);
+            const { id_usuario } = data_usuario;
+            const data_eventos = await listarEventosUsuario(id_usuario);
+            console.log('data:', data_eventos);
+            setEventos(data_eventos);
+        } catch (error) {
+            console.error('Erro:', error);
+        }
+    };
+    const fetchNumeroConvidados = async (id_evento) => {
+        try {
+            const convidados = await listarConvidadosEvento(id_evento);
+            setConvidadosPorEvento((prev) => ({
+                ...prev,
+                [id_evento]: convidados.length,
+            }));
+        } catch (error) {
+            console.error('Erro ao buscar convidados:', error);
+        }
+    }
     const handleRedirect = (id_evento) => {
         localStorage.setItem('idEvento', id_evento);
         navigate('/informacaoEvento');
@@ -101,7 +113,7 @@ function Eventos(){
                                             </div>  
                                         </td>
                                         <td>
-                                            <div className={styles.numeroConvidados}>50</div>
+                                            <div className={styles.numeroConvidados}>{convidadosPorEvento[evento.id_evento]}</div>
                                         </td>                           
                                         <td> 
                                             <div className={styles.status}>Em Progresso</div> 
