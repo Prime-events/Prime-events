@@ -7,6 +7,7 @@ const eventosRouter = require('./routes/eventosRoute');
 const usersRouter = require('./routes/userRoutes');
 const convidadosRouter = require('./routes/convidadosRoute');
 const estimativaRouter = require('./routes/EstimativaGastosRoute');
+const ProgramacaoRouter = require('./routes/ProgramacaoRoute');
 
 
 
@@ -42,3 +43,4 @@ app.use(eventosRouter);
 app.use(usersRouter);
 app.use(convidadosRouter);
 app.use(estimativaRouter);
+app.use(ProgramacaoRouter);
