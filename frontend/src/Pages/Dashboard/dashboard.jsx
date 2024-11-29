@@ -7,11 +7,13 @@ import styles from './dashboard.module.css';
 import Cronograma from '../../components/cronograma/cronograma';
 import { useNavigate } from 'react-router-dom';
 import { listarEventosPendentes } from './dashApi';
+import { listarConvidadosEvento } from "../../components/listaConvidados/api";
 import { getUser } from '../../components/header/segundoHeader/api';
 import naoEncontrado from '../../assets/img/undraw_No_data_re_kwbl.png'
 const mesesAbreviados = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
 
 function Dashboard() {
+    const [convidadosPorEvento, setConvidadosPorEvento] = useState({});
     const [eventos, setEventos] = useState([]);
     const navigate = useNavigate();
     const [cards, setCards] = useState([
@@ -41,29 +43,49 @@ function Dashboard() {
     };
 
     useEffect(() => {
-        const fetchEventos = async () => {
-            try {
-                const email = localStorage.getItem('email');
-                const data_usuario = await getUser(email);
-                const { id_usuario } = data_usuario;
-                const data_eventos = await listarEventosPendentes(id_usuario);
-                console.log('data:', data_eventos);
-                const eventosComUrl = data_eventos.map((evento) => {
-                    if (evento.imagem) {
-                        const blob = new Blob([evento.imagem], { type: 'image/jpeg' });
-                        evento.imagemUrl = URL.createObjectURL(blob);
-                        console.log(evento.imagemUrl);
-                    }
-                    return evento;
-                });
 
-                setEventos(eventosComUrl);
-            } catch (error) {
-                console.error('Erro:', error);
-            }
-        };
         fetchEventos();
     }, []);
+
+    useEffect(() => {
+        if (eventos.length > 0) {
+            eventos.forEach((evento) => {
+                fetchNumeroConvidados(evento.id_evento);
+            });
+        }
+    }, [eventos]);
+
+    const fetchEventos = async () => {
+        try {
+            const email = localStorage.getItem('email');
+            const data_usuario = await getUser(email);
+            const { id_usuario } = data_usuario;
+
+            // Log para verificar o id_usuario
+            console.log('id_usuario:', id_usuario);
+
+            const data_eventos = await listarEventosPendentes(id_usuario);
+
+            // Log para verificar os eventos retornados
+            console.log('data_eventos:', data_eventos);
+
+            setEventos(data_eventos);
+        } catch (error) {
+            console.error('Erro ao buscar eventos:', error);
+        }
+    };
+    const fetchNumeroConvidados = async (id_evento) => {
+        try {
+            const convidados = await listarConvidadosEvento(id_evento);
+            setConvidadosPorEvento((prev) => ({
+                ...prev,
+                [id_evento]: convidados.length,
+            }));
+        } catch (error) {
+            console.error('Erro ao buscar convidados:', error);
+        }
+    }
+
 
     return (
         <>
@@ -95,10 +117,14 @@ function Dashboard() {
                             )}
                         </Droppable>
                     </DragDropContext>
+                    <div className={styles.evtRecentes}>
+                        <span className={styles.EventosRecentes}>Eventos recentes</span>
+                    </div>
+
                     <div className={styles.tabelaEventosPendentes}>
                         {eventos.length === 0 ? ( // Verifica se não há eventos
                             <div className={styles.naoEncontrado}>
-                                <span className={styles.textoNaoEncontrado} style={{fontSize: '1.2rem'}}>Não há eventos pendentes</span>
+                                <span className={styles.textoNaoEncontrado} style={{ fontSize: '1.2rem' }}>Não há eventos pendentes</span>
                                 <img
                                     src={naoEncontrado}
                                     alt="Nenhum evento pendente encontrado"
@@ -107,35 +133,38 @@ function Dashboard() {
                             </div>
                         ) : (
                             <div className={styles.containerEventos}>
-                                {eventos.map((evento) => (
-                                    <div key={evento.id_evento} className={styles.baixoEvento}>
-                                        <div className={styles.containerEventoInfo}>
-                                            <span>Evento</span>
-                                            <div className={styles.informacoesEvento}>
-                                                <div className={styles.data}>
-                                                    <label className={styles.mesEvento}>{mesesAbreviados[new Date(evento.dataHoraInicial).getMonth()]}</label>
-                                                    <label className={styles.diaEvento}>{new Date(evento.dataHoraInicial).getDate()}</label>
-                                                </div>
-                                                <div className={styles.imagem} style={{ backgroundImage: evento.imagemUrl }}></div>
-                                                <div className={styles.endereco}>
-                                                    <label className={styles.nomeEvento}>{evento.nomeEvento}</label>
-                                                    <label className={styles.infoEvento}>{`${evento.nomeLocal}`}</label>
-                                                    <label className={styles.infoEvento}>{`${evento.rua} ${evento.numero} ${evento.complemento} ${evento.bairro} ${evento.cidade}`}</label>
-                                                    <label className={styles.infoEvento}>{`${new Date(evento.dataHoraInicial).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })} - 
-                                    ${new Date(evento.dataHoraFinal).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}`}</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className={styles.containerConvidados}>
-                                            <span>Convidados</span>
-                                            <div className={styles.numeroConvidados}>50</div>
-                                        </div>
-                                        <div className={styles.containerStatus}>
-                                            <span>Status</span>
-                                            <div className={styles.status}>Em Progresso</div>
-                                        </div>
-                                    </div>
-                                ))}
+                                <table className={styles.tabelaEventoStyle}>
+                                    <thead>
+                                        <tr>
+                                            <th>Eventos</th>
+                                            <th>Convidados</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {eventos.map((evento) => (
+                                            <tr key={evento.id_evento}>
+                                                <td>
+                                                    <div className={styles.informacoesEvento}>
+                                                        <div className={styles.data}>
+                                                            <label className={styles.mesEvento}>{mesesAbreviados[new Date(evento.dataHoraInicial).getMonth()]}</label>
+                                                            <label className={styles.diaEvento}>{new Date(evento.dataHoraInicial).getDate()}</label>
+                                                        </div>
+                                                        <div className={styles.imagem} style={{ backgroundImage: evento.imagemUrl }}></div>
+                                                        <div className={styles.endereco}>
+                                                            <label className={styles.nomeEvento} onClick={() => handleRedirect(evento.id_evento)}>{evento.nomeEvento}</label>
+                                                            {evento.dataHoraInicial == undefined ? '' : <label className={styles.infoEvento}>{`${new Date(evento.dataHoraInicial).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })} -
+                                                        ${evento.dataHoraFinal == undefined ? '' : new Date(evento.dataHoraFinal).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}`}</label>}
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div className={styles.numeroConvidados}>{convidadosPorEvento[evento.id_evento]}</div>
+                                                </td>
+
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
                             </div>
                         )}
                     </div>

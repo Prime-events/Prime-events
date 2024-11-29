@@ -34,8 +34,9 @@ class EventoController {
                 order: [
                     ['dataHoraInicial', 'ASC'] 
                 ],
+                limit: 2 
             });
-            res.status(201).json(eventos);
+            res.status(200).json(eventos); 
         } catch (error) {
             console.error("Erro ao buscar eventos pendentes: ", error);
             res.status(404).json({ message: "Erro ao buscar eventos pendentes!" });
