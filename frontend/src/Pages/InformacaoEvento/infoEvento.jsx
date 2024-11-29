@@ -9,9 +9,12 @@ import { FaCalendarAlt, FaClock } from 'react-icons/fa';
 import { TiLocation } from "react-icons/ti";
 import { FaRegEdit } from "react-icons/fa";
 import { IoArrowBackCircleOutline } from "react-icons/io5";
+import { FaTrash } from "react-icons/fa";
+import { HiOutlinePencilAlt } from "react-icons/hi";
 import { useNavigate } from 'react-router-dom';
-import { Button, Form, FormGroup, Label, Input, Modal, ModalHeader, ModalBody, Table } from 'reactstrap';
-import { createCategoria, getAllCategorias, createGasto, getAllEstimativaGastos} from './apiEstimativa.js';
+import Modal from '../../components/modal/Modal.jsx';
+import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import { createCategoria, getAllCategorias, createGasto, getAllEstimativaGastos, updateGasto,deletarGasto} from './apiEstimativa.js';
 import { getUser } from '../../components/header/segundoHeader/api.js';
 import { listarEvento } from '../Eventos/api.js';
 import ListaConvidados from '../../components/listaConvidados/listaConvidados.jsx';
@@ -22,6 +25,7 @@ function InformacaoEvento() {
     const [CriarCategoriaModal, setCriarCategoriaModal] = useState(false);
     const [CriarGastoModal, setCriarGastoModal] = useState(false);
     const [estimativaModal, setEstimativaModal] = useState(false);
+    const [gastosAtualizados, setGastosAtualizados] = useState(false);
     const [nomeCategoria, setnomeCategoria] = useState(' ');
     const [categoria, setCategoria] = useState([]);
     const [categoriaSelecionada, setCategoriaSelecionada] = useState('');
@@ -31,55 +35,67 @@ function InformacaoEvento() {
     const [totalSoma, setTotalSoma] = useState(0);
     const [listaItens, setListaItens] = useState([]);
     const [evento, setEvento] = useState({});
+    const [isEditMode, setIsEditMode] = useState(false); // Estado para controle de edição
+    const [idItem, setIdItem] = useState(null); // Estado para o gasto sendo editado
 
-    useEffect(() => {   
-        fetchInformacoesEvento();
+    
+    useEffect(() => {
+        const fetchCategorias = async () => {
+            try {
+                const categorias = await getAllCategorias();
+                setCategoria(categorias);
+            } catch (error) {
+                console.error('Erro ao obter categorias:', error);
+            }
+        };
+
         fetchCategorias();
-        fetchGastos();
     }, []);
 
-    const fetchInformacoesEvento = async () => {
-        try {
-            const id_evento = localStorage.getItem('idEvento');
-            const data_evento = await listarEvento(id_evento);
-            console.log('data:', data_evento);
-            setEvento(data_evento);
 
-        } catch (error) {
-            console.error('Erro:', error);
-        }
-    }
 
-    const fetchGastos = async () => {
-        try {
-            const id_evento = localStorage.getItem('idEvento');
-            console.log('ID do evento:', id_evento); // Adicionando log
-            const gastos = await getAllEstimativaGastos(id_evento);
-            console.log('Gastos recebidos:', gastos); // Adicionando log
-            setListaItens(gastos);
-            let soma = 0;
-            gastos.forEach(item => {
-                soma += item.valor_item * item.quantidade_item; // Incrementa a soma
-            });
-            setTotalSoma(soma);
-        } catch (error) {
-            console.error('Erro ao obter gastos:', error);
-        }
-    };
-
-    const fetchCategorias = async () => {
-        try {
-            const categorias = await getAllCategorias();
-            setCategoria(categorias);
-        } catch (error) {
-            console.error('Erro ao obter categorias:', error);
-        }
-    };
+    useEffect(() => {
+        const fetchGastos = async () => {
+            try {
+                const id_evento = localStorage.getItem('idEvento');
+                console.log('ID do evento:', id_evento);
+                const gastos = await getAllEstimativaGastos(id_evento);
+                console.log('Gastos recebidos:', gastos);
+                setListaItens(gastos);
+                let soma = 0;
+                gastos.forEach(item => {
+                    soma += item.valor_item * item.quantidade_item;
+                });
+                setTotalSoma(soma);
+            } catch (error) {
+                console.error('Erro ao obter gastos:', error);
+            }
+        };
+    
+        fetchGastos();
+    }, [gastosAtualizados]);
+    
+    useEffect(() => {
+        const fetchInformacoesEvento = async () => {
+            try {
+                const id_evento = localStorage.getItem('idEvento');
+                setConvidadoInfo((prevData) => ({...prevData, id_evento: id_evento}));
+                const data_evento = await listarEvento(id_evento);
+                console.log('data:', data_evento);
+                setEvento(data_evento);
+            } catch (error) {
+                console.error('Erro:', error);
+            }
+        };
+    
+        fetchInformacoesEvento();
+    }, []);
     
     
     const handleCategoriaChange = (e) => { 
         setCategoriaSelecionada(e.target.value); 
     };
+    
 
     const handleRedirect = () => {
         localStorage.removeItem('idEvento');
@@ -105,17 +121,36 @@ function InformacaoEvento() {
     }
     const handleCloseCriarCategoriaModal = () =>{
         setCriarCategoriaModal(false);
+        setEstimativaModal(true);
         setnomeCategoria('');
     }
     const handleOpenCriarGastoModal = async () => {
         setCriarGastoModal(true);
         setEstimativaModal(false);
         // Chame fetchCategorias aqui
-        await fetchCategorias();
     };
     const handleCloseCriarGastoModal = () =>{
         setCriarGastoModal(false);
+        setEstimativaModal(true);
+        setIsEditMode(false);
+        setNomeGasto(``);
+        setQuantidade(``);
+        setCategoriaSelecionada(``);
+        setValor(``);
     }
+
+    const handleOpenEditarGastoModal = (item) => {
+        setCriarGastoModal(true);
+        setIsEditMode(true); // Modo de edição
+        console.log(item);
+        setIdItem(item.id_estimativa); // Define o gasto atual sendo editado
+        setNomeGasto(item.nome_item)
+        setCategoriaSelecionada(item.categoria_nome);
+        setQuantidade(item.quantidade_item);
+        setValor(item.valor_item);
+        setEstimativaModal(false);
+    };
+
     const handleCriarCategoria = async (e) => {
         e.preventDefault();
     
@@ -141,7 +176,7 @@ function InformacaoEvento() {
             
             handleCloseCriarCategoriaModal();
             // Atualizar categorias se necessário
-            fetchCategorias();
+            setCriarCategoriaModal(false)
         } catch (error) {
             console.error('Erro ao criar categoria:', error);
         }
@@ -149,28 +184,39 @@ function InformacaoEvento() {
 
     const handleCriarGasto = async (event) => {
         event.preventDefault();
-    
-        // Certifique-se de que as variáveis estão sendo preenchidas corretamente
-        const novoGasto = {
-            nome: nomeGasto,
-            categoriaId: categoriaSelecionada, // Use o valor do estado da categoria selecionada
-            quantidade: quantidade,
-            valor: valor,
-            id_evento: localStorage.getItem('idEvento') // Obter o ID do evento do localStorage
+        const gastoAtualizado = {
+            nome_item: nomeGasto, // Corrigido o nome da chave para coincidir com o back-end
+            valor_item: valor, // Corrigido o nome da chave para coincidir com o back-end
+            quantidade_item: quantidade, // Corrigido o nome da chave para coincidir com o back-end
+            id_evento: localStorage.getItem('idEvento'),
+            id_categoria: categoriaSelecionada // Corrigido o nome da chave para coincidir com o back-end
         };
-    
+        console.log("As info do gasto são: " + JSON.stringify(gastoAtualizado, null, 2));
+
+        handleCloseCriarGastoModal(); // Fechar o modal após criação/edição do gasto
+
+        setGastosAtualizados(prevState => !prevState); // Atualizar a lista de gastos
         try {
-            const resposta = await createGasto(novoGasto);
-            console.log("Resposta do servidor:", resposta);
-            // Fechar o modal após criação do gasto
-            handleCloseCriarGastoModal();
-            fetchGastos(); // Atualiza a lista de gastos após a criação
+            if (isEditMode && gastoAtualizado) {
+                // Atualizar o gasto existente
+                const response = await updateGasto(idItem, gastoAtualizado);
+                console.log("Resposta do servidor:", response);
+            } else {
+                // Criar novo gasto
+                const response = await createGasto(gastoAtualizado);
+                console.log("Resposta do servidor:", response);
+            }
+
         } catch (error) {
-            console.error('Erro ao criar gasto:', error);
+            console.error('Erro ao criar/atualizar gasto:', error.message);
         }
     };
     
-
+    const handleDeletarGasto = async(id) =>{
+        await deletarGasto(id);
+        setGastosAtualizados(prevState => !prevState); // Atualizar a lista de gastos
+    }
+    
     return (
         <>
             <SegundoHeader titulo='Informações evento' />
@@ -232,47 +278,60 @@ function InformacaoEvento() {
                 <ListaConvidados open={isConvidadoOpen} setOpen={setIsConvidadoOpen}/>
             </div>
             
-            <Modal isOpen={estimativaModal} toggle={handleCloseEstimativaModal} className={styleModal.customModal} centered>
+            <Modal open={estimativaModal} onClose={handleCloseEstimativaModal}>
                 <div className={styleModal.modalContainer}>
-                    <ModalHeader toggle={handleCloseEstimativaModal} className={styleModal.headerConfiguracoes}>
-                        Estimativa de Gasto
-                    </ModalHeader>
-                    <ModalBody className={styleModal.modalBodyEstimativa}>
-                        <Button onClick={handleOpenCriarGastoModal} >Criar Gasto</Button>
-                        <Button className={styleModal.btnCriarCategoria} onClick={handleOpenCriarCategoriaModal}>Criar Categoria</Button>
-                        <Table bordered className={styleModal.listaEstimativa}>
-                            <thead>
-                                <tr>
-                                    <th>Nome</th>
-                                    <th>Categoria</th>
-                                    <th>Quantidade</th>
-                                    <th>Valor</th>
-                                    <th>Valor Total</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {listaItens.map(item => (
-                                    <tr key={`${item.nome_item}-${item.id_evento}`}>
-                                        <td>{item.nome_item}</td>
-                                        <td>{item.categoria_nome}</td> {/* Usando nome da categoria mapeado manualmente */}
-                                        <td>{item.quantidade_item}</td>
-                                        <td>R${item.valor_item}</td>
-                                        <td>R${item.valor_item * item.quantidade_item}</td>
+                    <div className={styleModal.headerConfiguracoes}>
+                        <h1>Estimativa de Gasto</h1>
+                    </div>
+                    <div className={styleModal.modalBodyEstimativa}>
+                        <div className={styleModal.categoriaModalButtons}>
+                            <button onClick={handleOpenCriarGastoModal}>Criar Gasto</button>
+                            <button onClick={handleOpenCriarCategoriaModal}>Criar Categoria</button>
+                        </div>
+                        <div className={styleModal.containerTabela}>
+                            <table className={styleModal.listaEstimativa}>
+                                <thead>
+                                    <tr>
+                                        <th>Nome</th>
+                                        <th>Categoria</th>
+                                        <th>Quantidade</th>
+                                        <th>Valor</th>
+                                        <th>Valor Total</th>
+                                        <th>Ações</th> {/* Nova coluna para os botões de ação */}
                                     </tr>
-                                ))}
-                            </tbody>
-                        </Table>
-                        <h4>O valor total que irá gastar é de R${totalSoma}</h4>
-                    </ModalBody>
+                                </thead>
+                                <tbody>
+                                    {listaItens.map(item => (
+                                        <tr key={`${item.nome_item}-${item.id_evento}`}>
+                                            <td>{item.nome_item}</td>
+                                            <td>{item.categoria_nome}</td>
+                                            <td>{item.quantidade_item}</td>
+                                            <td>R${item.valor_item}</td>
+                                            <td>R${item.valor_item * item.quantidade_item}</td>
+                                            <td>
+                                                <button onClick={() => handleOpenEditarGastoModal(item)}><HiOutlinePencilAlt /></button> {/* Botão de editar */}
+                                                <button onClick={() => handleDeletarGasto(item.id_estimativa)}><FaTrash /></button> {/* Botão de excluir */}
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div className={styleModal.valorTotal}>
+                            <h4>O valor total que irá gastar é de R${totalSoma}</h4>
+                        </div>
+                    </div>
                 </div>
             </Modal>
 
-            <Modal isOpen={CriarCategoriaModal} toggle={handleCloseCriarCategoriaModal} className={styleModal.customModal} centered>
+
+
+            <Modal open={CriarCategoriaModal} onClose={handleCloseCriarCategoriaModal}>
                 <div className={styleModal.modalContainer}>
-                    <ModalHeader toggle={handleCloseCriarCategoriaModal} className={styleModal.headerConfiguracoes}>
-                        Criar Categoria
-                    </ModalHeader>
-                    <ModalBody className={styleModal.modalBodyEstimativa}>
+                    <div className={styleModal.headerConfiguracoes}>
+                        <h1>Criar Categoria</h1>
+                    </div>
+                    <div className={styleModal.modalBodyEstimativa}>
                         <Form className='CategoriaForm' onSubmit={handleCriarCategoria}>
                             <FormGroup>
                                 <Label for="NomeCategoria">Nome da Categoria</Label>
@@ -282,81 +341,12 @@ function InformacaoEvento() {
                                     value={nomeCategoria}
                                     onChange={(e) => setnomeCategoria(e.target.value)}
                                     required
-                                    />
+                                />
                             </FormGroup>
                             <div className={styleModal.categoriaModalButtons}>
                                 <Button
                                     type="button"
                                     onClick={handleCloseCriarCategoriaModal}
-                                    >
-                                    Cancelar
-                                </Button>
-                                <Button
-                                    type="submit"
-                                    >
-                                    Criar
-                                </Button>
-                            </div>
-                        </Form>
-                    </ModalBody>
-                </div>
-            </Modal>
-            <Modal isOpen={CriarGastoModal} toggle={handleCloseCriarGastoModal} className={styleModal.customModal} centered>
-                <div className={styleModal.modalContainer}>
-                <ModalHeader toggle={handleCloseCriarGastoModal} className={styleModal.headerConfiguracoes}>
-                    Criar Gasto
-                </ModalHeader>
-                    <ModalBody className={styleModal.modalBodyEstimativa}>
-                        <Form className='CategoriaForm' onSubmit={handleCriarGasto}>
-                            <FormGroup>
-                                <Label for="NomeGasto">Nome do Gasto</Label>
-                                <Input
-                                    type="text"
-                                    id="NomeGasto"
-                                    value={nomeGasto}
-                                    onChange={(e) => setNomeGasto(e.target.value)}
-                                    required
-                                />
-                            </FormGroup>
-                            <FormGroup>
-                                <Label for="Categoria">Categoria</Label>
-                                <Input
-                                    type="select"
-                                    id="Categoria"
-                                    value={categoriaSelecionada}
-                                    onChange={handleCategoriaChange}
-                                    required
-                                >
-                                    <option value="" disabled>Selecione uma categoria</option>
-                                    {categoria.map(categoria => (
-                                        <option key={categoria.id} value={categoria.id}>{categoria.nome}</option>
-                                    ))}
-                                </Input>
-                            </FormGroup>
-                            <FormGroup>
-                                <Label for="Quantidade">Quantidade</Label>
-                                <Input
-                                    type="number"
-                                    id="Quantidade"
-                                    value={quantidade}
-                                    onChange={(e) => setQuantidade(e.target.value)}
-                                    required
-                                />
-                            </FormGroup>
-                            <FormGroup>
-                                <Label for="Valor">Valor</Label>
-                                <Input
-                                    type="number"
-                                    id="Valor"
-                                    value={valor}
-                                    onChange={(e) => setValor(e.target.value)}
-                                    required
-                                />
-                            </FormGroup>
-                            <div className={styleModal.categoriaModalButtons}>
-                                <Button
-                                    type="button"
-                                    onClick={handleCloseCriarGastoModal}
                                 >
                                     Cancelar
                                 </Button>
@@ -367,15 +357,88 @@ function InformacaoEvento() {
                                 </Button>
                             </div>
                         </Form>
-                    </ModalBody>
+                    </div>
                 </div>
             </Modal>
+
+            <Modal open={CriarGastoModal} onClose={handleCloseCriarGastoModal}>
+    <div className={styleModal.modalContainer}>
+        <div className={styleModal.headerConfiguracoes}>
+            <h1>{isEditMode ? 'Editar Gasto' : 'Criar Gasto'}</h1>
+        </div>
+        <div className={styleModal.modalBodyEstimativa}>
+            <Form className='CategoriaForm' onSubmit={handleCriarGasto}>
+                <FormGroup>
+                    <Label for="NomeGasto">Nome do Gasto</Label>
+                    <Input
+                        type="text"
+                        id="NomeGasto"
+                        value={nomeGasto}
+                        className={styleModal.inputLarger}
+                        onChange={(e) => setNomeGasto(e.target.value)}
+                        required
+                        disabled={isEditMode} // Bloquear campo no modo de edição
+                    />
+                </FormGroup>
+                <FormGroup>
+                    <Label for="Categoria">Categoria</Label>
+                    <Input
+                        type="select"
+                        id="Categoria"
+                        value={categoriaSelecionada}
+                        className={styleModal.inputLarger}
+                        onChange={handleCategoriaChange}
+                        required
+                        disabled={isEditMode} // Bloquear campo no modo de edição
+                    >
+                        <option value="" disabled>Selecione uma categoria</option>
+                        {isEditMode? <option value={idItem}>{categoriaSelecionada}</option> :categoria.map(categoria => (
+                            <option key={categoria.id} value={categoria.id}>{categoria.nome}</option>
+                        ))}
+                    </Input>
+                </FormGroup>
+                <FormGroup>
+                    <Label for="Quantidade">Quantidade</Label>
+                    <Input
+                        type="number"
+                        id="Quantidade"
+                        value={quantidade}
+                        className={styleModal.inputLarger}
+                        onChange={(e) => setQuantidade(e.target.value)}
+                        required
+                    />
+                </FormGroup>
+                <FormGroup>
+                    <Label for="Valor">Valor</Label>
+                    <Input
+                        type="number"
+                        id="Valor"
+                        value={valor}
+                        className={styleModal.inputLarger}
+                        onChange={(e) => setValor(e.target.value)}
+                        required
+                    />
+                </FormGroup>
+                <div className={styleModal.categoriaModalButtons}>
+                    <Button
+                        type="button"
+                        onClick={handleCloseCriarGastoModal}
+                    >
+                        Cancelar
+                    </Button>
+                    <Button
+                        type="submit"
+                    >
+                        {isEditMode ? 'Atualizar' : 'Criar'}
+                    </Button>
+                </div>
+            </Form>
+        </div>
+    </div>
+</Modal>
+
         </>
     );
 }
 
 export default InformacaoEvento;
-
-
-
-

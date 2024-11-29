@@ -50,18 +50,19 @@ export const createGasto = async (evento) => {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                nome_item: evento.nome,
-                valor_item: evento.valor,
-                quantidade_item: evento.quantidade,
+                nome_item: evento.nome_item,
+                valor_item: evento.valor_item,
+                quantidade_item: evento.quantidade_item,
                 id_evento: evento.id_evento,
-                id_categoria: evento.categoriaId
+                id_categoria: evento.id_categoria
             }),
         });
+        console.log("As info do gasto dentro da API são: " + JSON.stringify(evento, null, 2));
+
 
         if (!response.ok) {
             const errorData = await response.json();
             console.error('Erro no servidor:', errorData);
-            throw new Error(`HTTP error! status: ${response.status} - ${JSON.stringify(errorData)}`);
         }
 
         const data = await response.json();
@@ -97,6 +98,45 @@ export const getAllEstimativaGastos = async (id_evento) => {
         return data;
     } catch (error) {
         console.error("Erro na API:", error.message);
+        throw error;
+    }
+};
+
+
+const API_URL_ATUALIZARGASTO = 'http://localhost:3001/atualizarGasto'; // Certifique-se que está em minúsculas
+
+export const updateGasto = async (id, updatedGasto) => {
+    const response = await fetch(`${API_URL_ATUALIZARGASTO}/${id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(updatedGasto)
+    });
+
+    if (!response.ok) {
+        const errorMessage = await response.text(); // Captura a mensagem de erro do servidor
+        throw new Error(errorMessage);
+    }
+
+    return await response.json();
+};
+
+const API_URL_DELETARGASTO = 'http://localhost:3001/deletarGasto';
+
+export const deletarGasto = async (id) => {
+    try {
+        const response = await fetch(`${API_URL_DELETARGASTO}/${id}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+        if (!response.ok) {
+            throw new Error("Erro ao excluir Gasto");
+        }
+    } catch (error) {
+        console.error("Erro na exclusão do Gasto", error);
         throw error;
     }
 };

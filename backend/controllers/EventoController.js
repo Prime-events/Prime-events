@@ -60,6 +60,9 @@ class EventoController {
                 where: {
                     id_usuario: req.params.id_usuario
                 },
+                order: [
+                    ['dataHoraInicial', 'ASC']
+                ]
             });
             if (!evento) {
                 return res.status(404).json({ message: 'Evento não encontrado!' });
