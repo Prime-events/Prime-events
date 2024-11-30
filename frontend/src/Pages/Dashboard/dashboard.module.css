@@ -30,20 +30,19 @@
 }
 
 .EventosRecentes{
-    margin-left: 16rem;
     color: #FCA311;
     font-size: 50px;
-    background-color: white;
-    position: sticky;
-    top: 0;
-    z-index: 1;
-    padding: 5px 0;
 }
 
 .evtRecentes{
-    margin-top: 6rem;
+    width: 68%;
+    margin-top: 5rem;
+    text-align: start;
 }
 
+.containerEventos{
+    margin-top: 2rem;
+}
 
 .tabelaEventosPendentes{
     display: flex;
@@ -165,6 +164,12 @@
         flex-direction: column;
         width: 100%; 
     }
+
+    .containerCriacao{
+        display: flex;
+        flex-direction: column;
+    }
+
     .card {
         flex: 0 0 80px; 
         margin: 5px; 

@@ -86,6 +86,11 @@ function Dashboard() {
         }
     }
 
+    const handleRedirect = (id_evento) => {
+        localStorage.setItem('idEvento', id_evento);
+        navigate('/informacaoEvento');
+    }
+
 
     return (
         <>
@@ -117,11 +122,11 @@ function Dashboard() {
                             )}
                         </Droppable>
                     </DragDropContext>
-                    <div className={styles.evtRecentes}>
-                        <span className={styles.EventosRecentes}>Eventos recentes</span>
-                    </div>
 
                     <div className={styles.tabelaEventosPendentes}>
+                        <div className={styles.evtRecentes}>
+                            <span className={styles.EventosRecentes}>Eventos recentes</span>
+                        </div>
                         {eventos.length === 0 ? ( // Verifica se não há eventos
                             <div className={styles.naoEncontrado}>
                                 <span className={styles.textoNaoEncontrado} style={{ fontSize: '1.2rem' }}>Não há eventos pendentes</span>
