@@ -39,6 +39,9 @@ class EventoController {
                 where: {
                     id_usuario: req.params.id_usuario
                 },
+                order: [
+                    ['dataHoraInicial', 'ASC']
+                ]
             });
             
             if (!eventos || eventos.length === 0) {
