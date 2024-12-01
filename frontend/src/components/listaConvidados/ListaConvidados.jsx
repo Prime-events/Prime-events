@@ -114,24 +114,24 @@ function ListaConvidados({ open, setOpen }) {
                     <tbody>
                         {convidados.map((convidado) => (
                             <tr key={convidado.id_convidado}>
-                            <td>
-                                {editar === convidado.id ? 
-                                <input type='text' name='nome' value={convidado.nome} onChange={(e) => handleChangeConvidado(e,convidado.id)}></input>
-                                : convidado.nome}
-                            </td>
-                            <td>{editar === convidado.id ? 
-                                <input type='text' name='telefone' value={convidado.telefone} onChange={(e) => handleChangeConvidado(e,convidado.id)}></input>
-                                : convidado.telefone}</td>
-                            
-                            <td>{editar === convidado.id ? 
-                                <input type='checkbox' name='presenca' checked={convidado.presenca} onChange={() => handlePresenca(convidado.id)}></input>
-                                : convidado.presenca ? "Sim" : "Não"}</td>
-                            
-                            <td className={styles.botoesAlterarExcluir}>
-                                {editar === convidado.id ? (<button onClick={handleAtualizarDadosConvidado}>Alterar</button>) : (<button onClick={() => toggleEditar(convidado.id)}>Editar</button>)}
-                                <button onClick={() => {handleExcluirConvidado(convidado.id)}}>Excluir</button>
-                            </td>
-                        </tr>
+                                <td>
+                                    {editar === convidado.id ? 
+                                    <input type='text' name='nome' value={convidado.nome} onChange={(e) => handleChangeConvidado(e,convidado.id)}></input>
+                                    : convidado.nome}
+                                </td>
+                                <td>{editar === convidado.id ? 
+                                    <input type='text' name='telefone' value={convidado.telefone} onChange={(e) => handleChangeConvidado(e,convidado.id)}></input>
+                                    : convidado.telefone}</td>
+                                
+                                <td>{editar === convidado.id ? 
+                                    <input type='checkbox' name='presenca' checked={convidado.presenca} onChange={() => handlePresenca(convidado.id)}></input>
+                                    : convidado.presenca ? "Sim" : "Não"}</td>
+                                
+                                <td className={styles.botoesAlterarExcluir}>
+                                    {editar === convidado.id ? (<button onClick={handleAtualizarDadosConvidado}>Alterar</button>) : (<button onClick={() => toggleEditar(convidado.id)}>Editar</button>)}
+                                    <button onClick={() => {handleExcluirConvidado(convidado.id)}}>Excluir</button>
+                                </td>
+                            </tr>
                         ))}
                     </tbody>
                 </table>

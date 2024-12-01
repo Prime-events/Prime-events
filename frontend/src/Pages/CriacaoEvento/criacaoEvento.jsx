@@ -33,8 +33,8 @@ function CriacaoEvento() {
     });
     const [date, setDate] = useState({
         dataEvento: "",
-        horarioInicio: "",
-        horarioTermino: "",
+        horarioInicio: "00:00",
+        horarioTermino: "00:00",
     });
 
     const handleImagemUpload = async (imagem) => {
@@ -55,12 +55,13 @@ function CriacaoEvento() {
             
         if (newDate.dataEvento && newDate.horarioInicio) {
             const [horaInicio, minutoInicio] = newDate.horarioInicio.split(":");
-            const dataHoraInicial = new Date(newDate.dataEvento);
+            const dataHoraInicial = new Date(newDate.dataEvento + "T03:00:00Z");
             dataHoraInicial.setHours(horaInicio, minutoInicio);
             setData((prevData) => ({ ...prevData, dataHoraInicial }));
             setHasDate(true);
+            console.log(newDate.dataEvento)
+            console.log(dataHoraInicial);
         }
-
         if (newDate.dataEvento && newDate.horarioTermino) {
             const [horaTermino, minutoTermino] = newDate.horarioTermino.split(":");
             const dataHoraFinal = new Date(newDate.dataEvento);
@@ -68,6 +69,7 @@ function CriacaoEvento() {
             setData((prevData) => ({ ...prevData, dataHoraFinal }));
         }
         setDate(newDate);
+        
     }
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -171,7 +173,7 @@ function CriacaoEvento() {
                 </div>
                 <div className={styles.secaoDireita}>
                     <div className={styles.itensDireita}>
-                        <form onSubmit={handleSubmitEvento}>
+                        <form className={styles.itensDireita} onSubmit={handleSubmitEvento}>
                             <div className={`${styles.showImagem} ${hasImagem ? styles.active : ''}`} style={{backgroundImage:`url(${imagemURL})`}}>
                             </div>
                             <label htmlFor="file-upload" className={styles.btnUploadImagem}>
