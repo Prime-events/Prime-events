@@ -79,7 +79,6 @@ function InformacaoEvento() {
         const fetchInformacoesEvento = async () => {
             try {
                 const id_evento = localStorage.getItem('idEvento');
-                setConvidadoInfo((prevData) => ({...prevData, id_evento: id_evento}));
                 const data_evento = await listarEvento(id_evento);
                 console.log('data:', data_evento);
                 setEvento(data_evento);
@@ -228,7 +227,7 @@ function InformacaoEvento() {
                             <button className={styles.btnVoltar} onClick={handleRedirect}><IoArrowBackCircleOutline />Voltar para eventos</button>
                         </div>
                         <div className={styles.containereImagemEvento}>
-                            <img className={styles.imagemEvento} src={ImgCerimonia} alt="Cerimônia" />
+                            <img className={styles.imagemEvento} src={evento.imagem} alt="Cerimônia" />
                         </div>
                         <div className={styles.containerImagemMapa}>
                             <img className={styles.imagemMapa} src={ImgMapa} alt="Mapa do local" />

@@ -112,14 +112,16 @@ input[type="search"] {
     color: var(--laranja);
 }
 .imagem {
-    width: 9.375rem;
-    height: 7.1875rem;
-    border-radius: 0.625rem;
-    background-position: center;
-    background-size: contain;
-    background-repeat: no-repeat;
     display: flex;
     align-items: center;
+    justify-content: center;
+}
+.imagem img{
+    width: 9.375rem;
+    height: 9.1875rem;
+    border-radius: 0.625rem;
+    display: flex;
+
 }
 .numeroConvidados, .status {
     display: flex;
