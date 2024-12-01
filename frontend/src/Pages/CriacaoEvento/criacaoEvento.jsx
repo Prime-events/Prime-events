@@ -7,6 +7,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { createEvento } from './api.js';
 import { getUser } from '../../components/header/segundoHeader/api.js';
+import { ImgurUpload } from './imgurApi.js';
 
 function CriacaoEvento() {
     const navigate = useNavigate(); 
@@ -27,7 +28,7 @@ function CriacaoEvento() {
         bairro: "",
         cidade: "",
         estado: "",
-        imagem: null,
+        imagem: "",
         id_usuario: "",
     });
     const [date, setDate] = useState({
@@ -35,6 +36,18 @@ function CriacaoEvento() {
         horarioInicio: "",
         horarioTermino: "",
     });
+
+    const handleImagemUpload = async (imagem) => {
+        const formData = new FormData();
+        formData.append('image', imagem);
+        formData.append('type', 'file');
+        formData.append('title', 'Simple upload');
+        formData.append('description', 'This is a simple image upload in Imgur');
+        
+        const imagemLink = await ImgurUpload(formData);
+        console.log('ImagemLink: ', imagemLink);
+        setData((prevData) => ({ ...prevData, imagem: imagemLink}));
+    }
 
     const handleDate = (e) => {
         const { name, value } = e.target;
@@ -68,7 +81,7 @@ function CriacaoEvento() {
         if (file) {
             setImagemURL(URL.createObjectURL(file));
             console.log(URL.createObjectURL(file));
-            setData((prevData) => ({...prevData, imagem: file}));
+            handleImagemUpload(file);
             setHasImagem(true);
         }
     };

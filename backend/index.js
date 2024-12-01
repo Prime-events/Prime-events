@@ -22,7 +22,8 @@ app.listen(port, () => {
 
 const allowedOrigins = ['http://localhost:5173',
     'http://localhost:3001',
-    'http://127.0.0.1:5500'];
+    'http://127.0.0.1:5500',
+    'http://192.168.100.4:5173'];
 
 const corsOptions = {
     origin: function (origin, callback) {

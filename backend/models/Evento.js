@@ -59,7 +59,7 @@ const Evento = sequelize.define(
             allowNull: true,
         },
         imagem: {
-            type: DataTypes.BLOB('long'),
+            type: DataTypes.STRING,
             allowNull: true,
         },
     }
