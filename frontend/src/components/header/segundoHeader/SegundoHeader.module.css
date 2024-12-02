@@ -70,7 +70,7 @@
 .userLogado {
     display: flex;
     align-items: center;
-    background-color: rgba(252, 163, 17, 0.37);
+    background-color: rgba(243, 210, 121, 0.37);
     padding: 0.3rem;
     border-radius: 30px;
 }
@@ -81,6 +81,15 @@
     background-color: #ddd;
     border-radius: 50%;
     margin-right: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.iniciaisPerfil{
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: white;
 }
 
 .nome {

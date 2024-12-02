@@ -25,7 +25,11 @@ const Usuario = sequelize.define(
         senha: {
             type: DataTypes.STRING,
             allowNull: false,
-        }
+        },
+        corPerfil: { // Campo para armazenar a cor
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
     }
 );
 

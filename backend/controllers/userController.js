@@ -13,13 +13,24 @@ class UserController {
         const salt = await bcrypt.genSalt(12);
         const senhaHash = await bcrypt.hash(senha, salt);
 
+        const coresPerfil = ['#985ee1', '#2495e1', '#e67e22', '#f1c40f', '#e74c3c'];
+
+        const escolherCorAleatoria = () => {
+            const indiceAleatorio = Math.floor(Math.random() * coresPerfil.length);
+            return coresPerfil[indiceAleatorio];
+        };
+
         try {
             const user = await usuarioModel.findOne({ where: { email: email } });
             if (user) {
                 return res.status(400).json({ message: 'O Email já está em uso!' });
             }
-            const novoUsuario = await usuarioModel.create({ nome, sobrenome, email, senha: senhaHash });
-            return res.status(200).json({ message: 'Usuário criado com sucesso!', id: novoUsuario.id });
+
+            const novaCor = escolherCorAleatoria();
+
+
+            const novoUsuario = await usuarioModel.create({ nome, sobrenome, email, senha: senhaHash, corPerfil: novaCor });
+            return res.status(200).json({ message: 'Usuário criado com sucesso!', id: novoUsuario.id, corPerfil: novoUsuario.corPerfil });
         } catch (error) {
             console.error('Erro ao criar usuário:', error);
             return res.status(500).json({ message: 'Erro ao criar usuário' });
@@ -80,10 +91,11 @@ class UserController {
                 return res.status(404).json({ message: "Usuário não encontrado" });
             } // Se encontrou, retorna os dados selecionados 
             const userInfo = {
-                id_usuario:userDados.id_usuario,
+                id_usuario: userDados.id_usuario,
                 nome: userDados.nome,
                 sobrenome: userDados.sobrenome,
-                email: userDados.email, // Adicione outros campos que deseja retornar 
+                email: userDados.email,
+                corPerfil: userDados.corPerfil,
             };
             res.status(200).json(userInfo);
         }
