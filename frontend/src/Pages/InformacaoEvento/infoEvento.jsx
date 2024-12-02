@@ -227,7 +227,7 @@ function InformacaoEvento() {
                             <button className={styles.btnVoltar} onClick={handleRedirect}><IoArrowBackCircleOutline />Voltar para eventos</button>
                         </div>
                         <div className={styles.containereImagemEvento}>
-                            <img className={styles.imagemEvento} src={ImgCerimonia} alt="Cerimônia" />
+                            <img className={styles.imagemEvento} src={evento.imagem} alt="Cerimônia" />
                         </div>
                         <div className={styles.containerImagemMapa}>
                             <img className={styles.imagemMapa} src={ImgMapa} alt="Mapa do local" />
