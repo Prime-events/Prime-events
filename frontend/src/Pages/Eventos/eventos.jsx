@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import SegundoHeader from "../../components/header/segundoHeader/segundoHeader";
-import SideBar from "../../components/sideBar/sideBar";
+import SideBar from "../../components/sideBar/SideBar";
 import styles from "./eventos.module.css";
 import { useEffect, useState } from "react";
 import { listarEventosUsuario } from "./api";

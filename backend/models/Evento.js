@@ -58,6 +58,11 @@ const Evento = sequelize.define(
             type: DataTypes.STRING,
             allowNull: true,
         },
+        status: {
+            type: DataTypes.STRING,
+            defaultValue: 'Pendente',
+            allowNull: false,
+        },
         imagem: {
             type: DataTypes.BLOB('long'),
             allowNull: true,
