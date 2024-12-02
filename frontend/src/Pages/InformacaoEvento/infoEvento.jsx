@@ -27,6 +27,7 @@ import TimelineContent from '@mui/lab/TimelineContent';
 import TimelineDot from '@mui/lab/TimelineDot';
 import TimelineOppositeContent from '@mui/lab/TimelineOppositeContent';
 import { Button, Form, Row, Col, FormGroup, Label, Input, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem, Modal, ModalHeader, ModalBody, Table } from 'reactstrap';
+import { useTimelineProgresso } from "../../components/progressoTimeline/useTimelineProgresso.jsx";
 
 function InformacaoEvento() {
     const [isConvidadoOpen, setIsConvidadoOpen] = useState(false);
@@ -44,6 +45,7 @@ function InformacaoEvento() {
     const [totalSoma, setTotalSoma] = useState(0);
     const [listaItens, setListaItens] = useState([]);
     const [listaTarefas, setListaTarefas] = useState([]);
+    const { tarefaAtual } = useTimelineProgresso(listaTarefas);
     const [evento, setEvento] = useState({});
     const [isEditMode, setIsEditMode] = useState(false); // Estado para controle de edição
     const [idItem, setIdItem] = useState(null); // Estado para o gasto sendo editado
@@ -238,78 +240,107 @@ function InformacaoEvento() {
         setTimelineModal(false);
     };
 
+    // Obtém a tarefa atual
+
+    // Função para determinar o status da tarefa (passada, atual ou pendente)
+    function obterStatusTarefa(index) {
+        if (index < tarefaAtual) return 'passada';
+        if (index === tarefaAtual) return 'atual';
+        return 'pendente';
+    }
+
+    // Função para calcular o estilo da tarefa com base no seu status
+    function obterEstiloTarefa(status) {
+        switch (status) {
+            case 'passada':
+                return { backgroundColor: '#FCA311' };
+            case 'atual':
+                return { backgroundColor: 'green', color: 'white' };
+            case 'pendente':
+                return { backgroundColor: 'gray' };
+            default:
+                return {};
+        }
+    }
+
+
     useEffect(() => {
         const fetchTarefas = async () => {
             try {
                 const id_evento = localStorage.getItem('idEvento');
-    
+
                 if (!id_evento) {
                     console.error('id_evento não encontrado no localStorage.');
                     return;
                 }
-    
+
                 const data_tarefas = await buscarTarefas(id_evento);
                 console.log('data:', data_tarefas);
-    
+
                 // Atualiza o estado listaTarefas com as tarefas retornadas
                 setListaTarefas(data_tarefas);
             } catch (error) {
                 console.error('Erro ao buscar tarefas:', error);
             }
         };
-    
+
         fetchTarefas();
         setIsSubmitted(false);
     }, [isSubmitted]);
-    
+
+    useEffect(() => {
+        const intervalId = setInterval(() => {
+            // Atualiza a tarefaAtual com base no horário atual
+            setListaTarefas((prevTarefas) => [...prevTarefas]);
+        }, 40000); // Atualiza a cada 60 segundos (1 minuto)
+
+        return () => clearInterval(intervalId); // Limpeza do intervalo ao desmontar o componente
+    }, []); //
+
     const handleCriarTarefa = async (event) => {
         event.preventDefault();
-    
+
         const id_evento = localStorage.getItem('idEvento'); // Recupera o ID do evento
-    
+
         if (!id_evento) {
             console.error('id_evento não encontrado no localStorage.');
             return;
         }
-    
+
         // Atualiza o estado da tarefa com o id_evento antes de criar
         const tarefaAtualizada = {
             ...tarefa,
             id_evento,
         };
-    
+
         console.log("As info da tarefa são: " + JSON.stringify(tarefaAtualizada, null, 2));
-    
+
         try {
             await createTarefa(tarefaAtualizada);
-    
+
             // Reseta apenas os campos necessários
             setTarefa((prevData) => ({
                 ...prevData,
                 horario: "",
                 descricao: ""
             }));
-    
+
             // Atualiza o estado de envio para disparar o fetch novamente
             setIsSubmitted(true);
         } catch (error) {
             console.error('Erro ao criar tarefa:', error.message);
         }
     };
-    
+
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-    
+
         // Atualiza dinamicamente o campo correspondente no estado
         setTarefa((prevData) => ({
             ...prevData,
             [name]: value,
         }));
     };
-    
-    
-    
-
 
 
     return (
@@ -420,18 +451,23 @@ function InformacaoEvento() {
                             </div>
                             <div className={styles.secaoDireita}>
                                 <Timeline position="horizontal">
-                                    {listaTarefas.map((tarefa, index) => (
-                                        <TimelineItem key={index}>
-                                            <TimelineOppositeContent color="text.secondary">
-                                                {tarefa.horario}
-                                            </TimelineOppositeContent>
-                                            <TimelineSeparator>
-                                                <TimelineDot />
-                                                {index !== listaTarefas.length - 1 && <TimelineConnector />}
-                                            </TimelineSeparator>
-                                            <TimelineContent>{tarefa.descricao}</TimelineContent>
-                                        </TimelineItem>
-                                    ))}
+                                    {listaTarefas.map((tarefa, index) => {
+                                        const statusTarefa = obterStatusTarefa(index); // Determina o status da tarefa
+                                        const estiloTarefa = obterEstiloTarefa(statusTarefa); // Obtém o estilo da tarefa
+
+                                        return (
+                                            <TimelineItem key={index}>
+                                                <TimelineOppositeContent color="text.secondary">
+                                                    {tarefa.horario}
+                                                </TimelineOppositeContent>
+                                                <TimelineSeparator>
+                                                    <TimelineDot style={estiloTarefa} /> {/* Aplica o estilo ao TimelineDot */}
+                                                    {index !== listaTarefas.length - 1 && <TimelineConnector />}
+                                                </TimelineSeparator>
+                                                <TimelineContent>{tarefa.descricao}</TimelineContent>
+                                            </TimelineItem>
+                                        );
+                                    })}
                                 </Timeline>
                             </div>
                         </div>
