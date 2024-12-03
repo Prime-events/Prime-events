@@ -7,6 +7,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { createEvento } from './api.js';
 import { getUser } from '../../components/header/segundoHeader/api.js';
+import { ImgurUpload } from './imgurApi.js';
 
 function CriacaoEvento() {
     const navigate = useNavigate(); 
@@ -27,14 +28,26 @@ function CriacaoEvento() {
         bairro: "",
         cidade: "",
         estado: "",
-        imagem: null,
+        imagem: "",
         id_usuario: "",
     });
     const [date, setDate] = useState({
         dataEvento: "",
-        horarioInicio: "",
-        horarioTermino: "",
+        horarioInicio: "00:00",
+        horarioTermino: "00:00",
     });
+
+    const handleImagemUpload = async (imagem) => {
+        const formData = new FormData();
+        formData.append('image', imagem);
+        formData.append('type', 'file');
+        formData.append('title', 'Simple upload');
+        formData.append('description', 'This is a simple image upload in Imgur');
+        
+        const imagemLink = await ImgurUpload(formData);
+        console.log('ImagemLink: ', imagemLink);
+        setData((prevData) => ({ ...prevData, imagem: imagemLink}));
+    }
 
     const handleDate = (e) => {
         const { name, value } = e.target;
@@ -42,12 +55,13 @@ function CriacaoEvento() {
             
         if (newDate.dataEvento && newDate.horarioInicio) {
             const [horaInicio, minutoInicio] = newDate.horarioInicio.split(":");
-            const dataHoraInicial = new Date(newDate.dataEvento);
+            const dataHoraInicial = new Date(newDate.dataEvento + "T03:00:00Z");
             dataHoraInicial.setHours(horaInicio, minutoInicio);
             setData((prevData) => ({ ...prevData, dataHoraInicial }));
             setHasDate(true);
+            console.log(newDate.dataEvento)
+            console.log(dataHoraInicial);
         }
-
         if (newDate.dataEvento && newDate.horarioTermino) {
             const [horaTermino, minutoTermino] = newDate.horarioTermino.split(":");
             const dataHoraFinal = new Date(newDate.dataEvento);
@@ -55,6 +69,7 @@ function CriacaoEvento() {
             setData((prevData) => ({ ...prevData, dataHoraFinal }));
         }
         setDate(newDate);
+        
     }
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -68,7 +83,7 @@ function CriacaoEvento() {
         if (file) {
             setImagemURL(URL.createObjectURL(file));
             console.log(URL.createObjectURL(file));
-            setData((prevData) => ({...prevData, imagem: file}));
+            handleImagemUpload(file);
             setHasImagem(true);
         }
     };
@@ -158,7 +173,7 @@ function CriacaoEvento() {
                 </div>
                 <div className={styles.secaoDireita}>
                     <div className={styles.itensDireita}>
-                        <form onSubmit={handleSubmitEvento}>
+                        <form className={styles.itensDireita} onSubmit={handleSubmitEvento}>
                             <div className={`${styles.showImagem} ${hasImagem ? styles.active : ''}`} style={{backgroundImage:`url(${imagemURL})`}}>
                             </div>
                             <label htmlFor="file-upload" className={styles.btnUploadImagem}>

@@ -1,3 +1,4 @@
+const { where } = require('sequelize');
 const Evento = require('../models/Evento');
 
 class EventoController {
@@ -21,6 +22,27 @@ class EventoController {
         }
     }
 
+    static listarEventosPendentes = async (req, res) => {
+        console.log("ID do Usuário recebido:", req.params.id_usuario);
+
+        try {
+            const eventos = await Evento.findAll({
+                where: {
+                    id_usuario: req.params.id_usuario,
+                    status: 'Pendente'
+                },
+                order: [
+                    ['dataHoraInicial', 'ASC'] 
+                ],
+                limit: 2 
+            });
+            res.status(200).json(eventos); 
+        } catch (error) {
+            console.error("Erro ao buscar eventos pendentes: ", error);
+            res.status(404).json({ message: "Erro ao buscar eventos pendentes!" });
+        }
+    };
+
     static listarEventoPorId = async (req, res) => {
         try {
             const evento = await Evento.findByPk(req.params.id_evento);
@@ -39,6 +61,9 @@ class EventoController {
                 where: {
                     id_usuario: req.params.id_usuario
                 },
+                order: [
+                    ['dataHoraInicial', 'ASC']
+                ]
             });
             
             if (!eventos || eventos.length === 0) {
