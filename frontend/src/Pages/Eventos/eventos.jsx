@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import SegundoHeader from "../../components/header/segundoHeader/segundoHeader";
-import SideBar from "../../components/sideBar/sideBar";
+import SideBar from "../../components/sideBar/SideBar";
 import styles from "./eventos.module.css";
 import { useEffect, useState } from "react";
 import { listarEventosUsuario } from "./api";
@@ -20,7 +20,6 @@ function Eventos(){
 
     useEffect(() => {
         fetchEventos();
-
     }, []);
     
     useEffect(() => {
@@ -102,7 +101,7 @@ function Eventos(){
                                                         <label className={styles.mesEvento}>{mesesAbreviados[new Date(evento.dataHoraInicial).getMonth()]}</label>
                                                         <label className={styles.diaEvento}>{new Date(evento.dataHoraInicial).getDate()}</label>
                                                     </div>
-                                                    <div className={styles.imagem} style={{backgroundImage: evento.imagemUrl}}></div>
+                                                    <div className={styles.imagem}><img  src={evento.imagem}/></div>
                                                     <div className={styles.endereco}>
                                                         <label className={styles.nomeEvento} onClick={() => handleRedirect(evento.id_evento)}>{evento.nomeEvento}</label>
                                                         <label className={styles.infoEvento}>{`${evento.nomeLocal}`}</label>
