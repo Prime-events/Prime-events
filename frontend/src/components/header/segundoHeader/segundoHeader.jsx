@@ -37,6 +37,8 @@ function SegundoHeader({ titulo }) {
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [passwordError, setPasswordError] = useState('');
+    const [corPerfil, setCorPerfil] = useState('');
+    const [perfil, setPerfil] = useState('');
 
     useEffect(() => {
         const fetchUserData = async () => {
@@ -56,10 +58,13 @@ function SegundoHeader({ titulo }) {
                 const data = await getUser(email);
                 console.log('Dados do usuário:', data);
 
-                const { nome, sobrenome } = data;
+                const { nome, sobrenome, corPerfil } = data;
                 setNome(nome);
                 setSobrenome(sobrenome);
                 setNomeCompleto(`${nome} ${sobrenome}`);
+                setPerfil(`${nome.substring(0, 1)}${sobrenome.substring(0, 1)}`);
+                setPerfil(`${nome.substring(0, 1).toUpperCase()}${sobrenome.substring(0, 1).toUpperCase()}`);
+                setCorPerfil(corPerfil);
             } catch (error) {
                 console.error('Erro:', error);
             }
@@ -242,7 +247,7 @@ function SegundoHeader({ titulo }) {
                             <VscBellDot />
                         </div>
                         <div className={styles.userLogado}>
-                            <img src={perfil} alt="perfil" className={styles.perfil} />
+                            <div className={styles.perfil} style={{ backgroundColor: corPerfil }}><span className={styles.iniciaisPerfil}>{perfil}</span></div>
                             <div className={styles.nome}>
                                 <span>{nomeCompleto}</span>
                             </div>

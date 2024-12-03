@@ -27,7 +27,9 @@ import TimelineContent from '@mui/lab/TimelineContent';
 import TimelineDot from '@mui/lab/TimelineDot';
 import TimelineOppositeContent from '@mui/lab/TimelineOppositeContent';
 import { Button, Form, Row, Col, FormGroup, Label, Input, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem, Modal, ModalHeader, ModalBody, Table } from 'reactstrap';
+
 import { useTimelineProgresso } from "../../components/progressoTimeline/useTimelineProgresso.jsx";
+
 
 function InformacaoEvento() {
     const [isConvidadoOpen, setIsConvidadoOpen] = useState(false);
@@ -46,6 +48,7 @@ function InformacaoEvento() {
     const [listaItens, setListaItens] = useState([]);
     const [listaTarefas, setListaTarefas] = useState([]);
     const { tarefaAtual } = useTimelineProgresso(listaTarefas);
+
     const [evento, setEvento] = useState({});
     const [isEditMode, setIsEditMode] = useState(false); // Estado para controle de edição
     const [idItem, setIdItem] = useState(null); // Estado para o gasto sendo editado
@@ -98,7 +101,7 @@ function InformacaoEvento() {
         const fetchInformacoesEvento = async () => {
             try {
                 const id_evento = localStorage.getItem('idEvento');
-              
+
                 const data_evento = await listarEvento(id_evento);
                 console.log('data evento:', data_evento);
                 setEvento(data_evento);
@@ -240,6 +243,7 @@ function InformacaoEvento() {
         setTimelineModal(false);
     };
 
+
     // Obtém a tarefa atual
 
     // Função para determinar o status da tarefa (passada, atual ou pendente)
@@ -264,6 +268,7 @@ function InformacaoEvento() {
     }
 
 
+
     useEffect(() => {
         const fetchTarefas = async () => {
             try {
@@ -274,8 +279,10 @@ function InformacaoEvento() {
                     return;
                 }
 
+    
                 const data_tarefas = await buscarTarefas(id_evento);
                 console.log('data:', data_tarefas);
+    
 
                 // Atualiza o estado listaTarefas com as tarefas retornadas
                 setListaTarefas(data_tarefas);
@@ -283,6 +290,16 @@ function InformacaoEvento() {
                 console.error('Erro ao buscar tarefas:', error);
             }
         };
+    
+        fetchTarefas();
+        setIsSubmitted(false);
+    }, [isSubmitted]);
+    
+    const handleCriarTarefa = async (event) => {
+        event.preventDefault();
+    
+        const id_evento = localStorage.getItem('idEvento'); // Recupera o ID do evento
+    
 
         fetchTarefas();
         setIsSubmitted(false);
@@ -312,12 +329,12 @@ function InformacaoEvento() {
             ...tarefa,
             id_evento,
         };
-
+    
         console.log("As info da tarefa são: " + JSON.stringify(tarefaAtualizada, null, 2));
-
+    
         try {
             await createTarefa(tarefaAtualizada);
-
+    
             // Reseta apenas os campos necessários
             setTarefa((prevData) => ({
                 ...prevData,
@@ -331,9 +348,10 @@ function InformacaoEvento() {
             console.error('Erro ao criar tarefa:', error.message);
         }
     };
-
+    
     const handleInputChange = (e) => {
         const { name, value } = e.target;
+    
 
         // Atualiza dinamicamente o campo correspondente no estado
         setTarefa((prevData) => ({
@@ -451,6 +469,7 @@ function InformacaoEvento() {
                             </div>
                             <div className={styles.secaoDireita}>
                                 <Timeline position="horizontal">
+                                
                                     {listaTarefas.map((tarefa, index) => {
                                         const statusTarefa = obterStatusTarefa(index); // Determina o status da tarefa
                                         const estiloTarefa = obterEstiloTarefa(statusTarefa); // Obtém o estilo da tarefa
@@ -468,6 +487,7 @@ function InformacaoEvento() {
                                             </TimelineItem>
                                         );
                                     })}
+
                                 </Timeline>
                             </div>
                         </div>
