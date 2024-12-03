@@ -1,45 +1,103 @@
 import { Calendar, Badge, List } from 'rsuite';
 import 'rsuite/dist/rsuite.min.css';
 import ptBR from 'rsuite/locales/pt_BR';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import styles from './cronograma.module.css';
 import NotFound from '../../assets/img/notfound.png';
 import EscolhaDataImagem from '../../assets/img/escolhaData.png';
+import { listarEventosUsuario, buscarTarefas } from './cronogramaAPI';
+import { getUser } from '../header/segundoHeader/api';
 
-function getTodoList(date) {
-    if (!date) return [];
-    const day = date.getDate();
-    switch (day) {
-        case 10:
-            return [{ time: '10:30 am', title: 'Meeting' }, { time: '12:00 pm', title: 'Lunch' }];
-        case 15:
-            return [
-                { time: '09:30 pm', title: 'Products Introduction Meeting' },
-                { time: '12:30 pm', title: 'Client entertaining' },
-                { time: '02:00 pm', title: 'Product design discussion' },
-                { time: '05:00 pm', title: 'Product test and acceptance' },
-                { time: '06:30 pm', title: 'Reporting' }
-            ];
-        default:
-            return [];
-    }
-}
+const Cronograma = ({ id_usuario }) => {
+    const [eventos, setEventos] = useState([]);
+    const [selectedDate, setSelectedDate] = useState(null);
+    const [selectedEvento, setSelectedEvento] = useState(null);
+    const [tarefas, setTarefas] = useState([]);
+    const [componentsOrder, setComponentsOrder] = useState(['calendar', 'taskList']);
+    const [isOpen, setIsOpen] = useState(true);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState(null);
 
-function renderCell(date) {
-    const list = getTodoList(date);
-    return list.length ? <Badge className="calendar-todo-item-badge" /> : null;
-}
+    useEffect(() => {
+        const fetchEventos = async () => {
+            try {
+                setIsLoading(true);
+                const email = localStorage.getItem('email');
+                const data_usuario = await getUser(email);
+                const { id_usuario } = data_usuario;
+                console.log("ID do usuário:", id_usuario);
+                const eventosData = await listarEventosUsuario(id_usuario);
+                console.log("Eventos encontrados:", eventosData);
+                setEventos(eventosData);
+                setIsLoading(false);
+            } catch (err) {
+                setIsLoading(false);
+            }
+        };
 
-const Cronograma = () => {
-    const [selectedDate, setSelectedDate] = React.useState(null);
-    const [componentsOrder, setComponentsOrder] = React.useState(['calendar', 'taskList']);
-    const [isOpen, setIsOpen] = React.useState(true);
+        fetchEventos();
+    }, []);
 
-    const handleSelect = date => setSelectedDate(date);
+    const handleSelect = async (date) => {
+        setSelectedDate(date);
+        console.log("Data selecionada:", date);
+        console.log("Eventos disponíveis:", eventos);
+    
+        // Find the evento that matches the selected date
+        const eventoSelecionado = eventos.find(evento => {
+            // Usar dataHoraInicial ou criar uma data a partir da string
+            const eventoDate = new Date(evento.dataHoraInicial || evento.data);
+            
+            console.log("Comparando datas:", 
+                "Evento: ", eventoDate, 
+                "Selecionada: ", date
+            );
+            
+            // Comparar ano, mês e dia
+            return (
+                eventoDate.getFullYear() === date.getFullYear() &&
+                eventoDate.getMonth() === date.getMonth() &&
+                eventoDate.getDate() === date.getDate()
+            );
+        });
+    
+        console.log("Evento selecionado:", eventoSelecionado);
+    
+        if (eventoSelecionado) {
+            try {
+                const tarefasData = await buscarTarefas(eventoSelecionado.id_evento);
+                console.log("Tarefas encontradas:", tarefasData);
+                setSelectedEvento(eventoSelecionado);
+                setTarefas(tarefasData);
+            } catch (err) {
+                setSelectedEvento(eventoSelecionado); // Mantém o evento mesmo sem tarefas
+                setTarefas([]); // Limpa tarefas
+            }
+        } else {
+            setSelectedEvento(null);
+            setTarefas([]);
+        }
+    };
+    
+    
+    // Modificar também o renderCell
+    const renderCell = (date) => {
+        // Highlight dates with eventos
+        const hasEvento = eventos.some(evento => {
+            const eventoDate = new Date(evento.dataHoraInicial || evento.data);
+            return (
+                eventoDate.getFullYear() === date.getFullYear() &&
+                eventoDate.getMonth() === date.getMonth() &&
+                eventoDate.getDate() === date.getDate()
+            );
+        });
+    
+        return hasEvento ? <Badge className="calendar-todo-item-badge" /> : null;
+    };
 
-    const handleDragEnd = result => {
+    const handleDragEnd = (result) => {
         const { destination, source } = result;
         if (!destination) return;
         if (destination.index === source.index) return;
@@ -74,16 +132,24 @@ const Cronograma = () => {
         ...ptBR
     };
 
+    if (isLoading) {
+        return <div>Carregando...</div>;
+    }
+
+    if (error) {
+        return <div>Erro: {error}</div>;
+    }
+
     return (
         <div className={`${styles.sidebarWrapper} ${!isOpen ? styles.closed : ''}`}>
-            <button 
+            <button
                 className={styles.toggleButton}
                 onClick={toggleSidebar}
                 aria-label={isOpen ? "Fechar sidebar" : "Abrir sidebar"}
             >
                 {isOpen ? <IoIosArrowForward size={20} /> : <IoIosArrowBack size={20} />}
             </button>
-            
+
             <DragDropContext onDragEnd={handleDragEnd}>
                 <Droppable droppableId="components-droppable">
                     {(provided) => (
@@ -102,15 +168,19 @@ const Cronograma = () => {
                                             className={component === 'calendar' ? styles.itemCalendario : styles.itemTaskList}
                                         >
                                             {component === 'calendar' ? (
-                                                <Calendar 
-                                                    compact 
-                                                    renderCell={renderCell} 
-                                                    onSelect={handleSelect} 
-                                                    locale={localeConfig} 
-                                                    style={{ width: '100%' }} 
+                                                <Calendar
+                                                    compact
+                                                    renderCell={renderCell}
+                                                    onSelect={handleSelect}
+                                                    locale={localeConfig}
+                                                    style={{ width: '100%' }}
                                                 />
                                             ) : (
-                                                <TodoList date={selectedDate} />
+                                                <TodoList
+                                                    date={selectedDate}
+                                                    evento={selectedEvento}
+                                                    tarefas={tarefas}
+                                                />
                                             )}
                                         </div>
                                     )}
@@ -125,45 +195,58 @@ const Cronograma = () => {
     );
 };
 
-const TodoList = ({ date }) => {
-    const list = getTodoList(date);
-    
+const TodoList = ({ date, evento, tarefas }) => {
     if (!date) {
         return (
             <div className={styles.escolhaDataContainer}>
                 <p className={styles.escolhaData}>Selecione uma data no calendário.</p>
-                <img 
-                    src={EscolhaDataImagem} 
-                    alt="Escolha uma data" 
+                <img
+                    src={EscolhaDataImagem}
+                    alt="Escolha uma data"
                     className={styles.EscolhaDataImagem}
                 />
             </div>
         )
     }
-    
-    if (!list.length) {
+
+    if (!evento) {
         return (
             <div className={styles.emptyStateContainer}>
-                <p className={styles.emptyMessage}>Nenhuma tarefa para essa data.</p>
-                <img 
-                    src={NotFound} 
-                    alt="Nenhuma tarefa encontrada" 
+                <p className={styles.emptyMessage}>Nenhum evento encontrado para essa data.</p>
+                <img
+                    src={NotFound}
+                    alt="Nenhum evento encontrado"
                     className={styles.notFoundImage}
                 />
             </div>
         );
-        
     }
-    
+
+    if (!tarefas.length) {
+        return (
+            <div className={styles.emptyStateContainer}>
+                <p className={styles.emptyMessage}>Nenhuma tarefa para esse evento.</p>
+                <img
+                    src={NotFound}
+                    alt="Nenhuma tarefa encontrada"
+                    className={styles.notFoundImage}
+                />
+            </div>
+        );
+    }
+
     return (
-        <List bordered>
-            {list.map(item => (
-                <List.Item key={item.time} index={item.time}>
-                    <div>{item.time}</div>
-                    <div>{item.title}</div>
-                </List.Item>
-            ))}
-        </List>
+        <div>
+            <h3>{evento.nome}</h3>
+            <List bordered>
+                {tarefas.map(tarefa => (
+                    <List.Item key={tarefa.id} index={tarefa.id}>
+                        <div>{tarefa.horario}</div>
+                        <div>{tarefa.descricao}</div>
+                    </List.Item>
+                ))}
+            </List>
+        </div>
     );
 };
 

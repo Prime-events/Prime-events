@@ -57,7 +57,7 @@ class EventoController {
     }
     static listarEventosUsuario = async (req, res) => {
         try {
-            const evento = await Evento.findAll({
+            const eventos = await Evento.findAll({
                 where: {
                     id_usuario: req.params.id_usuario
                 },
@@ -65,13 +65,15 @@ class EventoController {
                     ['dataHoraInicial', 'ASC']
                 ]
             });
-            if (!evento) {
-                return res.status(404).json({ message: 'Evento não encontrado!' });
+            
+            if (!eventos || eventos.length === 0) {
+                return res.status(404).json({ message: 'Nenhum evento encontrado!' });
             }
-            res.status(200).json(evento);
+            
+            res.status(200).json(eventos);
         } catch (error) {
-            console.error('Erro ao buscar evento!');
-            res.status(404).json({ message: 'Erro ao buscar evento!' });
+            console.error('Erro ao buscar eventos:', error);
+            res.status(500).json({ message: 'Erro interno ao buscar eventos!' });
         }
     }
 
