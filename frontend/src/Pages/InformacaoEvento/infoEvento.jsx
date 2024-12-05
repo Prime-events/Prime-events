@@ -71,8 +71,9 @@ function InformacaoEvento() {
             }
         };
 
-        fetchCategorias();
-    }, []);
+        fetchCategorias(); 
+        setIsSubmitted(false);
+    }, [isSubmitted]);
 
 
 
@@ -193,6 +194,7 @@ function InformacaoEvento() {
 
 
             handleCloseCriarCategoriaModal();
+            setIsSubmitted(true);
             // Atualizar categorias se necessário
             setCriarCategoriaModal(false)
         } catch (error) {
@@ -295,24 +297,6 @@ function InformacaoEvento() {
         setIsSubmitted(false);
     }, [isSubmitted]);
     
-    const handleCriarTarefa = async (event) => {
-        event.preventDefault();
-    
-        const id_evento = localStorage.getItem('idEvento'); // Recupera o ID do evento
-    
-
-        fetchTarefas();
-        setIsSubmitted(false);
-    }, [isSubmitted]);
-
-    useEffect(() => {
-        const intervalId = setInterval(() => {
-            // Atualiza a tarefaAtual com base no horário atual
-            setListaTarefas((prevTarefas) => [...prevTarefas]);
-        }, 40000); // Atualiza a cada 60 segundos (1 minuto)
-
-        return () => clearInterval(intervalId); // Limpeza do intervalo ao desmontar o componente
-    }, []); //
 
     const handleCriarTarefa = async (event) => {
         event.preventDefault();
