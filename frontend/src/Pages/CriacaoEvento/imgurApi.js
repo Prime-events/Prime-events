@@ -7,7 +7,7 @@ export const ImgurUpload = async (formData) => {
         const response = await fetch('https://api.imgur.com/3/image', {
             method: 'POST',
             headers: {
-            Authorization: `Bearer 242d4213ac32eebabbfef88ec0aa568348756718`,
+            Authorization: `Bearer ${import.meta.env.REACT_APP_TOKEN}`,
             },
             body: formData,
             redirect: 'follow',
