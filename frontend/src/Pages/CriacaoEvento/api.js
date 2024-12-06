@@ -8,5 +8,36 @@ export const createEvento = async (evento) => {
       },
       body: JSON.stringify(evento),
     });
-    console.log("Enviado");
+    alert("Evento criado com sucesso!");
 };
+export const atualizarEvento = async (evento) => {
+  	try {
+		await fetch(`${API_URL_EVENTO}/${evento.id_evento}`, {
+		method: 'PUT',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify(evento),
+		});
+  	}  	catch (error) {
+			console.error("Erro na API:", error);
+			throw error;
+		} 
+};
+export const excluirEvento = async (idEvento) => {
+    try {
+      const response = await fetch(`${API_URL_EVENTO}/${idEvento}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (!response.ok) {
+        throw new Error("Erro ao excluir Evento");
+      }
+	  alert("Evento excluído com sucesso");
+    } catch (error) {
+      console.error("Erro na exclusão do Evento", error);
+      throw error;
+    }
+  };

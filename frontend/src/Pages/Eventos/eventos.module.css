@@ -146,6 +146,85 @@ input[type="search"] {
     text-align: left;
     font-size: 1.875rem;
 }
+
+.tresBotoesStyle {
+    cursor: pointer;
+    position: relative;
+    display: inline-block;
+    padding: 0 16px;
+    top: 12px;
+}
+
+.tresBotoesStyle figure {
+    width: 6px;
+    height: 6px;
+    border-radius: 5px;
+    background: var(--preto);
+    margin: 3px 0;
+}
+.fecharMenu {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    margin-top: -1px;
+    color: white;
+    transition: all 0.2s cubic-bezier(.72,1.2,.71,.72);
+    font-size: 22px;
+    user-select: none;
+}
+  
+.fecharMenu.menuActive {
+    transform: translate(-50%, -50%) scale(1);
+    transition: all 0.15s cubic-bezier(.32,2.04,.85,.54);
+}
+.dropdown {
+    position: absolute;
+    left: 100%;
+    top: 0;
+    transform: scale(0);
+    transform-origin: 0 0;
+    transition: all 0.25s ease-out;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.16), 0 2px 8px 0 rgba(0, 0, 0, 0.12);
+    background: white;
+    width: 200px;
+    padding: 0;
+}
+.tresBotoesStyle li {
+    display: block;
+    width: 100%;
+    text-decoration: none;
+}
+.tresBotoesStyle a {
+    width: 100%;
+    padding: 1em 18px;
+    display: inline-block;
+    white-space: pre;
+    box-sizing: border-box;
+    text-decoration: none;
+    color:#000;
+}
+.tresBotoesStyle li:hover {
+    background: var(--cinza-muito-claro);
+}
+.dropdown.menuActive {
+    transform: scale(1);
+    transition: all 0.25s cubic-bezier(.5,1.8,.9,.8);
+  }
+.middle {
+    transition: all 0.25s cubic-bezier(.72,1.2,.71,.72);
+    transform: scale(1);
+    position: relative;
+    box-shadow: 0 0.1px 0.1px 0 rgba(0, 0, 0, 0.16), 0 0.1px 0.3px 0 rgba(0, 0, 0, 0.12);
+    -webkit-filter: blur(.1px);
+    filter: blur(.1px);
+  }
+  .middle.menuActive {
+    transform: scale(4.5);
+    transition: all 0.25s cubic-bezier(.32,2.04,.85,.54);
+    box-shadow: 0 0.1px 0.1px 0 rgba(0, 0, 0, 0.16), 0 0.1px 0.3px 0 rgba(0, 0, 0, 0.12);
+  }
+
 @media (max-width: 1024px) { 
     .containerEventos {
         padding: 2rem; 

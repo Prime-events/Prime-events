@@ -4,12 +4,17 @@ import SideBar from '../../components/sideBar/sideBar.jsx';
 import styles from "./criacaoEvento.module.css";
 import { IoArrowBackCircleOutline } from "react-icons/io5";
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { createEvento } from './api.js';
 import { getUser } from '../../components/header/segundoHeader/api.js';
 import { ImgurUpload } from './imgurApi.js';
+import { atualizarEvento } from './api.js';
+import { listarEvento } from '../Eventos/api.js';
 
 function CriacaoEvento() {
+    const location = useLocation();
+    const params = new URLSearchParams(location.search);
+    const id = params.get("id");
     const navigate = useNavigate(); 
     const [hasImagem, setHasImagem] = useState(false);
     const [isValid, setIsValid] = useState(true);
@@ -36,7 +41,10 @@ function CriacaoEvento() {
         horarioInicio: "00:00",
         horarioTermino: "00:00",
     });
-
+    const minutos = [];
+    for (let i = 0; i < 60; i += 5) {
+        minutos.push(String(i).padStart(2, '0'));
+    }
     const handleImagemUpload = async (imagem) => {
         const formData = new FormData();
         formData.append('image', imagem);
@@ -67,7 +75,7 @@ function CriacaoEvento() {
             const dataHoraFinal = new Date(newDate.dataEvento);
             dataHoraFinal.setHours(horaTermino, minutoTermino);
             setData((prevData) => ({ ...prevData, dataHoraFinal }));
-        }
+        }   
         setDate(newDate);
         
     }
@@ -120,10 +128,28 @@ function CriacaoEvento() {
 
     const handleSubmitEvento = async (e) => {
         e.preventDefault();
+        console.log('params', id)
+        if (id) {
+            atualizarEvento(data);
+        }
+        else {
+            await createEvento(data);
+        }
+        
         console.log(data);
-        await createEvento(data);
+        
         navigate('/eventos');
     }
+    const fetchInformacoesEvento = async () => {
+        try {
+            const data_evento = await listarEvento(id);
+            setImagemURL(data_evento.imagem);
+            setHasImagem(true);
+            setData(data_evento);
+        } catch (error) {
+            console.error('Erro:', error);
+        }
+    };
     useEffect(() => {
         const fetchUserData = async () => {
             try {
@@ -135,11 +161,13 @@ function CriacaoEvento() {
                 console.error('Erro:', error);
             }
         };
+        if (id) {
+            fetchInformacoesEvento();
+        }
         fetchUserData();
     }, []);
-    
     return (<>
-        <SegundoHeader titulo='Criar evento'/>
+        <SegundoHeader titulo={` ${id ? 'Atualizar Evento' : 'Criar evento'}`}/>
         <div className={styles.container}>
             <SideBar />
             <div className={styles.containerCriacao}>
@@ -153,7 +181,7 @@ function CriacaoEvento() {
                                 <span className={styles.tituloPreview}>Pré-visualização</span>
                                 <div className={styles.cardPreview}>
                                     <div className={styles.itensCardPreview}>
-                                    <div className={`${styles.showImagem} ${hasImagem ? styles.active : ''}`} style={{backgroundImage:`url(${imagemURL})`}}></div>
+                                    <div className={`${styles.showImagem} ${hasImagem ? styles.active : ''}`} src={data.imagem}style={{backgroundImage:`url(${imagemURL})`}}></div>
                                         <label className={styles.nomePreview}>{data.nomeEvento}</label>
                                         <span className={styles.descricaoPreview}>{data.descricaoEvento}</span>
                                         <div className={styles.dateStyle}>
@@ -219,6 +247,7 @@ function CriacaoEvento() {
                                     <span>Início</span>
                                     <input
                                         type="time"
+                                        step="300"
                                         name="horarioInicio"
                                         value={date.horarioInicio}
                                         onChange={handleDate}
@@ -227,6 +256,7 @@ function CriacaoEvento() {
                                     <span>Término</span>
                                     <input
                                         type="time"
+                                        step="300"
                                         name="horarioTermino"
                                         value={date.horarioTermino}
                                         onChange={handleDate}
