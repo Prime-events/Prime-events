@@ -9,20 +9,57 @@ import { useNavigate } from 'react-router-dom';
 import { listarEventosPendentes } from './dashApi';
 import { listarConvidadosEvento } from "../../components/listaConvidados/api";
 import { getUser } from '../../components/header/segundoHeader/api';
-import naoEncontrado from '../../assets/img/undraw_No_data_re_kwbl.png'
+import naoEncontrado from '../../assets/img/undraw_No_data_re_kwbl.png';
+import { listarEventosUsuario } from "../Eventos/api";
 const mesesAbreviados = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
 
 function Dashboard() {
     const [convidadosPorEvento, setConvidadosPorEvento] = useState({});
     const [eventos, setEventos] = useState([]);
+    const [eventoCard, setEventoCard] = useState([]);
     const navigate = useNavigate();
     const [cards, setCards] = useState([
-        { id: '1', color: 'green', icon: '✔️', number: '237', text: 'Eventos concluídos' },
-        { id: '2', color: 'red', icon: '❌', number: '63', text: 'Eventos cancelados' },
-        { id: '3', color: 'orange', icon: '📅', number: '300', text: 'Eventos Criados' },
+        { id: '1', color: 'green', icon: '✔️', number: '', text: 'Eventos concluídos' },
+        { id: '2', color: 'red', icon: '❌', number: '', text: 'Eventos cancelados' },
+        { id: '3', color: 'orange', icon: '📅', number: '', text: 'Eventos Criados' },
     ]);
 
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 480);
+    useEffect(() => {
+        const fetchEventos = async () => {
+            try {
+                const email = localStorage.getItem('email');
+                const data_usuario = await getUser(email);
+                const { id_usuario } = data_usuario;
+                const data_eventos = await listarEventosUsuario(id_usuario);
+                console.log('data:', data_eventos);
+                setEventoCard(data_eventos);
+            } catch (error) {
+                console.error('Erro:', error);
+            }
+        };
+        fetchEventos();
+    }, []);
+
+    useEffect(() => {
+        const calcularEventos = () => {
+            const eventosCriados = eventoCard.length; // Total de eventos
+            const eventosConcluidos = eventoCard.filter(evento => evento.status === 'Concluido').length;
+            const eventosCancelados = eventoCard.filter(evento => evento.status === 'Cancelado').length;
+
+    
+            // Atualizar os cards com os novos números
+            setCards([
+                { id: '1', color: 'green', icon: '✔️', number: eventosConcluidos.toString(), text: 'Eventos concluídos' },
+                { id: '2', color: 'red', icon: '❌', number: eventosCancelados.toString(), text: 'Eventos cancelados' },
+                { id: '3', color: 'orange', icon: '📅', number: eventosCriados.toString(), text: 'Eventos Criados' },
+            ]);
+        };
+    
+        calcularEventos();
+    }, [eventoCard]); // Executa a função sempre que a lista de eventos mudar
+    
+    
 
     useEffect(() => {
         const handleResize = () => {
