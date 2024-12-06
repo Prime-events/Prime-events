@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import SegundoHeader from "../../components/header/segundoHeader/segundoHeader";
-import SideBar from "../../components/sideBar/SideBar";
+import SideBar from "../../components/sideBar/sideBar";
 import Card from '../../components/card/card';
 import styles from './dashboard.module.css';
 import Cronograma from '../../components/cronograma/cronograma';

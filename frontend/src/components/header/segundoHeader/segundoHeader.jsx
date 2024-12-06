@@ -5,6 +5,7 @@ import styles from "./SegundoHeader.module.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, Form, Row, Col, FormGroup, Label, Input, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem, Modal, ModalHeader, ModalBody } from 'reactstrap';
 import { VscBellDot } from "react-icons/vsc";
+import { listarEventosPendentes } from '../../../Pages/Dashboard/dashApi';
 import { RiArrowDropDownLine } from "react-icons/ri";
 import { FiLogOut } from "react-icons/fi";
 import { Link } from 'react-router-dom';
@@ -19,6 +20,7 @@ import { updateUserEmail } from './apiUpdate';
 import { updateUserSenha } from './apiUpdate';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
 
 function SegundoHeader({ titulo }) {
     const navigate = useNavigate();
@@ -39,6 +41,7 @@ function SegundoHeader({ titulo }) {
     const [passwordError, setPasswordError] = useState('');
     const [corPerfil, setCorPerfil] = useState('');
     const [perfil, setPerfil] = useState('');
+    const [eventos, setEventos] = useState([]);
 
     useEffect(() => {
         const fetchUserData = async () => {
@@ -211,6 +214,36 @@ function SegundoHeader({ titulo }) {
         toggleConfigModal();
     };
 
+    useEffect(() => {
+
+        fetchEventos();
+    }, []);
+
+    const fetchEventos = async () => {
+        try {
+            const email = localStorage.getItem('email');
+            const data_usuario = await getUser(email);
+            const { id_usuario } = data_usuario;
+
+            // Log para verificar o id_usuario
+            console.log('id_usuario:', id_usuario);
+
+            const data_eventos = await listarEventosPendentes(id_usuario);
+
+            // Log para verificar os eventos retornados
+            console.log('data_eventos:', data_eventos);
+
+            setEventos(data_eventos);
+        } catch (error) {
+            console.error('Erro ao buscar eventos:', error);
+        }
+    };
+
+    const handleRedirect = (id_evento) => {
+        localStorage.setItem('idEvento', id_evento);
+        navigate('/informacaoEvento');
+    }
+
     return (
         <>
 
@@ -244,7 +277,35 @@ function SegundoHeader({ titulo }) {
                     </div>
                     <div className={styles.itensDireita}>
                         <div className={styles.notificacao} aria-label="Notificações">
-                            <VscBellDot />
+                        <UncontrolledDropdown group>
+                            <DropdownToggle tag="span" className={styles.iconDropdown}>
+                                <VscBellDot />
+                            </DropdownToggle>
+                            <DropdownMenu>
+                                <DropdownItem header className={styles.dropdownItemHeader}>
+                                    Notificação
+                                </DropdownItem>
+                                {eventos
+                                    .filter((evento) => {
+                                        if (!evento.dataHoraInicial) {
+                                            console.log(`Evento inválido:`, evento);
+                                            return false;
+                                        }
+                                        const dataHoraInicial = new Date(evento.dataHoraInicial);
+                                        const agora = new Date();
+                                        const diferencaMilissegundos = dataHoraInicial - agora;
+                                        const diferencaHoras = diferencaMilissegundos / (1000 * 60 * 60);
+                                        evento.diferencaHoras = diferencaHoras;
+                                        return diferencaHoras <= 24 && diferencaHoras >= 0;
+                                    })
+                                    .map((evento) => (
+                                        <DropdownItem key={evento.id_evento} className={styles.dropdownItem} onClick={() => handleRedirect(evento.id_evento)}>
+                                            <span className={styles.dropdownCell}>{evento.nomeEvento} irá começar em {evento.diferencaHoras.toFixed(0)} hora(s)!</span>
+                                        </DropdownItem>
+                                    ))}
+                            </DropdownMenu>
+                        </UncontrolledDropdown>
+
                         </div>
                         <div className={styles.userLogado}>
                             <div className={styles.perfil} style={{ backgroundColor: corPerfil }}><span className={styles.iniciaisPerfil}>{perfil}</span></div>

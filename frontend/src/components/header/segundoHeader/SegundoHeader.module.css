@@ -699,3 +699,18 @@ input:not(:placeholder-shown) + .floatingLabel {
         font-size: 1.5rem;
     }
 }
+
+.dropdownItem {
+    padding: 8px;
+    border-bottom: 1px solid #ccc;
+}
+
+.dropdownItem:last-child {
+    border-bottom: none; /* Remove a borda inferior do último item */
+}
+
+.dropdownItemHeader {
+    margin-top: -7px;
+    font-weight: bold;
+    background-color: #f1f1f1;
+}
