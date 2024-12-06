@@ -367,7 +367,7 @@ function InformacaoEvento() {
                         <div className={styles.itensTopoSecao}>
                             <span className={styles.nomeEvento}>{evento.nomeEvento}</span>
                             <div className={styles.editarInformacoes}>
-                                <button className={styles.btnEditar}><FaRegEdit style={{ fontSize: '1.4rem' }} />Editar informações</button>
+                                <button className={styles.btnEditar} onClick={() => navigate(`/criarEvento?id=${evento.id_evento}`)}><FaRegEdit style={{ fontSize: '1.4rem' }} />Editar informações</button>
                             </div>
                         </div>
                         <div className={styles.infoEvento}>
