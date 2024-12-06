@@ -3,21 +3,27 @@ import SegundoHeader from "../../components/header/segundoHeader/segundoHeader";
 import SideBar from "../../components/sideBar/sideBar";
 import styles from "./eventos.module.css";
 import { useEffect, useState } from "react";
-import { listarEventosUsuario } from "./api";
+import { listarEvento, listarEventosUsuario } from "./api";
 import { getUser } from "../../components/header/segundoHeader/api";
 import { listarConvidadosEvento } from "../../components/listaConvidados/api";
+import { atualizarEvento, excluirEvento } from "../CriacaoEvento/api";
+import imgLogo from '../../assets/img/logo 1.png'
 
 function Eventos(){
     const navigate = useNavigate();
     const [isActive, setIsActive] = useState('eventos');
+    const [isMenuActive, setIsMenuActive] = useState(null);
     const [eventos, setEventos] = useState([]);
     const mesesAbreviados = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
     const [convidadosPorEvento, setConvidadosPorEvento] = useState({});
+    const eventosFiltrados = isActive === "todos" ? eventos : eventos.filter((evento) => evento.status === "Pendente");
 
     const toggleActive = (state) => {
         setIsActive(state);
     }
-
+    const toggleMenu = (id) => {
+        setIsMenuActive((prevMenu) => (prevMenu === id ? null : id));
+    }
     useEffect(() => {
         fetchEventos();
     }, []);
@@ -35,7 +41,13 @@ function Eventos(){
             const email = localStorage.getItem('email');
             const data_usuario = await getUser(email);
             const { id_usuario } = data_usuario;
-            const data_eventos = await listarEventosUsuario(id_usuario);
+            let data_eventos = await listarEventosUsuario(id_usuario);
+            data_eventos.forEach(async (evento) => {
+                if (evento.imagem == "") {
+                    evento.imagem = imgLogo;
+                    await atualizarEvento(evento)
+                }
+            })
             console.log('data:', data_eventos);
             setEventos(data_eventos);
         } catch (error) {
@@ -57,6 +69,17 @@ function Eventos(){
         localStorage.setItem('idEvento', id_evento);
         navigate('/informacaoEvento');
     }
+    const handleExcluirEvento = async (id_evento) => {
+        console.log('excluido');
+        excluirEvento(id_evento);
+        fetchEventos();
+    }
+    const handleCancelarEvento = async (id_evento) => {
+        const data_evento = await listarEvento(id_evento);
+        data_evento.status = "Cancelado";
+        await atualizarEvento(data_evento);
+        fetchEventos();
+    }
     return (
         <>
             <SegundoHeader titulo="Eventos"/>
@@ -64,8 +87,8 @@ function Eventos(){
                 <SideBar />
                 <div className={styles.containerEventos}>
                     <div className={styles.cimaEvento}>
-                        <span className={`${isActive === 'eventos' ? styles.active : ''}`} onClick={() => toggleActive('eventos')}>Eventos Pendentes</span>
-                        <span className={`${isActive === 'concluido' ? styles.active : ''}`} onClick={() => toggleActive('concluido')}>Todos</span>
+                        <span className={`${isActive === 'pendentes' ? styles.active : ''}`} onClick={() => toggleActive('pendentes')}>Eventos Pendentes</span>
+                        <span className={`${isActive === 'todos' ? styles.active : ''}`} onClick={() => toggleActive('todos')}>Todos</span>
                     </div>
                     <div className={styles.meioEvento}>                        
                         <div className={styles.inputContainer}>
@@ -93,7 +116,7 @@ function Eventos(){
                                 </tr>
                             </thead>
                             <tbody>
-                                {eventos.map((evento) => (
+                                {eventosFiltrados.map((evento) => (
                                     <tr key={evento.id_evento}>
                                         <td>
                                             <div className={styles.informacoesEvento}>        
@@ -101,7 +124,7 @@ function Eventos(){
                                                         <label className={styles.mesEvento}>{mesesAbreviados[new Date(evento.dataHoraInicial).getMonth()]}</label>
                                                         <label className={styles.diaEvento}>{new Date(evento.dataHoraInicial).getDate()}</label>
                                                     </div>
-                                                    <div className={styles.imagem}><img  src={evento.imagem}/></div>
+                                                    <div className={styles.imagem}><img src={evento.imagem}/></div>
                                                     <div className={styles.endereco}>
                                                         <label className={styles.nomeEvento} onClick={() => handleRedirect(evento.id_evento)}>{evento.nomeEvento}</label>
                                                         <label className={styles.infoEvento}>{`${evento.nomeLocal}`}</label>
@@ -115,12 +138,25 @@ function Eventos(){
                                             <div className={styles.numeroConvidados}>{convidadosPorEvento[evento.id_evento]}</div>
                                         </td>                           
                                         <td> 
-                                            <div className={styles.status}>Em Progresso</div> 
+                                            <div className={styles.status}>{evento.status}</div>
                                         </td>
+                                        <div className={styles.tresBotoesStyle} onClick={() => toggleMenu(evento.id_evento)}>
+                                            <figure></figure>
+                                            <figure className={`${styles.middle} ${isMenuActive === evento.id_evento ? styles.menuActive : ''}`}></figure>
+                                            <p className={`${styles.fecharMenu} ${isMenuActive === evento.id_evento ? styles.menuActive : ''}`}>X</p>
+                                            <figure></figure>
+                                            <ul className={`${styles.dropdown} ${isMenuActive === evento.id_evento ? styles.menuActive : ''}`}>
+                                                <li><a href={`/criarEvento?id=${evento.id_evento}`}>Editar evento</a></li>
+                                                <li><a onClick={() => handleCancelarEvento(evento.id_evento)}>Cancelar evento</a></li>
+                                                <li><a onClick={() => handleExcluirEvento(evento.id_evento)}>Excluir evento</a></li>
+                                            </ul>
+                                        </div> 
                                     </tr>
+                                    
                                 ))}
                             </tbody>
                         </table>
+
                     </div>
                 </div>
             </div>
