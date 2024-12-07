@@ -294,13 +294,20 @@ function SegundoHeader({ titulo }) {
                                         const dataHoraInicial = new Date(evento.dataHoraInicial);
                                         const agora = new Date();
                                         const diferencaMilissegundos = dataHoraInicial - agora;
-                                        const diferencaHoras = diferencaMilissegundos / (1000 * 60 * 60);
+                                    
+                                        // Convertendo a diferença de milissegundos para horas e minutos
+                                        const diferencaTotalMinutos = diferencaMilissegundos / (1000 * 60);
+                                        const diferencaHoras = Math.floor(diferencaTotalMinutos / 60);
+                                        const diferencaMinutos = Math.floor(diferencaTotalMinutos % 60);
+                                    
                                         evento.diferencaHoras = diferencaHoras;
+                                        evento.diferencaMinutos = diferencaMinutos;
+                                    
                                         return diferencaHoras <= 24 && diferencaHoras >= 0;
                                     })
                                     .map((evento) => (
                                         <DropdownItem key={evento.id_evento} className={styles.dropdownItem} onClick={() => handleRedirect(evento.id_evento)}>
-                                            <span className={styles.dropdownCell}>{evento.nomeEvento} irá começar em {evento.diferencaHoras.toFixed(0)} hora(s)!</span>
+                                            <span className={styles.dropdownCell}>{evento.nomeEvento} irá começar em {evento.diferencaHoras.toFixed(0)} hora(s) e {evento.diferencaMinutos.toFixed(0)} minuto(s)!</span>
                                         </DropdownItem>
                                     ))}
                             </DropdownMenu>
