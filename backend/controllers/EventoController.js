@@ -1,5 +1,7 @@
-const { where } = require('sequelize');
+const { where, and } = require('sequelize');
 const Evento = require('../models/Evento');
+const { Op } = require("sequelize");
+
 
 class EventoController {
     static criarEvento = async (req, res) => {
@@ -92,6 +94,41 @@ class EventoController {
         }
 
     }
+
+    static atualizarStatusEvento = async (req, res) => {
+        const id_usuario = req.params.id_usuario;
+        console.log("ID do usuário recebido:", id_usuario);
+    
+        try {
+            const [numAtualizados] = await Evento.update(
+                { status: 'Concluido' },
+                {
+                    where: {
+                        id_usuario: id_usuario,
+                        status: 'Pendente',
+                        dataHoraFinal: { [Op.lt]: new Date() },
+                    },
+                }
+            );
+    
+            console.log("Número de eventos atualizados:", numAtualizados);
+    
+            if (numAtualizados > 0) {
+                res.status(200).json({
+                    message: `${numAtualizados} evento(s) atualizado(s) com sucesso.`,
+                });
+            } else {
+                res.status(404).json({
+                    message: 'Nenhum evento encontrado para atualizar.',
+                });
+            }
+        } catch (error) {
+            console.error("Erro ao atualizar eventos no banco de dados:", error);
+            res.status(500).json({ message: 'Erro ao atualizar eventos.', error: error.message });
+        }
+    };
+    
+    
 
     static deletarEvento = async (req, res) => {
         const id = req.params.id;
