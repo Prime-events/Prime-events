@@ -26,6 +26,8 @@
 .meioEvento {
     margin: 5rem 0;
     display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .meioEvento .btnCriarStyle {
     margin-left: auto;
@@ -70,6 +72,7 @@ input[type="date"] {
 }
 input[type="search"] {
     width: 19.0625rem;
+    height: 3.5rem;
 }
 .baixoEvento {
     display: flex;
