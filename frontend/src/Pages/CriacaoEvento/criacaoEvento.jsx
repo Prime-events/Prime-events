@@ -10,6 +10,8 @@ import { getUser } from '../../components/header/segundoHeader/api.js';
 import { ImgurUpload } from './imgurApi.js';
 import { atualizarEvento } from './api.js';
 import { listarEvento } from '../Eventos/api.js';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function CriacaoEvento() {
     const location = useLocation();
@@ -130,15 +132,18 @@ function CriacaoEvento() {
         e.preventDefault();
         console.log('params', id)
         if (id) {
+            navigate('/eventos');
             atualizarEvento(data);
+            toast.success("Evento atualizado com sucesso!");
         }
         else {
+            navigate('/eventos');
             await createEvento(data);
+            toast.success("Evento criado com sucesso!");
         }
         
         console.log(data);
         
-        navigate('/eventos');
     }
     const fetchInformacoesEvento = async () => {
         try {
@@ -167,6 +172,18 @@ function CriacaoEvento() {
         fetchUserData();
     }, []);
     return (<>
+     <ToastContainer
+                position="top-right"
+                autoClose={3000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
         <SegundoHeader titulo={` ${id ? 'Atualizar Evento' : 'Criar evento'}`}/>
         <div className={styles.container}>
             <SideBar />

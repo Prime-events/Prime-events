@@ -9,6 +9,7 @@ routes.get('/eventos/usuario/:id_usuario', EventoController.listarEventosUsuario
 routes.get('/eventos/pendentes/:id_usuario', EventoController.listarEventosPendentes);
 routes.post('/eventos', EventoController.criarEvento);
 routes.put('/eventos/:id', EventoController.atualizarEvento);
+routes.put('/eventos/updateStatus/:id_usuario', EventoController.atualizarStatusEvento);
 routes.delete('/eventos/:id', EventoController.deletarEvento);
 
 module.exports = routes;

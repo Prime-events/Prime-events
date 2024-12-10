@@ -11,6 +11,8 @@ import { listarConvidadosEvento } from "../../components/listaConvidados/api";
 import { getUser } from '../../components/header/segundoHeader/api';
 import naoEncontrado from '../../assets/img/undraw_No_data_re_kwbl.png';
 import { listarEventosUsuario } from "../Eventos/api";
+import { atualizarStatusEvento } from './dashApi';
+import { atualizarEvento } from '../CriacaoEvento/api';
 const mesesAbreviados = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
 
 function Dashboard() {
@@ -23,6 +25,27 @@ function Dashboard() {
         { id: '2', color: 'red', icon: '❌', number: '', text: 'Eventos cancelados' },
         { id: '3', color: 'orange', icon: '📅', number: '', text: 'Eventos Criados' },
     ]);
+
+    useEffect(() => {
+        const fetchAtualizaStatus = async () => {
+            try {
+                console.log("Efeito de atualização de status acionado.");
+                const email = localStorage.getItem('email');
+                console.log("Email do usuário:", email);
+    
+                const data_usuario = await getUser(email);
+                console.log("Dados do usuário:", data_usuario);
+    
+                const statusAtualizado = await atualizarStatusEvento(data_usuario.id_usuario);
+                console.log("Resposta da atualização de status:", statusAtualizado);
+    
+            } catch (error) {
+                console.error("Erro ao tentar atualizar o status do evento:", error);
+            }
+        };
+        fetchAtualizaStatus();
+    }, []);
+    
 
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 480);
     useEffect(() => {
@@ -131,6 +154,7 @@ function Dashboard() {
 
     return (
         <>
+        
             <SegundoHeader titulo="Início" />
             <div className={styles.container}>
                 <SideBar />
