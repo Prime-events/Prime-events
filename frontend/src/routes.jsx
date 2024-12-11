@@ -8,6 +8,7 @@ import CriacaoEvento from './Pages/CriacaoEvento/criacaoEvento.jsx';
 import Cronograma from './components/cronograma/cronograma.jsx';
 import InformacaoEvento from './Pages/InformacaoEvento/infoEvento.jsx';
 import FaleConosco from './Pages/FaleConosco/faleConosco.jsx';
+import Ajuda from './Pages/Ajuda/ajuda.jsx';
 
 function RoutesApp(){
 
@@ -23,6 +24,7 @@ function RoutesApp(){
            <Route path='/cronograma' element = {<Cronograma/>}/>
            <Route path='/informacaoevento' element = {<InformacaoEvento/>}/>
            <Route path='/faleconosco' element = {<FaleConosco/>}/>
+           <Route path='/ajuda' element = {<Ajuda/>}/>
          </Routes>
        </BrowserRouter>
     );
