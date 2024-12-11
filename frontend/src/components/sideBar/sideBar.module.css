@@ -19,6 +19,7 @@
     position: sticky;
     left: 0;
     top: var(--header-height);
+    z-index: 9;
 }
 .sideBar .topSideBar {
     display: flex;
@@ -142,15 +143,20 @@ color: var(--preto);
     width: 244px;
 }
 
-@media (max-width: 1020px) {
+@media (max-width: 1024px) {
     :root {
-       --header-height:84px;
+       --header-height:98px;
+    }
+}
+@media (max-width: 768px) {
+    :root {
+        --header-height:78.5625px;
+    }
+}
+@media (max-width: 480px) {
+    :root {
+        --header-height:54.1875px;
     }
 }
 
-@media (max-width: 480px) {
- :root {
-    --header-height:62px;
- }
-}
 
