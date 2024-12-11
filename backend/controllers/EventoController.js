@@ -166,7 +166,7 @@ class EventoController {
         try {
             await Evento.destroy({
                 where: {
-                    id: id
+                    id_evento: id
                 }
             });
             res.status(200).json({ message: 'Evento deletado com sucesso!' });

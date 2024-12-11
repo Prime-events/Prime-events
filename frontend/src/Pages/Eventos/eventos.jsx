@@ -88,7 +88,7 @@ function Eventos() {
     }
     const handleExcluirEvento = async (id_evento) => {
         console.log('excluido');
-        excluirEvento(id_evento);
+        await excluirEvento(id_evento);
         fetchEventos();
     }
     const handleCancelarEvento = async (id_evento) => {
@@ -97,6 +97,14 @@ function Eventos() {
         await atualizarEvento(data_evento);
         fetchEventos();
     }
+
+    const handleConcluirEvento = async (id_evento) => {
+        const data_evento = await listarEvento(id_evento);
+        data_evento.status = "Concluido";
+        await atualizarEvento(data_evento);
+        fetchEventos();
+    }
+
 
     const handleBuscarEventoNome = async () => {
         try {
@@ -125,7 +133,6 @@ function Eventos() {
           console.error('Erro ao buscar eventos:', error);
         }
       };
-    
 
     return (
         <>
@@ -245,19 +252,18 @@ function Eventos() {
                                         <td>
                                             <div className={styles.status}>{evento.status}</div>
                                         </td>
-                                        <td>
-                                            <div className={styles.tresBotoesStyle} onClick={() => toggleMenu(evento.id_evento)}>
-                                                <figure></figure>
-                                                <figure className={`${styles.middle} ${isMenuActive === evento.id_evento ? styles.menuActive : ''}`}></figure>
-                                                <p className={`${styles.fecharMenu} ${isMenuActive === evento.id_evento ? styles.menuActive : ''}`}>X</p>
-                                                <figure></figure>
-                                                <ul className={`${styles.dropdown} ${isMenuActive === evento.id_evento ? styles.menuActive : ''}`}>
-                                                    <li><a href={`/criarEvento?id=${evento.id_evento}`}>Editar evento</a></li>
-                                                    <li><a onClick={() => handleCancelarEvento(evento.id_evento)}>Cancelar evento</a></li>
-                                                    <li><a onClick={() => handleExcluirEvento(evento.id_evento)}>Excluir evento</a></li>
-                                                </ul>
-                                            </div>
-                                        </td>
+                                        <div className={styles.tresBotoesStyle} onClick={() => toggleMenu(evento.id_evento)}>
+                                            <figure></figure>
+                                            <figure className={`${styles.middle} ${isMenuActive === evento.id_evento ? styles.menuActive : ''}`}></figure>
+                                            <p className={`${styles.fecharMenu} ${isMenuActive === evento.id_evento ? styles.menuActive : ''}`}>X</p>
+                                            <figure></figure>
+                                            <ul className={`${styles.dropdown} ${isMenuActive === evento.id_evento ? styles.menuActive : ''}`}>
+                                                <li><a onClick={() => handleRedirect(evento.id_evento)}>Informações do Evento</a></li>
+                                                <li><a onClick={() => handleConcluirEvento(evento.id_evento)}>Concluir evento</a></li>
+                                                <li><a onClick={() => handleCancelarEvento(evento.id_evento)}>Cancelar evento</a></li>
+                                                <li><a onClick={() => handleExcluirEvento(evento.id_evento)}>Excluir evento</a></li>
+                                            </ul>
+                                        </div> 
                                     </tr>
                                 ))}
                             </tbody>

@@ -140,18 +140,16 @@ function CriacaoEvento() {
         e.preventDefault();
         console.log('params', id)
         if (id) {
-            navigate('/eventos');
-            atualizarEvento(data);
+            navigate('/informacaoevento');
+            await atualizarEvento(data);
             toast.success("Evento atualizado com sucesso!");
         }
         else {
             navigate('/eventos');
             await createEvento(data);
             toast.success("Evento criado com sucesso!");
-        }
-        
+        }        
         console.log(data);
-        
     }
     const fetchInformacoesEvento = async () => {
         try {
