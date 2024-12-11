@@ -131,14 +131,16 @@ function CriacaoEvento() {
         console.log('params', id)
         if (id) {
             atualizarEvento(data);
+            navigate('/informacaoevento');
         }
         else {
             await createEvento(data);
+            navigate('/eventos');
         }
         
         console.log(data);
         
-        navigate('/eventos');
+        
     }
     const fetchInformacoesEvento = async () => {
         try {
