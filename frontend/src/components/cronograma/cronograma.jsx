@@ -50,6 +50,7 @@ const Cronograma = ({ id_usuario }) => {
             // Usar dataHoraInicial ou criar uma data a partir da string
             const eventoDate = new Date(evento.dataHoraInicial || evento.data);
             
+
             console.log("Comparando datas:", 
                 "Evento: ", eventoDate, 
                 "Selecionada: ", date
@@ -237,12 +238,12 @@ const TodoList = ({ date, evento, tarefas }) => {
 
     return (
         <div>
-            <h3>{evento.nome}</h3>
             <List bordered>
-                {tarefas.map(tarefa => (
-                    <List.Item key={tarefa.id} index={tarefa.id}>
-                        <div>{tarefa.horario}</div>
-                        <div>{tarefa.descricao}</div>
+                {tarefas.map((tarefa, index) => (
+                    <List.Item key={`${tarefa.id}-${index}`} index={index}>
+                        <div><strong>Nome do Evento:</strong> {evento.nomeEvento}</div> 
+                        <div><strong>Horário:</strong> {tarefa.horario}</div>
+                        <div><strong>Descrição:</strong> {tarefa.descricao}</div>
                     </List.Item>
                 ))}
             </List>

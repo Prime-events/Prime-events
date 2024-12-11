@@ -95,44 +95,6 @@ class EventoController {
         }
 
     }
-
-
-    static atualizarStatusEvento = async (req, res) => {
-        const id_usuario = req.params.id_usuario;
-    
-        try {
-            const agora = new Date().toISOString(); // Garantir formato ISO
-            console.log("Data e horário atuais no servidor:", agora);
-    
-            const [resultado] = await sequelize.query(
-                `UPDATE Evento
-                 SET status = 'Concluido'
-                 WHERE id_usuario = :id_usuario
-                   AND status = 'Pendente'
-                   AND dataHoraFinal < :agora`,
-                {
-                    replacements: { id_usuario, agora },
-                    type: QueryTypes.UPDATE,
-                }
-            );
-    
-            if (resultado > 0) {
-                res.status(200).json({
-                    message: `${resultado} evento(s) atualizado(s) com sucesso.`,
-                });
-            } else {
-                res.status(404).json({
-                    message: 'Nenhum evento encontrado para atualizar.',
-                });
-            }
-        } catch (error) {
-            console.error("Erro ao atualizar eventos no banco de dados:", error);
-            res.status(500).json({ message: 'Erro ao atualizar eventos.', error: error.message });
-        }
-    };
-    
-
-
     
     
 

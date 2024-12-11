@@ -18,23 +18,3 @@ export const listarEventosPendentes = async (idUsuario) => {
       throw error;
     }
   };
-
-  export const atualizarStatusEvento = async (id_usuario) => {
-    try {
-        const response = await fetch(`${API_URL_atualizaStatusConcluido}/${encodeURIComponent(id_usuario)}`, {
-        method: "PUT",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        });
-
-        if (!response.ok) {
-        throw new Error("Erro ao atualizar status");
-        }
-
-        return await response.json();
-    } catch (error) {
-        console.error("Erro na API:", error);
-        throw error;
-    }
-};

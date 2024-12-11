@@ -46,16 +46,10 @@ function CriacaoEvento() {
     const minutos = [];
 
     // pegando dia anterior
+    
     const yesterday = new Date();
-    yesterday.setDate(yesterday.getDate() - 1); 
+    yesterday.setDate(yesterday.getDate()); 
     const yesterdayFormatted = yesterday.toISOString().split("T")[0]; 
-
-    // pegando horário atual
-
-    const now = new Date();
-    const hours = now.getHours().toString().padStart(2, "0"); // Adiciona zero à frente se necessário
-    const minutes = now.getMinutes().toString().padStart(2, "0"); // Adiciona zero à frente se necessário
-    const currentTime = `${hours}:${minutes}`;
 
 
     for (let i = 0; i < 60; i += 5) {
@@ -284,7 +278,6 @@ function CriacaoEvento() {
                                         name="horarioInicio"
                                         value={date.horarioInicio}
                                         onChange={handleDate}
-                                        min={currentTime}
                                         className={date.horarioInicio ? styles.hasValue : ""}
                                     /><br/>
                                     <span>Término</span>
