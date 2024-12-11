@@ -7,7 +7,8 @@ import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import styles from './cronograma.module.css';
 import NotFound from '../../assets/img/notfound.png';
 import EscolhaDataImagem from '../../assets/img/escolhaData.png';
-import { listarEventosUsuario, buscarTarefas } from './cronogramaAPI';
+import { buscarTarefas } from './cronogramaAPI';
+import { listarEventosPendentes } from '../../Pages/Dashboard/dashApi';
 import { getUser } from '../header/segundoHeader/api';
 
 const Cronograma = ({ id_usuario }) => {
@@ -28,7 +29,7 @@ const Cronograma = ({ id_usuario }) => {
                 const data_usuario = await getUser(email);
                 const { id_usuario } = data_usuario;
                 console.log("ID do usuário:", id_usuario);
-                const eventosData = await listarEventosUsuario(id_usuario);
+                const eventosData = await listarEventosPendentes(id_usuario);
                 console.log("Eventos encontrados:", eventosData);
                 setEventos(eventosData);
                 setIsLoading(false);

@@ -109,7 +109,7 @@ function Formulario() {
 
   const handleRedirect = () => {
     navigate('/');
-};
+  };
 
   return (
     <>
@@ -126,15 +126,16 @@ function Formulario() {
         theme="light"
       />
       <body className='bodyForm'>
-      <div className='voltarInicio'>
-        <button className='btnVoltar' onClick={handleRedirect}><IoArrowBackCircleOutline />Voltar para página inicial</button>
-      </div>
+        <div className='voltarInicio'>
+          <button className='btnVoltar' onClick={handleRedirect}><IoArrowBackCircleOutline />Voltar para página inicial</button>
+        </div>
         <div className={`containerForm ${isSignUp ? 'active' : ''}`} id="container">
           {isSignUp ? (
             <div className="form-container sign-up">
               <form onSubmit={handleSubmitCadastro} className='formulario'>
                 <h1>Criar</h1>
                 <input
+                  style={{ border: 'none', borderRadius: '8px' }}
                   type="text"
                   name="nome"
                   placeholder="Nome"
@@ -143,6 +144,7 @@ function Formulario() {
                   onChange={handleChange}
                 />
                 <input
+                  style={{ border: 'none', borderRadius: '8px' }}
                   type="text"
                   name="sobrenome"
                   placeholder="Sobrenome"
