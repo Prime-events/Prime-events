@@ -35,9 +35,9 @@ function SideBar() {
                 <div className={styles.middleSideBar}>
                     <ul className={styles.sideBarList}>
                         <li className={`${styles.sideBarListItem} ${isActive === '/inicio' ? styles.active : ''}`}>
-                            <a className={styles.sideBarLink} href="/inicio">
+                            <a className={styles.sideBarLink} href="/inicio" title="Inicio">
                                 {/* inicio Icon*/}
-                                <svg className={styles.sideBarIcon} viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <svg className={styles.sideBarIcon} viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg" >
                                     <path d="M10.0044 3.61865H3.00439V10.6187H10.0044V3.61865Z" stroke="#2A2D37" strokeOpacity="0.6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                                     <path d="M21.0044 3.61865H14.0044V10.6187H21.0044V3.61865Z" stroke="#2A2D37" strokeOpacity="0.6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                                     <path d="M21.0044 14.6187H14.0044V21.6187H21.0044V14.6187Z" stroke="#2A2D37" strokeOpacity="0.6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -47,7 +47,7 @@ function SideBar() {
                             </a>
                             </li>
                             <li className={`${styles.sideBarListItem} ${isActive === '/eventos' ? styles.active : ''}`}>
-                                <a className={styles.sideBarLink} href="/eventos">
+                                <a className={styles.sideBarLink} href="/eventos" title="Eventos">
                                     {/* Eventos Icon*/}
                                     <svg className={styles.sideBarIcon} viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M16.5044 10.0186L7.50439 4.82861" stroke="#2A2D37" strokeWidth="2" strokeOpacity="0.6" strokeLinecap="round" strokeLinejoin="round"/>
@@ -59,12 +59,11 @@ function SideBar() {
                                 </a>
                             </li>
                             <li className={`${styles.sideBarListItem} ${isActive === '/notificacao' ? styles.active : ''}`}>
-                                <a className={styles.sideBarLink} href="#">
+                                <a className={styles.sideBarLink} href="#" title="Fale Conosco">
                                     {/* Notificação Icon*/}
-                                    <svg className={styles.sideBarIcon} viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M18.0044 8.61865C18.0044 7.02735 17.3723 5.50123 16.247 4.37601C15.1218 3.25079 13.5957 2.61865 12.0044 2.61865C10.4131 2.61865 8.88697 3.25079 7.76175 4.37601C6.63654 5.50123 6.00439 7.02735 6.00439 8.61865C6.00439 15.6187 3.00439 17.6187 3.00439 17.6187H21.0044C21.0044 17.6187 18.0044 15.6187 18.0044 8.61865Z" stroke="#2A2D37" strokeOpacity="0.6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                                        <path d="M13.7344 21.6187C13.5586 21.9217 13.3063 22.1733 13.0026 22.3482C12.699 22.5231 12.3548 22.6151 12.0044 22.6151C11.654 22.6151 11.3098 22.5231 11.0062 22.3482C10.7026 22.1733 10.4502 21.9217 10.2744 21.6187" stroke="#2A2D37" strokeOpacity="0.6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                                    </svg>
+                                    <svg className={styles.sideBarIcon} fill="#000000" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 82.796 82.796">
+                                        <path d="M41.399,0C18.85,0,0.506,14.084,0.506,31.396c0,13.068,10.471,24.688,26.232,29.314c-0.316,4.892-1.662,9.507-4.01,13.747 c-1.92,3.466-2.352,5.477-1.488,6.938c0.523,0.892,1.475,1.401,2.609,1.401c0.004,0,0.008,0,0.012,0 c1.508,0,5.52-0.051,30.909-21.728c16.481-4.36,27.521-16.237,27.521-29.673C82.292,14.084,63.945,0,41.399,0z M53.295,57.221 l-0.463,0.117l-0.363,0.311c-17.201,14.707-24.262,19.146-27.018,20.48c0.201-0.445,0.479-1.002,0.859-1.689 c2.926-5.283,4.471-11.082,4.588-17.231l0.031-1.618l-1.568-0.402C14.55,53.369,4.599,43.003,4.599,31.396 c0-15.053,16.508-27.301,36.799-27.301c20.29,0,36.797,12.248,36.797,27.301C78.195,43.053,68.189,53.432,53.295,57.221z M44.469,12.298c0.246,0.252,0.379,0.592,0.369,0.943l-0.859,26.972c-0.018,0.707-0.598,1.271-1.305,1.271h-2.551 c-0.709,0-1.287-0.563-1.305-1.271l-0.859-26.972c-0.01-0.352,0.123-0.691,0.369-0.943c0.246-0.251,0.582-0.394,0.934-0.394h4.273 C43.887,11.905,44.223,12.047,44.469,12.298z M44.783,47.312v4.885c0,0.72-0.584,1.304-1.305,1.304h-4.16 c-0.721,0-1.305-0.584-1.305-1.304v-4.885c0-0.72,0.584-1.304,1.305-1.304h4.16C44.199,46.009,44.783,46.593,44.783,47.312z"></path>
+                                        </svg>
                                     <div className={styles.sideBarOpened}>Fale conosco</div>
                                 </a>
                             </li>
@@ -73,7 +72,7 @@ function SideBar() {
                 <div className={styles.bottomSideBar}>
                 <ul className={styles.sideBarList}>
                     <li className={`${styles.sideBarListItem} ${isActive === '/ajuda' ? styles.active : ''}`}>
-                        <a className={styles.sideBarLink} href="#">
+                        <a className={styles.sideBarLink} href="#" title="Ajuda">
                             {/* Ajuda Icon*/}
                             <svg className={styles.sideBarIcon} viewBox="0 0 22 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M10.6 22.4948C16.1228 22.4948 20.6 18.0176 20.6 12.4948C20.6 6.9719 16.1228 2.49475 10.6 2.49475C5.07713 2.49475 0.599976 6.9719 0.599976 12.4948C0.599976 18.0176 5.07713 22.4948 10.6 22.4948Z" />

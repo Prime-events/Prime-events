@@ -2,7 +2,7 @@
     --laranja: #FCA311;
     --preto: #000;
     --cinza-muito-claro: rgb(247,247,247);
-    --animation-duration: 200ms;
+    --animation-duration: 100ms;
     --animation-timing-curve: ease-in-out;
     --header-height: 98px;
 }
@@ -15,7 +15,6 @@
     display: flex;
     height: calc(100vh - var(--header-height) );
     flex-direction: column;
-    transition: width var(--animation-duration) var(--animation-timing-curve);
     position: sticky;
     left: 0;
     top: var(--header-height);
