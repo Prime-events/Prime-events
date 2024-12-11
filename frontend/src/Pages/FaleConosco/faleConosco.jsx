@@ -24,7 +24,7 @@ const FaleConosco = () => {
 
   return (
     <>
-        <SegundoHeader titulo='Informações evento' />
+        <SegundoHeader titulo='Fale Conosco' />
         <div className={styles.container}>
             <SideBar />
             <form className={styles.contatoForm} onSubmit={handleSubmit}>

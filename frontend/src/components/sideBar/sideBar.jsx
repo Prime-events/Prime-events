@@ -72,7 +72,7 @@ function SideBar() {
                 <div className={styles.bottomSideBar}>
                 <ul className={styles.sideBarList}>
                     <li className={`${styles.sideBarListItem} ${isActive === '/ajuda' ? styles.active : ''}`}>
-                        <a className={styles.sideBarLink} href="#" title="Ajuda">
+                        <a className={styles.sideBarLink} href="/ajuda" title="Ajuda">
                             {/* Ajuda Icon*/}
                             <svg className={styles.sideBarIcon} viewBox="0 0 22 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M10.6 22.4948C16.1228 22.4948 20.6 18.0176 20.6 12.4948C20.6 6.9719 16.1228 2.49475 10.6 2.49475C5.07713 2.49475 0.599976 6.9719 0.599976 12.4948C0.599976 18.0176 5.07713 22.4948 10.6 22.4948Z" />
