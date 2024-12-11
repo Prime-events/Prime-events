@@ -44,6 +44,20 @@ function CriacaoEvento() {
         horarioTermino: "00:00",
     });
     const minutos = [];
+
+    // pegando dia anterior
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1); 
+    const yesterdayFormatted = yesterday.toISOString().split("T")[0]; 
+
+    // pegando horário atual
+
+    const now = new Date();
+    const hours = now.getHours().toString().padStart(2, "0"); // Adiciona zero à frente se necessário
+    const minutes = now.getMinutes().toString().padStart(2, "0"); // Adiciona zero à frente se necessário
+    const currentTime = `${hours}:${minutes}`;
+
+
     for (let i = 0; i < 60; i += 5) {
         minutos.push(String(i).padStart(2, '0'));
     }
@@ -234,6 +248,7 @@ function CriacaoEvento() {
                                             name="nomeEvento"
                                             value={data.nomeEvento}
                                             onChange={handleChange}
+                                            required
                                             className={data.nomeEvento ? styles.hasValue : ""}
                                         />
                                         <label className={styles.floatingLabel}>Nome do Evento</label>
@@ -259,6 +274,7 @@ function CriacaoEvento() {
                                         name="dataEvento"
                                         value={date.dataEvento}
                                         onChange={handleDate}
+                                        min={yesterdayFormatted}
                                         className={date.dataEvento ? styles.hasValue : ""}
                                     /><br/>
                                     <span>Início</span>
@@ -268,6 +284,7 @@ function CriacaoEvento() {
                                         name="horarioInicio"
                                         value={date.horarioInicio}
                                         onChange={handleDate}
+                                        min={currentTime}
                                         className={date.horarioInicio ? styles.hasValue : ""}
                                     /><br/>
                                     <span>Término</span>
@@ -277,6 +294,7 @@ function CriacaoEvento() {
                                         name="horarioTermino"
                                         value={date.horarioTermino}
                                         onChange={handleDate}
+                                        min={date.horarioInicio}
                                         className={date.horarioTermino ? styles.hasValue : ""}
                                     />
                                 </div>
@@ -300,6 +318,7 @@ function CriacaoEvento() {
                                             value={data.cep}
                                             onChange={handleChange}
                                             maxLength={9}
+                                            required
                                             onInput={data.cep.length > 9 ? setData((prevData) => ({...prevData, cep: data.cep.slice(0,8)})) : null}
                                             className={data.cep ? styles.hasValue : ""}
                                         />

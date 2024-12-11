@@ -1,6 +1,7 @@
 const { where, and } = require('sequelize');
 const Evento = require('../models/Evento');
 const { Op } = require("sequelize");
+const { QueryTypes } = require('sequelize');
 
 
 class EventoController {
@@ -95,27 +96,29 @@ class EventoController {
 
     }
 
+
     static atualizarStatusEvento = async (req, res) => {
         const id_usuario = req.params.id_usuario;
-        console.log("ID do usuário recebido:", id_usuario);
     
         try {
-            const [numAtualizados] = await Evento.update(
-                { status: 'Concluido' },
+            const agora = new Date().toISOString(); // Garantir formato ISO
+            console.log("Data e horário atuais no servidor:", agora);
+    
+            const [resultado] = await sequelize.query(
+                `UPDATE Evento
+                 SET status = 'Concluido'
+                 WHERE id_usuario = :id_usuario
+                   AND status = 'Pendente'
+                   AND dataHoraFinal < :agora`,
                 {
-                    where: {
-                        id_usuario: id_usuario,
-                        status: 'Pendente',
-                        dataHoraFinal: { [Op.lt]: new Date() },
-                    },
+                    replacements: { id_usuario, agora },
+                    type: QueryTypes.UPDATE,
                 }
             );
     
-            console.log("Número de eventos atualizados:", numAtualizados);
-    
-            if (numAtualizados > 0) {
+            if (resultado > 0) {
                 res.status(200).json({
-                    message: `${numAtualizados} evento(s) atualizado(s) com sucesso.`,
+                    message: `${resultado} evento(s) atualizado(s) com sucesso.`,
                 });
             } else {
                 res.status(404).json({
@@ -127,6 +130,9 @@ class EventoController {
             res.status(500).json({ message: 'Erro ao atualizar eventos.', error: error.message });
         }
     };
+    
+
+
     
     
 

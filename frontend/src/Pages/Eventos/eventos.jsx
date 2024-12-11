@@ -11,7 +11,7 @@ import imgLogo from '../../assets/img/logo 1.png'
 
 function Eventos(){
     const navigate = useNavigate();
-    const [isActive, setIsActive] = useState('eventos');
+    const [isActive, setIsActive] = useState('pendentes');
     const [isMenuActive, setIsMenuActive] = useState(null);
     const [eventos, setEventos] = useState([]);
     const mesesAbreviados = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];

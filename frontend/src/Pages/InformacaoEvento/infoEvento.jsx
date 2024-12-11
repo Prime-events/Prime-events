@@ -60,6 +60,11 @@ function InformacaoEvento() {
     });
     const [isSubmitted, setIsSubmitted] = useState(false);
 
+    // pegando horário atual
+    const now = new Date();
+    const hours = now.getHours().toString().padStart(2, "0"); // Adiciona zero à frente se necessário
+    const minutes = now.getMinutes().toString().padStart(2, "0"); // Adiciona zero à frente se necessário
+    const currentTime = `${hours}:${minutes}`;
 
     useEffect(() => {
         const fetchCategorias = async () => {
@@ -428,6 +433,7 @@ function InformacaoEvento() {
                                             name="horario"
                                             required
                                             value={tarefa.horario}
+                                            min={currentTime}
                                             onChange={handleInputChange}
                                         />
                                     </div>
