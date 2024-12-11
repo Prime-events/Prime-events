@@ -8,7 +8,6 @@ export const createEvento = async (evento) => {
       },
       body: JSON.stringify(evento),
     });
-    alert("Evento criado com sucesso!");
 };
 export const atualizarEvento = async (evento) => {
   	try {
@@ -35,7 +34,6 @@ export const excluirEvento = async (idEvento) => {
       if (!response.ok) {
         throw new Error("Erro ao excluir Evento");
       }
-	  alert("Evento excluído com sucesso");
     } catch (error) {
       console.error("Erro na exclusão do Evento", error);
       throw error;

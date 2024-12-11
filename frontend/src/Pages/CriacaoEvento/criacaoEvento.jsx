@@ -10,6 +10,8 @@ import { getUser } from '../../components/header/segundoHeader/api.js';
 import { ImgurUpload } from './imgurApi.js';
 import { atualizarEvento } from './api.js';
 import { listarEvento } from '../Eventos/api.js';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function CriacaoEvento() {
     const location = useLocation();
@@ -42,6 +44,14 @@ function CriacaoEvento() {
         horarioTermino: "00:00",
     });
     const minutos = [];
+
+    // pegando dia anterior
+    
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate()); 
+    const yesterdayFormatted = yesterday.toISOString().split("T")[0]; 
+
+
     for (let i = 0; i < 60; i += 5) {
         minutos.push(String(i).padStart(2, '0'));
     }
@@ -130,15 +140,18 @@ function CriacaoEvento() {
         e.preventDefault();
         console.log('params', id)
         if (id) {
+            navigate('/eventos');
             atualizarEvento(data);
+            toast.success("Evento atualizado com sucesso!");
         }
         else {
+            navigate('/eventos');
             await createEvento(data);
+            toast.success("Evento criado com sucesso!");
         }
         
         console.log(data);
         
-        navigate('/eventos');
     }
     const fetchInformacoesEvento = async () => {
         try {
@@ -167,6 +180,18 @@ function CriacaoEvento() {
         fetchUserData();
     }, []);
     return (<>
+     <ToastContainer
+                position="top-right"
+                autoClose={3000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
         <SegundoHeader titulo={` ${id ? 'Atualizar Evento' : 'Criar evento'}`}/>
         <div className={styles.container}>
             <SideBar />
@@ -217,6 +242,7 @@ function CriacaoEvento() {
                                             name="nomeEvento"
                                             value={data.nomeEvento}
                                             onChange={handleChange}
+                                            required
                                             className={data.nomeEvento ? styles.hasValue : ""}
                                         />
                                         <label className={styles.floatingLabel}>Nome do Evento</label>
@@ -242,6 +268,7 @@ function CriacaoEvento() {
                                         name="dataEvento"
                                         value={date.dataEvento}
                                         onChange={handleDate}
+                                        min={yesterdayFormatted}
                                         className={date.dataEvento ? styles.hasValue : ""}
                                     /><br/>
                                     <span>Início</span>
@@ -260,6 +287,7 @@ function CriacaoEvento() {
                                         name="horarioTermino"
                                         value={date.horarioTermino}
                                         onChange={handleDate}
+                                        min={date.horarioInicio}
                                         className={date.horarioTermino ? styles.hasValue : ""}
                                     />
                                 </div>
@@ -283,6 +311,7 @@ function CriacaoEvento() {
                                             value={data.cep}
                                             onChange={handleChange}
                                             maxLength={9}
+                                            required
                                             onInput={data.cep.length > 9 ? setData((prevData) => ({...prevData, cep: data.cep.slice(0,8)})) : null}
                                             className={data.cep ? styles.hasValue : ""}
                                         />

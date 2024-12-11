@@ -1,4 +1,5 @@
 const API_URL_EVENTOSPENDENTES = 'http://localhost:3001/eventos/pendentes';
+const API_URL_atualizaStatusConcluido = 'http://localhost:3001/eventos/updateStatus';
 
 export const listarEventosPendentes = async (idUsuario) => {
     try {

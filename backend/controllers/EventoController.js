@@ -1,6 +1,5 @@
-const { Op } = require('sequelize');
-const moment = require('moment');
 const Evento = require('../models/Evento');
+
 
 class EventoController {
     static criarEvento = async (req, res) => {
@@ -156,6 +155,8 @@ class EventoController {
         }
 
     }
+    
+    
 
     static deletarEvento = async (req, res) => {
         const id = req.params.id;

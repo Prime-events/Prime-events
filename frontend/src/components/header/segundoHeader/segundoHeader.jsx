@@ -288,7 +288,6 @@ function SegundoHeader({ titulo }) {
                                 {eventos
                                     .filter((evento) => {
                                         if (!evento.dataHoraInicial) {
-                                            console.log(`Evento inválido:`, evento);
                                             return false;
                                         }
                                         const dataHoraInicial = new Date(evento.dataHoraInicial);
