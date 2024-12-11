@@ -324,7 +324,6 @@ function SegundoHeader({ titulo }) {
                                         <RiArrowDropDownLine />
                                     </DropdownToggle>
                                     <DropdownMenu>
-                                        <DropdownItem header>Header</DropdownItem>
                                         <DropdownItem onClick={toggleConfigModal}>
                                             <GoGear />
                                             <span className={styles.optionText}>Configurações</span>
@@ -396,9 +395,6 @@ function SegundoHeader({ titulo }) {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <br></br>
-                                            <span>configurações gerais</span>
-                                            <span>configurações gerais</span>
                                         </div>
                                     )}
                                     {activeTab === 'perfil' && (

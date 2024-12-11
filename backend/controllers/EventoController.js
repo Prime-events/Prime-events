@@ -1,5 +1,6 @@
+const sequelize = require('../config/db');
 const Evento = require('../models/Evento');
-
+const {Op} = require("sequelize");
 
 class EventoController {
     static criarEvento = async (req, res) => {
@@ -139,6 +140,8 @@ class EventoController {
             res.status(500).json({ message: 'Erro interno ao buscar eventos!' });
         }
     }
+
+
 
     static atualizarEvento = async (req, res) => {
         const id = req.params.id;
